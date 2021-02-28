@@ -8,12 +8,16 @@ import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.IPosition;
 
 public class PGridView implements IGridView {
-    private IGridPresenter presenter;
+    private static PGridView INSTANCE = null;
+
+    private IGridPresenter presenter = null;
     private GridPane root = new GridPane();
 
     public PGridView(IGridPresenter presenter) {
         setPresenter(presenter);
     }
+
+    private PGridView() {}
 
     @Override
     public void refresh() {
@@ -49,5 +53,12 @@ public class PGridView implements IGridView {
 
     public IGridPresenter getPresenter() {
         return presenter;
+    }
+
+    public static PGridView getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PGridView();
+        }
+        return INSTANCE;
     }
 }
