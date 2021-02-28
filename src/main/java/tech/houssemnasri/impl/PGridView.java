@@ -1,5 +1,6 @@
 package tech.houssemnasri.impl;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
@@ -10,6 +11,7 @@ import tech.houssemnasri.api.IGridView;
 import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.api.ITheme;
+import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
 public class PGridView implements IGridView {
@@ -21,8 +23,8 @@ public class PGridView implements IGridView {
     private IPosition destinationNodePosition;
     private IGrid gridModel;
 
-    private int cols;
-    private int rows;
+    private final IntegerProperty colsProperty = new ComplexIntegerProperty(10);
+    private final IntegerProperty rowsProperty = new ComplexIntegerProperty(10);
 
     public PGridView(IGrid gridModel, PTheme theme) {
         setGridModel(gridModel);
@@ -73,13 +75,21 @@ public class PGridView implements IGridView {
         this.destinationNodePosition = destinationNodePosition;
     }
 
+    private void setCols(Integer cols) {
+        colsProperty.set(cols);
+    }
+
     @Override
     public int getColumns() {
-        return cols;
+        return colsProperty.get();
+    }
+
+    private void setRows(Integer rows) {
+        rowsProperty.set(rows);
     }
 
     @Override
     public int getRows() {
-        return rows;
+        return rowsProperty.get();
     }
 }
