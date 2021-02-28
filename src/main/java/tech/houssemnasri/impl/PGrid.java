@@ -18,6 +18,8 @@ import tech.houssemnasri.property.ComplexObjectProperty;
  * than one.
  */
 public final class PGrid implements IGrid, Serializable {
+    private static PGrid INSTANCE = null;
+
     private final PNode[][] nodes;
     /** This is the number of rows specified for the grid. */
     private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
@@ -27,15 +29,20 @@ public final class PGrid implements IGrid, Serializable {
     /** This is the position of the source node in the grid */
     private final ObjectProperty<IPosition> sourcePositionProperty = new ComplexObjectProperty<>();
     /** This is the position of the destination node in the grid */
-    private final ObjectProperty<IPosition> destinationPositionProperty = new ComplexObjectProperty<>();
+    private final ObjectProperty<IPosition> destinationPositionProperty =
+            new ComplexObjectProperty<>();
 
-    public PGrid(int rows, int cols, IPosition sourcePosition, IPosition destinationPosition) {
+    private PGrid(int rows, int cols, IPosition sourcePosition, IPosition destinationPosition) {
         setRows(rows);
         setColumns(cols);
         relocateSource(sourcePosition);
         relocateDestination(destinationPosition);
         nodes = new PNode[getColumns()][getRows()];
         createNodes();
+    }
+
+    private PGrid(int rows, int cols) {
+        this(rows, cols, PPosition.of(0, 0), PPosition.of(cols - 1, rows - 1));
     }
 
     /** create and initialize the nodes based on the current state */
@@ -47,10 +54,6 @@ public final class PGrid implements IGrid, Serializable {
                 setNode(newNode, newNodePosition);
             }
         }
-    }
-
-    public PGrid(int rows, int cols) {
-        this(rows, cols, PPosition.of(0, 0), PPosition.of(cols - 1, rows - 1));
     }
 
     public int getRows() {
@@ -146,4 +149,11 @@ public final class PGrid implements IGrid, Serializable {
 
     @Override
     public void resetGrid() {}
+
+    public static PGrid getInstance() {
+        if (INSTANCE == null) {
+            INSTANCE = new PGrid(15, 15);
+        }
+        return INSTANCE;
+    }
 }
