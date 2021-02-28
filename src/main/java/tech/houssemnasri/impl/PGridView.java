@@ -5,6 +5,7 @@ import javafx.scene.layout.GridPane;
 import tech.houssemnasri.api.IGridPresenter;
 import tech.houssemnasri.api.IGridView;
 import tech.houssemnasri.api.INodeView;
+import tech.houssemnasri.api.IPosition;
 
 public class PGridView implements IGridView {
     private IGridPresenter presenter;
@@ -21,6 +22,8 @@ public class PGridView implements IGridView {
 
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
+                IPosition position = PPosition.of(x, y);
+                INodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
                 // Add View.
             }
         }

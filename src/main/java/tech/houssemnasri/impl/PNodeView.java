@@ -17,7 +17,7 @@ public class PNodeView extends StackPane implements INodeView {
         listenForTypeChange();
     }
 
-    public PNodeView(PNode nodeModel) {
+    public PNodeView(INode nodeModel) {
         this(nodeModel, NodeSize.MEDIUM);
     }
 

@@ -30,6 +30,9 @@ public interface IGridPresenter {
 
     IntegerProperty colsProperty();
 
+    /** Returns the node model at position {@code position} */
+    INode getNodeModel(IPosition position);
+
     /**
      * Zoom in, and increase node size.
      *
