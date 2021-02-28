@@ -21,8 +21,6 @@ public interface INodeView {
 
     INode getNodeModel();
 
-    StackPane getView();
-
 
     /**
      * {@code NodeSize} represent the possible sizes a node could have, each size has a double value

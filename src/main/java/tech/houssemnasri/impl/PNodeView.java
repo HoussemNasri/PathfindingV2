@@ -7,15 +7,13 @@ import tech.houssemnasri.api.INode;
 import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.INode.*;
 
-public class PNodeView implements INodeView {
+public class PNodeView extends StackPane implements INodeView {
     private INode nodeModel;
     private NodeSize viewSize;
-    private StackPane view;
 
     public PNodeView(INode nodeModel, NodeSize viewSize) {
         setNodeModel(nodeModel);
         setViewSize(viewSize);
-        createView();
         listenForTypeChange();
     }
 
@@ -40,10 +38,6 @@ public class PNodeView implements INodeView {
     @Override
     public NodeSize getViewSize() {
         return viewSize;
-    }
-
-    private void createView() {
-        view = new StackPane();
     }
 
     private void paintView(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
@@ -77,12 +71,6 @@ public class PNodeView implements INodeView {
 
     private void listenForTypeChange(){
         nodeModel.nodeTypeProperty().addListener(this::paintView);
-    }
-
-
-    @Override
-    public StackPane getView() {
-        return view;
     }
 
     @Override
