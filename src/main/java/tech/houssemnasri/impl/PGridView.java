@@ -1,11 +1,11 @@
 package tech.houssemnasri.impl;
 
+import javafx.scene.Node;
 import javafx.scene.layout.Pane;
 
 import tech.houssemnasri.api.IGrid;
 import tech.houssemnasri.api.IGridPresenter;
 import tech.houssemnasri.api.IGridView;
-import tech.houssemnasri.api.INode;
 import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.api.ITheme;
@@ -13,7 +13,7 @@ import tech.houssemnasri.api.ITheme;
 public class PGridView implements IGridView {
     private IGridPresenter presenter;
     private ITheme theme;
-    private Pane view;
+    private Node root;
     private INodeView.NodeSize nodeSize;
     private IPosition sourceNodePosition;
     private IPosition destinationNodePosition;
@@ -38,8 +38,8 @@ public class PGridView implements IGridView {
     public void update() {}
 
     @Override
-    public Pane getView() {
-        return view;
+    public Node getRoot() {
+        return root;
     }
 
     @Override
