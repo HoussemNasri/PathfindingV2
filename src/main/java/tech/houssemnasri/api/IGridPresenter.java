@@ -1,17 +1,25 @@
 package tech.houssemnasri.api;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.layout.Pane;
 
 public interface IGridPresenter {
-    /**
-     * Returns the grid model.
-     */
-    IGrid getGrid();
+    // The presenter manages the state of the view
 
-    /**
-     * The Presenter interact with the Views via View interface
-     */
-    IGridView getGridView();
+    /** Setting and updating the current theme. */
+    void setTheme(ITheme newTheme);
+
+    /** Returns the currently used theme. */
+    ITheme getTheme();
+
+    ObjectProperty<ITheme> themeObjectProperty();
+
+    /** Set the size of all nodes on the grid to {@code nodeSize} all re-render grid. */
+    void setNodeSize(INodeView.NodeSize nodeSize);
+
+    INodeView.NodeSize getNodeSize();
+
+    ObjectProperty<INodeView.NodeSize> nodeSizeObjectProperty();
 
     /**
      * Zoom in, and increase node size.
@@ -27,25 +35,14 @@ public interface IGridPresenter {
      */
     boolean zoomOut();
 
-    /**
-     * Returns the current zooming level.
-     */
-    int getZoomLevel();
+    // The presenter takes actions according to the user’s input notification from the View.
 
-    /**
-     * Returns whether the cost information is visible to the user or not, to show cost the user need to enable it plus the nodes has to be big enough to fit the cost view.
-     *
-     * @return True if show cost is enabled and the nodes are big enough to fit cost view.
-     */
-    boolean isCostShown();
-
-    /**
-     * notify the presenter when the node at {@code clickedNodePosition} is clicked
-     */
+    /** notify the presenter when the node at {@code clickedNodePosition} is clicked */
     void onNodeClicked(IPosition clickedNodePosition);
 
     /**
-     * notify the presenter when there is a dragging gesture detected over the node at position {@code draggedOverNodePosition}.
+     * notify the presenter when there is a dragging gesture detected over the node at position
+     * {@code draggedOverNodePosition}.
      */
     void onNodeDragOver(IPosition draggedOverNodePosition);
 
@@ -55,9 +52,8 @@ public interface IGridPresenter {
     void onNodeHover(IPosition hoverNodePosition);
 
     /**
-     * notify the presenter when the node at {@code draggedNodePosition} is being dragged, the drag gesture needs to start at the mentioned node.
+     * notify the presenter when the node at {@code draggedNodePosition} is being dragged, the drag
+     * gesture needs to start at the mentioned node.
      */
     void onNodeDragged(IPosition draggedNodePosition);
-
-    void onGridViewUpdated(Pane updatedView);
 }
