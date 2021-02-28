@@ -30,6 +30,15 @@ public class PGridPresenter implements IGridPresenter {
     public PGridPresenter(IGrid gridModel, IGridView gridView) {
         setGridModel(gridModel);
         setGridView(gridView);
+        bindColsPropertyToModel();
+        bindRowsPropertyToModel();
+    }
+
+    private void bindColsPropertyToModel(){
+        colsProperty.bind(gridModel.columnsProperty());
+    }
+    private void bindRowsPropertyToModel(){
+        rowsProperty.bind(gridModel.rowsProperty());
     }
 
     private void setGridModel(IGrid gridModel) {
