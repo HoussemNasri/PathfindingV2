@@ -29,6 +29,16 @@ public class PGridView implements IGridView {
     public PGridView(IGrid gridModel, PTheme theme) {
         setGridModel(gridModel);
         setTheme(theme);
+        bindColsProperty();
+        bindRowsProperty();
+    }
+
+    private void bindColsProperty() {
+        colsProperty.bind(gridModel.columnsProperty());
+    }
+
+    private void bindRowsProperty() {
+        rowsProperty.bind(gridModel.rowsProperty());
     }
 
     @Override
