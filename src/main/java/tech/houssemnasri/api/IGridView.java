@@ -2,7 +2,7 @@ package tech.houssemnasri.api;
 
 import javafx.scene.Node;
 import javafx.scene.layout.Pane;
-
+// Fun Fact: The view in MVP should only have views, the state needs to be managed by the Presenter.
 public interface IGridView {
     /** Returns the currently used theme. */
     ITheme getTheme();
