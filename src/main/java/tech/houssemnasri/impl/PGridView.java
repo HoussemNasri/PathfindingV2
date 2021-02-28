@@ -56,11 +56,6 @@ public class PGridView implements IGridView {
     }
 
     @Override
-    public void setNodeType(IPosition nodePosition, INode.Type newType) {
-        // TODO("Not sure if I should leave it or remove it!")
-    }
-
-    @Override
     public void setNodeSize(INodeView.NodeSize nodeSize) {
         this.nodeSize = nodeSize;
     }

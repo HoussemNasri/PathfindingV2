@@ -35,11 +35,6 @@ public interface IGridView {
     void setGridModel(IGrid gridModel);
 
     /**
-     * WARNING!!! Change the type of node at {@code nodePosition} to be of type {@code newType}
-     */
-    void setNodeType(IPosition nodePosition, INode.Type newType);
-
-    /**
      * Set the size of all nodes on the grid to {@code nodeSize} all re-render grid.
      */
     void setNodeSize(INodeView.NodeSize nodeSize);
