@@ -23,8 +23,9 @@ public class PGridView implements IGridView {
     private int cols;
     private int rows;
 
-    public PGridView(IGrid gridModel) {
+    public PGridView(IGrid gridModel, PTheme theme) {
         setGridModel(gridModel);
+        setTheme(theme);
     }
 
     @Override
@@ -33,7 +34,9 @@ public class PGridView implements IGridView {
     }
 
     @Override
-    public void setTheme(ITheme newTheme) {}
+    public void setTheme(ITheme newTheme) {
+        this.theme = newTheme;
+    }
 
     @Override
     public void update() {}
