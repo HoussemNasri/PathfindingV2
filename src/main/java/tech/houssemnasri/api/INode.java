@@ -44,6 +44,8 @@ public interface INode {
         WALL,
         OPEN,
         CLOSED,
-        PATH
+        PATH,
+        SOURCE,
+        DESTINATION
     }
 }
