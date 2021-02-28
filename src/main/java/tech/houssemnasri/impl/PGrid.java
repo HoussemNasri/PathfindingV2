@@ -130,7 +130,7 @@ public final class PGrid implements IGrid, Serializable {
      * @throws PositionOutOfBoundsException when entered position is out of bounds
      */
     @Override
-    public PNode getNode(PPosition position) {
+    public PNode getNode(IPosition position) {
         GridChecker.checkPosition(position, getRows(), getColumns());
         return nodes[position.getX()][position.getY()];
     }

@@ -1,9 +1,10 @@
 package tech.houssemnasri;
 
+import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.impl.PPosition;
 
 public class PositionOutOfBoundsException extends RuntimeException {
-    public PositionOutOfBoundsException(PPosition position) {
+    public PositionOutOfBoundsException(IPosition position) {
         super(String.format("Position out of range: %s", position));
     }
 

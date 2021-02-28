@@ -64,7 +64,7 @@ public interface IGrid {
      * @param position position of the node to return
      * @return the node at the specified position in this grid
      */
-    PNode getNode(PPosition position);
+    PNode getNode(IPosition position);
 
     /**
      * Clear all {@code OPEN}, {@code CLOSED} and {@code PATH} nodes by resetting them to {@code

@@ -1,5 +1,6 @@
 package tech.houssemnasri;
 
+import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.impl.PPosition;
 
 /**
@@ -31,7 +32,7 @@ public final class GridChecker {
      * @return {@code position} if it is within bounds of the range
      * @throws PositionOutOfBoundsException if the {@code position} is out of bounds
      */
-    public static PPosition checkPosition(PPosition position, int rows, int cols) {
+    public static IPosition checkPosition(IPosition position, int rows, int cols) {
         if (position.getX() >= cols || position.getY() >= rows) {
             throw new PositionOutOfBoundsException(position);
         }
