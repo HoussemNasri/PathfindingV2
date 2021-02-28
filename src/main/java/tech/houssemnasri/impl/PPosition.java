@@ -4,6 +4,10 @@ import java.util.Objects;
 
 import tech.houssemnasri.api.IPosition;
 
+/**
+ * The {@code PPosition} class encapsulate the coordinate information of an {@code INode} while
+ * providing some helper methods for comparison and cloning.
+ */
 public class PPosition implements IPosition {
     private final int x;
     private final int y;
@@ -13,15 +17,24 @@ public class PPosition implements IPosition {
         this.y = y;
     }
 
+    /**
+     * Returns an {@code PPosition} of x and y coordinate.
+     *
+     * @param x the position on the x axis
+     * @param y the position on the y axis
+     * @return an {@code PPosition} with the x and y present
+     */
     public static PPosition of(int x, int y) {
         return new PPosition(x, y);
     }
 
+    /** Returns the x-coordinate */
     @Override
     public int getX() {
         return x;
     }
 
+    /** Returns the y-coordinate */
     @Override
     public int getY() {
         return y;
