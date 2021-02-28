@@ -15,6 +15,7 @@ public class PNodeView extends StackPane implements INodeView {
         setNodeModel(nodeModel);
         setViewSize(viewSize);
         listenForTypeChange();
+        setStyle("-fx-background-color: white");
     }
 
     public PNodeView(INode nodeModel) {
@@ -33,6 +34,8 @@ public class PNodeView extends StackPane implements INodeView {
     @Override
     public void setViewSize(NodeSize newViewSize) {
         this.viewSize = newViewSize;
+        setPrefWidth(newViewSize.getSize());
+        setPrefHeight(newViewSize.getSize());
     }
 
     @Override
