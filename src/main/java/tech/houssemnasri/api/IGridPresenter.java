@@ -1,5 +1,6 @@
 package tech.houssemnasri.api;
 
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.layout.Pane;
 
@@ -20,6 +21,14 @@ public interface IGridPresenter {
     INodeView.NodeSize getNodeSize();
 
     ObjectProperty<INodeView.NodeSize> nodeSizeObjectProperty();
+
+    int getRows();
+
+    IntegerProperty rowsProperty();
+
+    int getColumns();
+
+    IntegerProperty colsProperty();
 
     /**
      * Zoom in, and increase node size.

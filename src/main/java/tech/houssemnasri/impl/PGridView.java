@@ -8,14 +8,23 @@ import tech.houssemnasri.api.INodeView;
 
 public class PGridView implements IGridView {
     private IGridPresenter presenter;
-    private GridPane root;
+    private GridPane root = new GridPane();
 
     public PGridView(IGridPresenter presenter) {
         setPresenter(presenter);
     }
 
     @Override
-    public void refresh() {}
+    public void refresh() {
+        int cols = presenter.getColumns();
+        int rows = presenter.getRows();
+
+        for (int x = 0; x < cols; x++) {
+            for (int y = 0; y < rows; y++) {
+                // Add View.
+            }
+        }
+    }
 
     @Override
     public Node getRoot() {
