@@ -1,8 +1,8 @@
 package tech.houssemnasri.impl;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.Node;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 
 import tech.houssemnasri.api.IGrid;
 import tech.houssemnasri.api.IGridPresenter;
@@ -10,10 +10,11 @@ import tech.houssemnasri.api.IGridView;
 import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.api.ITheme;
+import tech.houssemnasri.property.ComplexObjectProperty;
 
 public class PGridView implements IGridView {
     private IGridPresenter presenter;
-    private ITheme theme;
+    private final ObjectProperty<ITheme> themeProperty = new ComplexObjectProperty<>();
     private GridPane root;
     private INodeView.NodeSize nodeSize;
     private IPosition sourceNodePosition;
@@ -30,12 +31,12 @@ public class PGridView implements IGridView {
 
     @Override
     public ITheme getTheme() {
-        return theme;
+        return themeProperty.get();
     }
 
     @Override
     public void setTheme(ITheme newTheme) {
-        this.theme = newTheme;
+        themeProperty.set(newTheme);
     }
 
     @Override
