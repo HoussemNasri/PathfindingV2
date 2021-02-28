@@ -47,10 +47,16 @@ public class PNodeView extends StackPane implements INodeView {
             case CLOSED -> paintClosed();
             case WALL -> paintWall();
             case PATH -> paintPath();
+            case SOURCE -> paintSource();
+            case DESTINATION -> paintDestination();
         }
     }
 
+    private void paintDestination() {
+    }
 
+    private void paintSource() {
+    }
 
     private void paintBasic(){
 
