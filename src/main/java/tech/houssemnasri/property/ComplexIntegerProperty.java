@@ -6,8 +6,8 @@ import javafx.beans.value.ChangeListener;
 
 /**
  * The {@code ComplexIntegerProperty} is a special case of {@code SimpleIntegerProperty} where
- * listeners will get notified with the current value as soon as it's attached rather than waiting *
- * for a change.
+ * listeners will get notified with the current value as soon as they are attached rather than
+ * waiting for an update
  */
 public class ComplexIntegerProperty extends SimpleIntegerProperty {
     // We only want to notify the listener when there is a initial value.
