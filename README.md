@@ -3,7 +3,6 @@ Pathfinding is a graphical Java application for visualizing several pathfinding 
 
 ### Included Algorithms
 
-The pathfinding application includes the following algorithms:
 - [A*][A*]: find the shortest path in a weighted graph using an heuristic to guide the process.
 - [BFS][BFS]: explore nearest successors first, then widen the search.
 - [DFS][DFS]: explore a graph by going as far as possible, then backtrack.
