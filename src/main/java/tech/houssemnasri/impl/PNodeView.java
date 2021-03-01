@@ -13,7 +13,6 @@ public class PNodeView extends StackPane implements INodeView {
     public PNodeView(INode nodeModel) {
         setNodeModel(nodeModel);
         listenForTypeChange();
-        setStyle("-fx-background-color: white");
         setPrefWidth(50);
         setPrefHeight(50);
     }
@@ -40,26 +39,29 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     private void paintDestination() {
+        setStyle("-fx-background-color: #ff8a30");
     }
 
     private void paintSource() {
+        setStyle("-fx-background-color: #8d39f8");
     }
 
     private void paintBasic(){
-
+        setStyle("-fx-background-color: white");
     }
     private void paintOpen(){
-
+        setStyle("-fx-background-color: #2cd92c");
     }
 
     private void paintClosed(){
-
+        setStyle("-fx-background-color: #ff484f");
     }
     private void paintWall(){
-
+        setStyle("-fx-background-color: #242424");
     }
 
     private void paintPath() {
+        setStyle("-fx-background-color: #1194e2");
     }
 
     private void listenForTypeChange(){
