@@ -39,7 +39,6 @@ public class PGridView implements IGridView {
         root.getChildren().clear();
         int cols = presenter.getColumns();
         int rows = presenter.getRows();
-
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 IPosition position = PPosition.of(x, y);
@@ -55,6 +54,7 @@ public class PGridView implements IGridView {
 
     @Override
     public Node getRoot() {
+        refresh();
         return root;
     }
 
