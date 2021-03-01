@@ -9,17 +9,13 @@ import tech.houssemnasri.api.INode.*;
 
 public class PNodeView extends StackPane implements INodeView {
     private INode nodeModel;
-    private NodeSize viewSize;
-
-    public PNodeView(INode nodeModel, NodeSize viewSize) {
-        setNodeModel(nodeModel);
-        setViewSize(viewSize);
-        listenForTypeChange();
-        setStyle("-fx-background-color: white");
-    }
 
     public PNodeView(INode nodeModel) {
-        this(nodeModel, NodeSize.MEDIUM);
+        setNodeModel(nodeModel);
+        listenForTypeChange();
+        setStyle("-fx-background-color: white");
+        setPrefWidth(50);
+        setPrefHeight(50);
     }
 
     private void setNodeModel(INode nodeModel) {
@@ -29,18 +25,6 @@ public class PNodeView extends StackPane implements INodeView {
     @Override
     public INode getNodeModel() {
         return nodeModel;
-    }
-
-    @Override
-    public void setViewSize(NodeSize newViewSize) {
-        this.viewSize = newViewSize;
-        setPrefWidth(newViewSize.getSize());
-        setPrefHeight(newViewSize.getSize());
-    }
-
-    @Override
-    public NodeSize getViewSize() {
-        return viewSize;
     }
 
     private void paintView(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {

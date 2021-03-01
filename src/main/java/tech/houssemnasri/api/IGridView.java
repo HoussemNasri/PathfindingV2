@@ -19,7 +19,6 @@ public interface IGridView {
     /** Enforcing the MVP architecture pattern by having a reference to the view presenter. */
     void setPresenter(IGridPresenter presenter);
 
-    void setNodeSize(INodeView.NodeSize newNodeSize);
     /**
      * Defines the factor by which coordinates are scaled about the center of the object. This is
      * used to stretch or shrink the node either manually or by using an animation.

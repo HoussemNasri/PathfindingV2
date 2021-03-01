@@ -16,8 +16,6 @@ import tech.houssemnasri.property.ComplexObjectProperty;
 /** The P in MVP */
 public class PGridPresenter implements IGridPresenter {
     private final ObjectProperty<ITheme> themeProperty = new ComplexObjectProperty<>();
-    private final ObjectProperty<INodeView.NodeSize> nodeSizeProperty =
-            new ComplexObjectProperty<>();
     private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
     private final IntegerProperty colsProperty = new ComplexIntegerProperty();
 
@@ -64,22 +62,6 @@ public class PGridPresenter implements IGridPresenter {
     @Override
     public ObjectProperty<ITheme> themeObjectProperty() {
         return themeProperty;
-    }
-
-    @Override
-    public void setNodeSize(INodeView.NodeSize nodeSize) {
-        if (nodeSize == null) return;
-        nodeSizeProperty.set(nodeSize);
-    }
-
-    @Override
-    public INodeView.NodeSize getNodeSize() {
-        return nodeSizeProperty.get();
-    }
-
-    @Override
-    public ObjectProperty<INodeView.NodeSize> nodeSizeObjectProperty() {
-        return nodeSizeProperty;
     }
 
     @Override

@@ -15,13 +15,6 @@ public interface IGridPresenter {
 
     ObjectProperty<ITheme> themeObjectProperty();
 
-    /** Set the size of all nodes on the grid to {@code nodeSize} all re-render grid. */
-    void setNodeSize(INodeView.NodeSize nodeSize);
-
-    INodeView.NodeSize getNodeSize();
-
-    ObjectProperty<INodeView.NodeSize> nodeSizeObjectProperty();
-
     int getRows();
 
     IntegerProperty rowsProperty();

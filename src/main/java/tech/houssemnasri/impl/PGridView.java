@@ -67,11 +67,6 @@ public class PGridView implements IGridView {
     }
 
     @Override
-    public void setNodeSize(INodeView.NodeSize newNodeSize) {
-        // Update the UI with the new node size
-    }
-
-    @Override
     public void setScale(double scale, boolean animate) {
         root.setScaleX(scale);
         root.setScaleY(scale);
