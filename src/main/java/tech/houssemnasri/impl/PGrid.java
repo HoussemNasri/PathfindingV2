@@ -6,6 +6,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
 import tech.houssemnasri.GridChecker;
+import tech.houssemnasri.api.INode;
 import tech.houssemnasri.api.PositionOutOfBoundsException;
 import tech.houssemnasri.api.IGrid;
 import tech.houssemnasri.api.IPosition;
@@ -51,6 +52,8 @@ public final class PGrid implements IGrid, Serializable {
             for (int y = 0; y < getRows(); y++) {
                 PPosition newNodePosition = PPosition.of(x, y);
                 PNode newNode = new PNode(newNodePosition);
+                if(isSourceNode(newNode)) newNode.setType(INode.Type.SOURCE);
+                if(isDestinationNode(newNode)) newNode.setType(INode.Type.DESTINATION);
                 setNode(newNode, newNodePosition);
             }
         }
