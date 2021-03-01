@@ -1,7 +1,7 @@
 package tech.houssemnasri;
 
 import tech.houssemnasri.api.IPosition;
-import tech.houssemnasri.impl.PPosition;
+import tech.houssemnasri.api.PositionOutOfBoundsException;
 
 /**
  * This class consists of {@code static} utility methods for operating on grid, or checking certain

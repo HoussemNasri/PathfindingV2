@@ -6,7 +6,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
 import tech.houssemnasri.GridChecker;
-import tech.houssemnasri.PositionOutOfBoundsException;
+import tech.houssemnasri.api.PositionOutOfBoundsException;
 import tech.houssemnasri.api.IGrid;
 import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.property.ComplexIntegerProperty;
@@ -152,7 +152,7 @@ public final class PGrid implements IGrid, Serializable {
 
     public static PGrid getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new PGrid(15, 15);
+            INSTANCE = new PGrid(100, 100);
         }
         return INSTANCE;
     }

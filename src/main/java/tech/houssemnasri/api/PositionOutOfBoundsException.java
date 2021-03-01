@@ -1,4 +1,4 @@
-package tech.houssemnasri;
+package tech.houssemnasri.api;
 
 import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.impl.PPosition;
