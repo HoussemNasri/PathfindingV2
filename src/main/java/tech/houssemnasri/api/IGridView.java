@@ -20,4 +20,12 @@ public interface IGridView {
     void setPresenter(IGridPresenter presenter);
 
     void setNodeSize(INodeView.NodeSize newNodeSize);
+    /**
+     * Defines the factor by which coordinates are scaled about the center of the object. This is
+     * used to stretch or shrink the node either manually or by using an animation.
+     *
+     * @param scale the scaling factor
+     * @param animate if {@code True} the stretching and shrinking of the node will animate.
+     */
+    void setScale(double scale, boolean animate);
 }
