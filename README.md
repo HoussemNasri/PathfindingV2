@@ -12,8 +12,6 @@ The pathfinding application includes the following algorithms:
 - [Fringe][Fringe]: find the shortest path in a weighted graph using an heuristic to guide the process.
 - [IDA*][IDA*]: explore longer and longer paths in a weighted graph at the cost of multiple similar examinations.
 - [IDDFS][IDDFS]: explore longer and longer paths in an unweighted graph at the cost of multiple similar examinations.
-- [strongly connected components][Strongly connected components]: find strongly connected components in a directed graph.
-- [topological sorting][Topological sorting]: find an acceptable topological order in a directed graph.
 
 
 [A*]: https://en.wikipedia.org/wiki/A*_search_algorithm
