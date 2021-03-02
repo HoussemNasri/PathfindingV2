@@ -148,7 +148,17 @@ public final class PGrid implements IGrid, Serializable {
     }
 
     @Override
-    public void clearPath() {}
+    public void clearPath() {
+        for (int x = 0; x < getColumns(); x++) {
+            for (int y = 0; y < getRows(); y++) {
+                PNode node = getNode(PPosition.of(x, y));
+                INode.Type nodeType = node.getType();
+                switch (nodeType){
+                    case PATH,OPEN,CLOSED -> node.reset();
+                }
+            }
+        }
+    }
 
     @Override
     public void resetGrid() {
