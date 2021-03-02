@@ -32,10 +32,11 @@ public class PGridPresenter implements IGridPresenter {
         bindRowsPropertyToModel();
     }
 
-    private void bindColsPropertyToModel(){
+    private void bindColsPropertyToModel() {
         colsProperty.bind(gridModel.columnsProperty());
     }
-    private void bindRowsPropertyToModel(){
+
+    private void bindRowsPropertyToModel() {
         rowsProperty.bind(gridModel.rowsProperty());
     }
 
@@ -100,7 +101,20 @@ public class PGridPresenter implements IGridPresenter {
     }
 
     @Override
-    public void onNodeClicked(IPosition clickedNodePosition) {}
+    public void onNodeClicked(IPosition clickedNodePosition) {
+        System.out.println(clickedNodePosition);
+        if (not(clickedNodePosition.equals(PPosition.ERROR))) {
+            INode clickedNode = gridModel.getNode(clickedNodePosition);
+            if (clickedNode.getType() == INode.Type.BASIC) {
+                clickedNode.setType(INode.Type.WALL);
+            }
+        }
+    }
+
+    /** Helper method for better readability */
+    private boolean not(boolean bool) {
+        return !bool;
+    }
 
     @Override
     public void onNodeDragOver(IPosition draggedOverNodePosition) {}
