@@ -102,7 +102,6 @@ public class PGridPresenter implements IGridPresenter {
 
     @Override
     public void onNodeClicked(IPosition clickedNodePosition) {
-        System.out.println(clickedNodePosition);
         if (not(clickedNodePosition.equals(PPosition.ERROR))) {
             INode clickedNode = gridModel.getNode(clickedNodePosition);
             if (clickedNode.getType() == INode.Type.BASIC) {

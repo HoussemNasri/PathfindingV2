@@ -168,9 +168,7 @@ public final class PGrid implements IGrid, Serializable {
             for (int y = 0; y < getRows(); y++) {
                 PNode node = getNode(PPosition.of(x, y));
                 if (!(isSourceNode(node) || isDestinationNode(node))) {
-                    node.setType(INode.Type.BASIC);
-                    node.setCostEntity(INode.NO_COST);
-                    node.setParent(null);
+                    node.reset();
                 }
             }
         }
