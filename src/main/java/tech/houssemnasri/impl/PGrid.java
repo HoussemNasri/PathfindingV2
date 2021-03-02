@@ -52,8 +52,8 @@ public final class PGrid implements IGrid, Serializable {
             for (int y = 0; y < getRows(); y++) {
                 PPosition newNodePosition = PPosition.of(x, y);
                 PNode newNode = new PNode(newNodePosition);
-                if(isSourceNode(newNode)) newNode.setType(INode.Type.SOURCE);
-                if(isDestinationNode(newNode)) newNode.setType(INode.Type.DESTINATION);
+                if (isSourceNode(newNode)) newNode.setType(INode.Type.SOURCE);
+                if (isDestinationNode(newNode)) newNode.setType(INode.Type.DESTINATION);
                 setNode(newNode, newNodePosition);
             }
         }
@@ -151,7 +151,19 @@ public final class PGrid implements IGrid, Serializable {
     public void clearPath() {}
 
     @Override
-    public void resetGrid() {}
+    public void resetGrid() {
+        relocateSource(PPosition.of(0, 0));
+        relocateDestination(PPosition.of(getColumns() - 1, getRows() - 1));
+        for (int x = 0; x < getColumns(); x++) {
+            for (int y = 0; y < getRows(); y++) {
+                PPosition nodePosition = PPosition.of(x, y);
+                PNode node = getNode(nodePosition);
+                if (!(isSourceNode(node) || isDestinationNode(node))) {
+                    node.setType(INode.Type.BASIC);
+                }
+            }
+        }
+    }
 
     public static PGrid getInstance() {
         if (INSTANCE == null) {
