@@ -34,6 +34,9 @@ public interface INode {
 
     ObjectProperty<CostEntity> nodeCostProperty();
 
+    /** Reset the node to it's initial state as a basic node with no parent and no cost arguments */
+    void reset();
+
     /**
      * The type of node helps the UI module to draw nodes with custom styling, it also beneficial
      * for the algorithm module to decide which node to explore as that some nodes are not

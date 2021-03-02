@@ -97,6 +97,13 @@ public final class PNode implements INode {
     }
 
     @Override
+    public void reset() {
+        setType(Type.BASIC);
+        setParent(null);
+        setCostEntity(NO_COST);
+    }
+
+    @Override
     public String toString() {
         return String.format("PNode{%s, %s}", getPosition(), getType());
     }
