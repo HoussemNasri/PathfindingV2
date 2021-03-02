@@ -9,6 +9,9 @@ import tech.houssemnasri.api.IPosition;
  * providing some helper methods for comparison and cloning.
  */
 public class PPosition implements IPosition {
+    /** Indicates a wrong position */
+    public static final PPosition ERROR = PPosition.of(-1, -1);
+
     private final int x;
     private final int y;
 

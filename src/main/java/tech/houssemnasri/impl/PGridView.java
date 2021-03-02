@@ -2,6 +2,7 @@ package tech.houssemnasri.impl;
 
 import javafx.geometry.Insets;
 import javafx.scene.Node;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 
@@ -14,15 +15,34 @@ public class PGridView implements IGridView {
     private static PGridView INSTANCE = null;
 
     private IGridPresenter presenter = null;
-    private GridPane root = new GridPane();
+    private final GridPane root = new GridPane();
 
     public PGridView(IGridPresenter presenter) {
         setPresenter(presenter);
         initRoot();
+        listenForMouseClicks();
     }
 
     private PGridView() {
         this(null);
+    }
+
+    private void listenForMouseClicks() {
+        root.setOnMouseClicked(e -> presenter.onNodeClicked(findIntersectedNodePosition(e)));
+    }
+
+    /**
+     * Returns the {@code IPosition} of the intersected node. Returns {@code PPosition.ERROR} if
+     * position out of logical bounds.
+     */
+    private IPosition findIntersectedNodePosition(MouseEvent mouseEvent) {
+        Node intersectedNode = mouseEvent.getPickResult().getIntersectedNode();
+        Integer eventXPosition = GridPane.getColumnIndex(intersectedNode);
+        Integer eventYPosition = GridPane.getRowIndex(intersectedNode);
+        if (eventXPosition != null && eventYPosition != null) {
+            return PPosition.of(eventXPosition, eventYPosition);
+        }
+        return PPosition.ERROR;
     }
 
     private void initRoot() {
