@@ -156,10 +156,11 @@ public final class PGrid implements IGrid, Serializable {
         relocateDestination(PPosition.of(getColumns() - 1, getRows() - 1));
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
-                PPosition nodePosition = PPosition.of(x, y);
-                PNode node = getNode(nodePosition);
+                PNode node = getNode(PPosition.of(x, y));
                 if (!(isSourceNode(node) || isDestinationNode(node))) {
                     node.setType(INode.Type.BASIC);
+                    node.setCostEntity(INode.NO_COST);
+                    node.setParent(null);
                 }
             }
         }
