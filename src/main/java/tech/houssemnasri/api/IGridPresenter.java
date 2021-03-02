@@ -36,7 +36,7 @@ public interface IGridPresenter {
     /**
      * Zoom out, and decrease node size.
      *
-     * @return True if the zoom happened and we didn't reach our maximum zooming level.
+     * @return True if the zoom happened and we didn't reach our minimum zooming level.
      */
     boolean zoomOut();
 
