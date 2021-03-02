@@ -97,7 +97,7 @@ public final class PNode implements INode {
     }
 
     @Override
-    public void reset() {
+    public void clear() {
         setType(Type.BASIC);
         setParent(null);
         setCostEntity(NO_COST);

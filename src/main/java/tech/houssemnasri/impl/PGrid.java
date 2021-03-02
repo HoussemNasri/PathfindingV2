@@ -154,7 +154,7 @@ public final class PGrid implements IGrid, Serializable {
                 PNode node = getNode(PPosition.of(x, y));
                 INode.Type nodeType = node.getType();
                 switch (nodeType){
-                    case PATH,OPEN,CLOSED -> node.reset();
+                    case PATH,OPEN,CLOSED -> node.clear();
                 }
             }
         }
@@ -168,7 +168,7 @@ public final class PGrid implements IGrid, Serializable {
             for (int y = 0; y < getRows(); y++) {
                 PNode node = getNode(PPosition.of(x, y));
                 if (!(isSourceNode(node) || isDestinationNode(node))) {
-                    node.reset();
+                    node.clear();
                 }
             }
         }
