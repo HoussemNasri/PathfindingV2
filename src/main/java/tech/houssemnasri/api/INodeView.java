@@ -15,4 +15,6 @@ public interface INodeView {
     void showCostInfo(boolean show);
 
     INode getNodeModel();
+
+    void setTheme(ITheme newTheme);
 }

@@ -6,9 +6,11 @@ import javafx.scene.layout.StackPane;
 import tech.houssemnasri.api.INode;
 import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.INode.*;
+import tech.houssemnasri.api.ITheme;
 
 public class PNodeView extends StackPane implements INodeView {
     private INode nodeModel;
+    private ITheme theme;
 
     public PNodeView(INode nodeModel) {
         setNodeModel(nodeModel);
@@ -24,6 +26,11 @@ public class PNodeView extends StackPane implements INodeView {
     @Override
     public INode getNodeModel() {
         return nodeModel;
+    }
+
+    @Override
+    public void setTheme(ITheme newTheme) {
+        this.theme = newTheme;
     }
 
     private void paintView(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
