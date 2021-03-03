@@ -22,6 +22,7 @@ public class PGridView implements IGridView {
         initRoot();
         listenForMouseClicks();
         listenForMouseDrags();
+        listenForScrollEvent();
     }
 
     private PGridView() {
@@ -34,6 +35,10 @@ public class PGridView implements IGridView {
 
     private void listenForMouseClicks() {
         root.setOnMouseClicked(e -> presenter.onNodeClicked(findIntersectedNodePosition(e)));
+    }
+
+    private void listenForScrollEvent() {
+        root.setOnScroll(e -> presenter.onScroll(e));
     }
 
     /**

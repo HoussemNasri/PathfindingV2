@@ -2,6 +2,7 @@ package tech.houssemnasri.api;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.scene.input.ScrollEvent;
 import javafx.scene.layout.Pane;
 
 public interface IGridPresenter {
@@ -61,4 +62,11 @@ public interface IGridPresenter {
      * gesture needs to start at the mentioned node.
      */
     void onNodeDragged(IPosition draggedNodePosition);
+
+    /**
+     * Defines a function to be called when user performs a scrolling action.
+     *
+     * @param scrollEvent the scroll event
+     */
+    void onScroll(ScrollEvent scrollEvent);
 }

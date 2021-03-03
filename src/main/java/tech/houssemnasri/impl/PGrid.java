@@ -176,7 +176,7 @@ public final class PGrid implements IGrid, Serializable {
 
     public static PGrid getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new PGrid(100, 100);
+            INSTANCE = new PGrid(48, 80);
         }
         return INSTANCE;
     }
