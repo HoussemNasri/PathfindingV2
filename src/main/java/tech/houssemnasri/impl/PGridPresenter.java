@@ -7,7 +7,6 @@ import tech.houssemnasri.api.IGrid;
 import tech.houssemnasri.api.IGridPresenter;
 import tech.houssemnasri.api.IGridView;
 import tech.houssemnasri.api.INode;
-import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.IPosition;
 import tech.houssemnasri.api.ITheme;
 import tech.houssemnasri.property.ComplexIntegerProperty;
@@ -103,6 +102,10 @@ public class PGridPresenter implements IGridPresenter {
 
     @Override
     public void onNodeClicked(IPosition clickedNodePosition) {
+        doDrawWall(clickedNodePosition);
+    }
+
+    private void doDrawWall(IPosition clickedNodePosition) {
         if (not(clickedNodePosition.equals(PPosition.ERROR))) {
             INode clickedNode = gridModel.getNode(clickedNodePosition);
             if (clickedNode.getType() == INode.Type.BASIC) {
@@ -117,7 +120,9 @@ public class PGridPresenter implements IGridPresenter {
     }
 
     @Override
-    public void onNodeDragOver(IPosition draggedOverNodePosition) {}
+    public void onNodeDragOver(IPosition draggedOverNodePosition) {
+        doDrawWall(draggedOverNodePosition);
+    }
 
     @Override
     public void onNodeHover(IPosition hoverNodePosition) {}

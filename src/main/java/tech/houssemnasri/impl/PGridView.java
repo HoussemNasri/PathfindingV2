@@ -21,10 +21,15 @@ public class PGridView implements IGridView {
         setPresenter(presenter);
         initRoot();
         listenForMouseClicks();
+        listenForMouseDrags();
     }
 
     private PGridView() {
         this(null);
+    }
+
+    private void listenForMouseDrags() {
+        root.setOnMouseDragged(e -> presenter.onNodeDragOver(findIntersectedNodePosition(e)));
     }
 
     private void listenForMouseClicks() {
@@ -62,8 +67,7 @@ public class PGridView implements IGridView {
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 IPosition position = PPosition.of(x, y);
-                INodeView thisNodeView =
-                        new PNodeView(presenter.getNodeModel(position));
+                INodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
                 bindTheme(thisNodeView);
 
                 StackPane realNodeView = (StackPane) thisNodeView;
