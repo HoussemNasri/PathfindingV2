@@ -43,7 +43,7 @@ public class PNodeView extends StackPane implements INodeView {
 
     @Override
     public void setTheme(ITheme newTheme) {
-        if(newTheme != null)
+        if(newTheme != null && !themeObjectProperty.isBound())
             themeObjectProperty.set(newTheme);
     }
 
