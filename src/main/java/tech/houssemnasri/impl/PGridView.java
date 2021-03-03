@@ -99,6 +99,11 @@ public class PGridView implements IGridView {
         root.setScaleY(scale);
     }
 
+    @Override
+    public double getScale() {
+        return root.getScaleX();
+    }
+
     public IGridPresenter getPresenter() {
         return presenter;
     }

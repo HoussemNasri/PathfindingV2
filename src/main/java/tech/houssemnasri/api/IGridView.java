@@ -27,4 +27,6 @@ public interface IGridView {
      * @param animate if {@code True} the stretching and shrinking of the node will animate.
      */
     void setScale(double scale, boolean animate);
+
+    double getScale();
 }
