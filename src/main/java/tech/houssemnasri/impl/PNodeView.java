@@ -19,10 +19,11 @@ public class PNodeView extends StackPane implements INodeView {
 
     public PNodeView(INode nodeModel, ITheme theme) {
         setNodeModel(nodeModel);
-        listenForTypeChange();
         setPrefWidth(50);
         setPrefHeight(50);
         setTheme(theme);
+        listenForThemeChange();
+        listenForTypeChange();
     }
 
     public PNodeView(INode nodeModel){
@@ -40,7 +41,8 @@ public class PNodeView extends StackPane implements INodeView {
 
     @Override
     public void setTheme(ITheme newTheme) {
-        themeObjectProperty.set(newTheme);
+        if(newTheme != null)
+            themeObjectProperty.set(newTheme);
     }
 
     @Override
@@ -54,6 +56,9 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     private void paintView(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
+        //At startup we might not have the theme ready so we need to wait for
+        // the presenter to send us the theme, and execute the theming code at {code changeTheme()}
+        if(getTheme() == null) return;
         switch (nodeType){
             case BASIC -> paintBasic();
             case OPEN -> paintOpen();
@@ -66,33 +71,41 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     private void paintDestination() {
-        setStyle("-fx-background-color: #ff8a30");
+        setBackgroundColor(getTheme().getDestinationNodeColor());
     }
 
     private void paintSource() {
-        setStyle("-fx-background-color: #8d39f8");
+        setBackgroundColor(getTheme().getSourceNodeColor());
     }
 
     private void paintBasic(){
-        setStyle("-fx-background-color: white");
+        setBackgroundColor(getTheme().getBasicNodeColor());
     }
     private void paintOpen(){
-        setStyle("-fx-background-color: #2cd92c");
-    }
-
-    private void paintClosed(){
-        setStyle("-fx-background-color: #ff484f");
-    }
-    private void paintWall(){
         setBackgroundColor(getTheme().getOpenNodeColor());
     }
 
+    private void paintClosed(){
+        setBackgroundColor(getTheme().getClosedNodeColor());
+    }
+    private void paintWall(){
+        setBackgroundColor(getTheme().getWallNodeColor());
+    }
+
     private void paintPath() {
-        setStyle("-fx-background-color: #1194e2");
+        setBackgroundColor(getTheme().getPathNodeColor());
     }
 
     private void listenForTypeChange(){
         nodeModel.nodeTypeProperty().addListener(this::paintView);
+    }
+
+    private void changeTheme(ObservableValue<? extends ITheme> observable, ITheme oldValue, ITheme nodeType){
+        paintView(null, null , nodeModel.getType());
+    }
+
+    private void listenForThemeChange(){
+        themeObjectProperty.addListener(this::changeTheme);
     }
 
     private void setBackgroundColor(Color color){
