@@ -1,5 +1,6 @@
 package tech.houssemnasri.api;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.scene.layout.StackPane;
 
 /**
@@ -17,4 +18,6 @@ public interface INodeView {
     INode getNodeModel();
 
     void setTheme(ITheme newTheme);
+
+    ObjectProperty<ITheme> themeProperty();
 }

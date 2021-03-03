@@ -1,5 +1,6 @@
 package tech.houssemnasri.impl;
 
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -10,10 +11,12 @@ import tech.houssemnasri.api.INode;
 import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.INode.*;
 import tech.houssemnasri.api.ITheme;
+import tech.houssemnasri.property.ComplexObjectProperty;
 
 public class PNodeView extends StackPane implements INodeView {
     private INode nodeModel;
     private ITheme theme;
+    private final ObjectProperty<ITheme> themeObjectProperty = new ComplexObjectProperty<>();
 
     public PNodeView(INode nodeModel, ITheme theme) {
         setNodeModel(nodeModel);
@@ -35,6 +38,11 @@ public class PNodeView extends StackPane implements INodeView {
     @Override
     public void setTheme(ITheme newTheme) {
         this.theme = newTheme;
+    }
+
+    @Override
+    public ObjectProperty<ITheme> themeProperty() {
+        return themeObjectProperty;
     }
 
     private void paintView(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
