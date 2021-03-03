@@ -14,13 +14,15 @@ import tech.houssemnasri.api.ITheme;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
 public class PNodeView extends StackPane implements INodeView {
+    public static final int INITIAL_NODE_SIZE = 50;
+
     private INode nodeModel;
     private final ObjectProperty<ITheme> themeObjectProperty = new ComplexObjectProperty<>();
 
     public PNodeView(INode nodeModel, ITheme theme) {
         setNodeModel(nodeModel);
-        setPrefWidth(50);
-        setPrefHeight(50);
+        setPrefWidth(INITIAL_NODE_SIZE);
+        setPrefHeight(INITIAL_NODE_SIZE);
         setTheme(theme);
         listenForThemeChange();
         listenForTypeChange();
