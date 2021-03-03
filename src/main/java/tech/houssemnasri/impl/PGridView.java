@@ -74,7 +74,8 @@ public class PGridView implements IGridView {
         }
     }
 
-    public void bindTheme(INodeView nodeView) {
+    /** Binding {@code nodeView} theme to presenter's theme */
+    private void bindTheme(INodeView nodeView) {
         nodeView.themeProperty().bind(presenter.themeObjectProperty());
     }
 

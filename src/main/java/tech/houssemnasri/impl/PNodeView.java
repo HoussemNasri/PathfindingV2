@@ -102,12 +102,12 @@ public class PNodeView extends StackPane implements INodeView {
         nodeModel.nodeTypeProperty().addListener(this::paintView);
     }
 
-    private void changeTheme(ObservableValue<? extends ITheme> observable, ITheme oldValue, ITheme nodeType){
+    private void onThemeChanged(ObservableValue<? extends ITheme> observable, ITheme oldValue, ITheme nodeType){
         paintView(null, null , nodeModel.getType());
     }
 
     private void listenForThemeChange(){
-        themeObjectProperty.addListener(this::changeTheme);
+        themeObjectProperty.addListener(this::onThemeChanged);
     }
 
     private void setBackgroundColor(Color color){
