@@ -26,7 +26,6 @@ public class ComplexObjectProperty<T> extends SimpleObjectProperty<T> {
     public void addListener(ChangeListener<? super T> listener) {
         super.addListener(listener);
         if (getValue() != null || initialized) {
-            System.out.println("hh");
             listener.changed(this, getValue(), getValue());
             initialized = true;
         }
