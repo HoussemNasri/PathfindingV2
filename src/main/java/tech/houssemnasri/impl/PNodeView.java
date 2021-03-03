@@ -1,7 +1,10 @@
 package tech.houssemnasri.impl;
 
 import javafx.beans.value.ObservableValue;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
+import javafx.scene.paint.Color;
 
 import tech.houssemnasri.api.INode;
 import tech.houssemnasri.api.INodeView;
@@ -12,11 +15,12 @@ public class PNodeView extends StackPane implements INodeView {
     private INode nodeModel;
     private ITheme theme;
 
-    public PNodeView(INode nodeModel) {
+    public PNodeView(INode nodeModel, ITheme theme) {
         setNodeModel(nodeModel);
         listenForTypeChange();
         setPrefWidth(50);
         setPrefHeight(50);
+        setTheme(theme);
     }
 
     private void setNodeModel(INode nodeModel) {
@@ -64,7 +68,7 @@ public class PNodeView extends StackPane implements INodeView {
         setStyle("-fx-background-color: #ff484f");
     }
     private void paintWall(){
-        setStyle("-fx-background-color: #242424");
+        setBackgroundColor(theme.getOpenNodeColor());
     }
 
     private void paintPath() {
@@ -73,6 +77,13 @@ public class PNodeView extends StackPane implements INodeView {
 
     private void listenForTypeChange(){
         nodeModel.nodeTypeProperty().addListener(this::paintView);
+    }
+
+    private void setBackgroundColor(Color color){
+        Background coloredBackground = new Background(new BackgroundFill(
+                color, null,null
+        ));
+        setBackground(coloredBackground);
     }
 
     @Override

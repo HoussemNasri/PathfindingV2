@@ -62,7 +62,7 @@ public class PGridView implements IGridView {
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 IPosition position = PPosition.of(x, y);
-                INodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
+                INodeView thisNodeView = new PNodeView(presenter.getNodeModel(position), presenter.getTheme());
                 StackPane realNodeView = (StackPane) thisNodeView;
 
                 GridPane.setColumnIndex(realNodeView, x);

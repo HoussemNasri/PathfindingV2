@@ -25,11 +25,12 @@ public class PGridPresenter implements IGridPresenter {
     /** The V in MVP */
     private IGridView gridView;
 
-    public PGridPresenter(IGrid gridModel, IGridView gridView) {
+    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
         setGridModel(gridModel);
         setGridView(gridView);
         bindColsPropertyToModel();
         bindRowsPropertyToModel();
+        setTheme(theme);
     }
 
     private void bindColsPropertyToModel() {
