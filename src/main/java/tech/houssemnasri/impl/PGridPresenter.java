@@ -18,7 +18,7 @@ public class PGridPresenter implements IGridPresenter {
     /** The minimum scale zoom out can reach. */
     private static final double MIN_SCALE = 1;
     /** The maximum scale zoom in can reach. */
-    private static final double MAX_SCALE = 5;
+    private static final double MAX_SCALE = 10;
     /** The amount of which the scale increase or decrease each zoomIn or zoomOut */
     private static final double SCALE_DELTA = 1.2;
 

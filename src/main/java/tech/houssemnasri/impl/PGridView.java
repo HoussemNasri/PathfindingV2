@@ -1,10 +1,14 @@
 package tech.houssemnasri.impl;
 
+import javafx.animation.Interpolator;
+import javafx.animation.ScaleTransition;
+import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
+import javafx.util.Duration;
 
 import tech.houssemnasri.api.IGridPresenter;
 import tech.houssemnasri.api.IGridView;
@@ -12,6 +16,8 @@ import tech.houssemnasri.api.INodeView;
 import tech.houssemnasri.api.IPosition;
 
 public class PGridView implements IGridView {
+    private final ScaleTransition scaleTransition = new ScaleTransition();
+
     private static PGridView INSTANCE = null;
 
     private IGridPresenter presenter = null;
@@ -23,6 +29,13 @@ public class PGridView implements IGridView {
         listenForMouseClicks();
         listenForMouseDrags();
         listenForScrollEvent();
+        initScaleTransition();
+    }
+
+    private void initScaleTransition() {
+        scaleTransition.setDuration(Duration.millis(295));
+        scaleTransition.setNode(root);
+        scaleTransition.setInterpolator(Interpolator.EASE_IN);
     }
 
     private PGridView() {
@@ -104,8 +117,9 @@ public class PGridView implements IGridView {
 
     @Override
     public void setScale(double scale, boolean animate) {
-        root.setScaleX(scale);
-        root.setScaleY(scale);
+        scaleTransition.setToX(scale);
+        scaleTransition.setToY(scale);
+        scaleTransition.play();
     }
 
     @Override
