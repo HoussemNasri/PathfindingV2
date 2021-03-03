@@ -15,7 +15,6 @@ import tech.houssemnasri.property.ComplexObjectProperty;
 
 public class PNodeView extends StackPane implements INodeView {
     private INode nodeModel;
-    private ITheme theme;
     private final ObjectProperty<ITheme> themeObjectProperty = new ComplexObjectProperty<>();
 
     public PNodeView(INode nodeModel, ITheme theme) {
@@ -24,6 +23,10 @@ public class PNodeView extends StackPane implements INodeView {
         setPrefWidth(50);
         setPrefHeight(50);
         setTheme(theme);
+    }
+
+    public PNodeView(INode nodeModel){
+        this(nodeModel, null);
     }
 
     private void setNodeModel(INode nodeModel) {
@@ -37,7 +40,12 @@ public class PNodeView extends StackPane implements INodeView {
 
     @Override
     public void setTheme(ITheme newTheme) {
-        this.theme = newTheme;
+        themeObjectProperty.set(newTheme);
+    }
+
+    @Override
+    public ITheme getTheme() {
+        return themeObjectProperty.get();
     }
 
     @Override
@@ -76,7 +84,7 @@ public class PNodeView extends StackPane implements INodeView {
         setStyle("-fx-background-color: #ff484f");
     }
     private void paintWall(){
-        setBackgroundColor(theme.getOpenNodeColor());
+        setBackgroundColor(getTheme().getOpenNodeColor());
     }
 
     private void paintPath() {

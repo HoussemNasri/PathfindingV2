@@ -62,14 +62,20 @@ public class PGridView implements IGridView {
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 IPosition position = PPosition.of(x, y);
-                INodeView thisNodeView = new PNodeView(presenter.getNodeModel(position), presenter.getTheme());
-                StackPane realNodeView = (StackPane) thisNodeView;
+                INodeView thisNodeView =
+                        new PNodeView(presenter.getNodeModel(position));
+                bindTheme(thisNodeView);
 
+                StackPane realNodeView = (StackPane) thisNodeView;
                 GridPane.setColumnIndex(realNodeView, x);
                 GridPane.setRowIndex(realNodeView, y);
                 root.add(realNodeView, x, y);
             }
         }
+    }
+
+    public void bindTheme(INodeView nodeView) {
+        nodeView.themeProperty().bind(presenter.themeObjectProperty());
     }
 
     @Override

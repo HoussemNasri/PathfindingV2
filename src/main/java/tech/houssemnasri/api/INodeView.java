@@ -19,5 +19,7 @@ public interface INodeView {
 
     void setTheme(ITheme newTheme);
 
+    ITheme getTheme();
+
     ObjectProperty<ITheme> themeProperty();
 }
