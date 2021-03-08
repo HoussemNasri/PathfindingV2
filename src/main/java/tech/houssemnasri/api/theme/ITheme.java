@@ -1,4 +1,4 @@
-package tech.houssemnasri.api;
+package tech.houssemnasri.api.theme;
 
 import javafx.scene.paint.Color;
 

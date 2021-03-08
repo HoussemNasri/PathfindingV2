@@ -1,4 +1,4 @@
-package tech.houssemnasri.api;
+package tech.houssemnasri;
 
 /** The {@code Percentage} class is used to deal with percentage of values */
 public class Percentage {

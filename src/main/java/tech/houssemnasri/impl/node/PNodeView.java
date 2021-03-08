@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl;
+package tech.houssemnasri.impl.node;
 
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
@@ -7,10 +7,10 @@ import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 
-import tech.houssemnasri.api.INode;
-import tech.houssemnasri.api.INodeView;
-import tech.houssemnasri.api.INode.*;
-import tech.houssemnasri.api.ITheme;
+import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.INodeView;
+import tech.houssemnasri.api.node.INode.*;
+import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
 public class PNodeView extends StackPane implements INodeView {

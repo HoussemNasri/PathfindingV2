@@ -1,9 +1,12 @@
-package tech.houssemnasri.api;
+package tech.houssemnasri.api.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.input.ScrollEvent;
-import javafx.scene.layout.Pane;
+
+import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.api.theme.ITheme;
 
 public interface IGridPresenter {
     // The presenter manages the state of the view

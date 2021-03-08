@@ -1,10 +1,10 @@
-package tech.houssemnasri.impl;
+package tech.houssemnasri.impl.node;
 
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.api.CostEntity;
-import tech.houssemnasri.api.INode;
-import tech.houssemnasri.api.IPosition;
+import tech.houssemnasri.api.node.CostEntity;
+import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
 public final class PNode implements INode {

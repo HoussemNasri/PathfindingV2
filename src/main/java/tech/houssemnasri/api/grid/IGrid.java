@@ -1,10 +1,10 @@
-package tech.houssemnasri.api;
+package tech.houssemnasri.api.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.impl.PNode;
-import tech.houssemnasri.impl.PPosition;
+import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.node.PNode;
 
 /**
  * An interface for the grid component allowing us to create multiple grid variations with the same

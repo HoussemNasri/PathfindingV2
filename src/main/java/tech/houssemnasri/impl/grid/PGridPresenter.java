@@ -1,15 +1,16 @@
-package tech.houssemnasri.impl;
+package tech.houssemnasri.impl.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.input.ScrollEvent;
 
-import tech.houssemnasri.api.IGrid;
-import tech.houssemnasri.api.IGridPresenter;
-import tech.houssemnasri.api.IGridView;
-import tech.houssemnasri.api.INode;
-import tech.houssemnasri.api.IPosition;
-import tech.houssemnasri.api.ITheme;
+import tech.houssemnasri.api.grid.IGrid;
+import tech.houssemnasri.api.grid.IGridPresenter;
+import tech.houssemnasri.api.grid.IGridView;
+import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.api.theme.ITheme;
+import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 

@@ -1,7 +1,8 @@
-package tech.houssemnasri.api;
+package tech.houssemnasri.api.node;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.scene.layout.StackPane;
+
+import tech.houssemnasri.api.theme.ITheme;
 
 /**
  * The {@code INodeView} is a self contained view we use to display our model {@code INode}, it

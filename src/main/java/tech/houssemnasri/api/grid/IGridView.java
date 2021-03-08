@@ -1,4 +1,4 @@
-package tech.houssemnasri.api;
+package tech.houssemnasri.api.grid;
 
 import javafx.scene.Node;
 // Fun Fact: The view in MVP should only have views, the state needs to be managed by the Presenter.

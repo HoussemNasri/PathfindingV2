@@ -1,4 +1,4 @@
-package tech.houssemnasri.api;
+package tech.houssemnasri.api.node;
 
 import javafx.beans.property.ObjectProperty;
 

@@ -1,9 +1,8 @@
-package tech.houssemnasri.impl;
+package tech.houssemnasri.impl.grid;
 
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
-import javafx.animation.Timeline;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -11,10 +10,12 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
-import tech.houssemnasri.api.IGridPresenter;
-import tech.houssemnasri.api.IGridView;
-import tech.houssemnasri.api.INodeView;
-import tech.houssemnasri.api.IPosition;
+import tech.houssemnasri.api.grid.IGridPresenter;
+import tech.houssemnasri.api.grid.IGridView;
+import tech.houssemnasri.api.node.INodeView;
+import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.node.PNodeView;
+import tech.houssemnasri.impl.node.PPosition;
 
 public class PGridView implements IGridView {
     private final ScaleTransition scaleTransition = new ScaleTransition();

@@ -1,8 +1,8 @@
-package tech.houssemnasri.impl;
+package tech.houssemnasri.impl.node;
 
 import java.util.Objects;
 
-import tech.houssemnasri.api.IPosition;
+import tech.houssemnasri.api.node.IPosition;
 
 /**
  * The {@code PPosition} class encapsulate the coordinate information of an {@code INode} while

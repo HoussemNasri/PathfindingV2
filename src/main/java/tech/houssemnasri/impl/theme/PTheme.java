@@ -1,8 +1,8 @@
-package tech.houssemnasri.impl;
+package tech.houssemnasri.impl.theme;
 
 import javafx.scene.paint.Color;
 
-import tech.houssemnasri.api.ITheme;
+import tech.houssemnasri.api.theme.ITheme;
 
 /**
  * The {@code PTheme} class is a data structure responsible for holding theme configurations e.g.

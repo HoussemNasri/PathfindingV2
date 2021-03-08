@@ -1,15 +1,17 @@
-package tech.houssemnasri.impl;
+package tech.houssemnasri.impl.grid;
 
 import java.io.Serializable;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.GridChecker;
-import tech.houssemnasri.api.INode;
-import tech.houssemnasri.api.PositionOutOfBoundsException;
-import tech.houssemnasri.api.IGrid;
-import tech.houssemnasri.api.IPosition;
+import tech.houssemnasri.util.GridChecker;
+import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.PositionOutOfBoundsException;
+import tech.houssemnasri.api.grid.IGrid;
+import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.node.PNode;
+import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
@@ -176,7 +178,7 @@ public final class PGrid implements IGrid, Serializable {
 
     public static PGrid getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new PGrid(48, 80);
+            INSTANCE = new PGrid(28, 55);
         }
         return INSTANCE;
     }
