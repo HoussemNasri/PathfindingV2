@@ -1,5 +1,6 @@
-package tech.houssemnasri.api.node;
+package tech.houssemnasri.exception;
 
+import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.node.PPosition;
 
 public class PositionOutOfBoundsException extends RuntimeException {

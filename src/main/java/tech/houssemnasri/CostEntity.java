@@ -1,4 +1,4 @@
-package tech.houssemnasri.api.node;
+package tech.houssemnasri;
 
 import java.util.Arrays;
 

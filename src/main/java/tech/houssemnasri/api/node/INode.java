@@ -2,6 +2,8 @@ package tech.houssemnasri.api.node;
 
 import javafx.beans.property.ObjectProperty;
 
+import tech.houssemnasri.CostEntity;
+
 public interface INode {
     /** constant for no cost */
     CostEntity NO_COST = new CostEntity(new int[0]);

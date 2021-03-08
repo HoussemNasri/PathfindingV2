@@ -7,7 +7,7 @@ import javafx.beans.property.ObjectProperty;
 
 import tech.houssemnasri.util.GridChecker;
 import tech.houssemnasri.api.node.INode;
-import tech.houssemnasri.api.node.PositionOutOfBoundsException;
+import tech.houssemnasri.exception.PositionOutOfBoundsException;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.node.PNode;

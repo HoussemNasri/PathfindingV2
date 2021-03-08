@@ -2,7 +2,7 @@ package tech.houssemnasri.impl.node;
 
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.api.node.CostEntity;
+import tech.houssemnasri.CostEntity;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.property.ComplexObjectProperty;
