@@ -101,14 +101,14 @@ public class PGridPresenter implements IGridPresenter {
     @Override
     public boolean zoomIn() {
         double scale = gridView.getScale() * SCALE_DELTA;
-        gridView.setScale(clamp(scale, MIN_SCALE, MAX_SCALE), false);
+        gridView.setScale(clamp(scale, MIN_SCALE, MAX_SCALE), true);
         return false;
     }
 
     @Override
     public boolean zoomOut() {
         double scale = gridView.getScale() / SCALE_DELTA;
-        gridView.setScale(clamp(scale, MIN_SCALE, MAX_SCALE), false);
+        gridView.setScale(clamp(scale, MIN_SCALE, MAX_SCALE), true);
         return false;
     }
 

@@ -1,5 +1,6 @@
 package tech.houssemnasri.impl;
 
+import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
 import javafx.animation.Timeline;
@@ -33,7 +34,6 @@ public class PGridView implements IGridView {
     }
 
     private void initScaleTransition() {
-        scaleTransition.setDuration(Duration.millis(295));
         scaleTransition.setNode(root);
         scaleTransition.setInterpolator(Interpolator.EASE_IN);
     }
@@ -117,6 +117,10 @@ public class PGridView implements IGridView {
 
     @Override
     public void setScale(double scale, boolean animate) {
+        if (scaleTransition.getStatus() == Animation.Status.RUNNING) {
+            return;
+        }
+        scaleTransition.setDuration(animate ? Duration.millis(300) : Duration.ONE);
         scaleTransition.setToX(scale);
         scaleTransition.setToY(scale);
         scaleTransition.play();
