@@ -4,6 +4,9 @@ import java.util.Set;
 
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.util.GridChecker;
+import tech.houssemnasri.util.NodeUtils;
 
 /**
  * This class {@code BaseAlgorithm} should provide an api for the {@code BaseAlgorithmPlayer} to
@@ -59,4 +62,16 @@ public abstract class BaseAlgorithm {
 
     /** Returns list of unique {@code INode} which this algorithm already explored. */
     public abstract Set<INode> getClosedSet();
+
+    protected boolean isPositionValid(IPosition position) {
+        return GridChecker.checkPosition(position, grid.getRows(), grid.getColumns());
+    }
+
+    protected boolean isWalkable(IPosition position) {
+        return NodeUtils.isWalkable(grid.getNode(position));
+    }
+
+    protected boolean not(boolean b) {
+        return !b;
+    }
 }
