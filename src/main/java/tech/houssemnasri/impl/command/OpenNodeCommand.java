@@ -7,8 +7,8 @@ import static tech.houssemnasri.api.node.INode.*;
 
 public class OpenNodeCommand extends AlgoCommand {
 
-    public OpenNodeCommand(BaseAlgorithm algorithm, INode commandNode) {
-        super(algorithm, commandNode);
+    public OpenNodeCommand(BaseAlgorithm algorithm, INode node) {
+        super(algorithm, node);
     }
 
     @Override
@@ -16,17 +16,17 @@ public class OpenNodeCommand extends AlgoCommand {
         if (isNodeOpen()) {
             return;
         }
-        algorithm.getOpenSet().add(commandNode);
-        commandNode.setType(Type.OPEN);
+        algorithm.getOpenSet().add(node);
+        node.setType(Type.OPEN);
     }
 
     private boolean isNodeOpen() {
-        return algorithm.getOpenSet().contains(commandNode);
+        return algorithm.getOpenSet().contains(node);
     }
 
     @Override
     public void undo() {
-        algorithm.getOpenSet().remove(commandNode);
-        commandNode.setType(Type.BASIC);
+        algorithm.getOpenSet().remove(node);
+        node.setType(Type.BASIC);
     }
 }

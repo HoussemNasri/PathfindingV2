@@ -6,8 +6,8 @@ import tech.houssemnasri.api.node.INode;
 import static tech.houssemnasri.api.node.INode.*;
 
 public class CloseNodeCommand extends AlgoCommand {
-    public CloseNodeCommand(BaseAlgorithm algorithm, INode commandNode) {
-        super(algorithm, commandNode);
+    public CloseNodeCommand(BaseAlgorithm algorithm, INode node) {
+        super(algorithm, node);
     }
 
     @Override
@@ -15,19 +15,19 @@ public class CloseNodeCommand extends AlgoCommand {
         if (isNodeClosed()) {
             return;
         }
-        algorithm.getOpenSet().remove(commandNode);
-        algorithm.getClosedSet().add(commandNode);
-        commandNode.setType(Type.CLOSED);
+        algorithm.getOpenSet().remove(node);
+        algorithm.getClosedSet().add(node);
+        node.setType(Type.CLOSED);
     }
 
     private boolean isNodeClosed() {
-        return algorithm.getClosedSet().contains(commandNode);
+        return algorithm.getClosedSet().contains(node);
     }
 
     @Override
     public void undo() {
-        algorithm.getOpenSet().add(commandNode);
-        algorithm.getClosedSet().remove(commandNode);
-        commandNode.setType(Type.OPEN);
+        algorithm.getOpenSet().add(node);
+        algorithm.getClosedSet().remove(node);
+        node.setType(Type.OPEN);
     }
 }

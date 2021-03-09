@@ -2,7 +2,6 @@ package tech.houssemnasri.api.command;
 
 import tech.houssemnasri.api.algorithms.BaseAlgorithm;
 import tech.houssemnasri.api.node.INode;
-import tech.houssemnasri.api.node.IPosition;
 
 /**
  * This class {@code AlgoCommand} responsible for generalizing common actions performed by
@@ -11,11 +10,11 @@ import tech.houssemnasri.api.node.IPosition;
 public abstract class AlgoCommand implements ICommand {
     protected BaseAlgorithm algorithm;
     /** The node to perform this action on. */
-    protected INode commandNode;
+    protected INode node;
 
-    public AlgoCommand(BaseAlgorithm algorithm, INode commandNode) {
+    public AlgoCommand(BaseAlgorithm algorithm, INode node) {
         this.algorithm = algorithm;
-        this.commandNode = commandNode;
+        this.node = node;
     }
 
     /** Returns the algorithm object using this command. */
@@ -23,7 +22,7 @@ public abstract class AlgoCommand implements ICommand {
         return algorithm;
     }
 
-    public INode getCommandNode() {
-        return commandNode;
+    public INode getNode() {
+        return node;
     }
 }
