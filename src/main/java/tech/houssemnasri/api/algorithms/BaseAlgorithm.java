@@ -10,10 +10,17 @@ import tech.houssemnasri.api.node.INode;
  */
 public abstract class BaseAlgorithm {
     protected final IGrid grid;
+    protected final boolean isDiagonalAllowed;
+
+    public BaseAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
+        this.grid = grid;
+        this.isDiagonalAllowed = isDiagonalAllowed;
+    }
 
     public BaseAlgorithm(IGrid grid) {
-        this.grid = grid;
+        this(grid, false);
     }
+
     /**
      * move forward and explore the grid looking for the path from {@code source} to {@code
      * destination}
@@ -34,5 +41,14 @@ public abstract class BaseAlgorithm {
 
     public IGrid getGrid() {
         return grid;
+    }
+
+    /**
+     * Returns whether the algorithm is allowed to explore diagonals.
+     *
+     * @return {@code True} if exploring diagonals is allowed, {@code False} otherwise
+     */
+    public boolean isDiagonalAllowed() {
+        return isDiagonalAllowed;
     }
 }

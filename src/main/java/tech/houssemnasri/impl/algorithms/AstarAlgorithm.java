@@ -5,19 +5,19 @@ import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 
 public class AstarAlgorithm extends BaseAlgorithm {
+    public AstarAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
+        super(grid, isDiagonalAllowed);
+    }
+
     public AstarAlgorithm(IGrid grid) {
         super(grid);
     }
 
     @Override
-    public void forward() {
-
-    }
+    public void forward() {}
 
     @Override
-    public void back() {
-
-    }
+    public void back() {}
 
     @Override
     public INode getCurrentNode() {
