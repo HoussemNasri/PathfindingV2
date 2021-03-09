@@ -1,5 +1,7 @@
 package tech.houssemnasri.api.algorithms;
 
+import java.util.Set;
+
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 
@@ -51,4 +53,10 @@ public abstract class BaseAlgorithm {
     public boolean isDiagonalAllowed() {
         return isDiagonalAllowed;
     }
+
+    /** Returns list of unique {@code INode} which this algorithm can explore. */
+    public abstract Set<INode> getOpenSet();
+
+    /** Returns list of unique {@code INode} which this algorithm already explored. */
+    public abstract Set<INode> getClosedSet();
 }
