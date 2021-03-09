@@ -3,8 +3,8 @@ package tech.houssemnasri.impl.algorithms;
 import tech.houssemnasri.api.algorithms.BaseAlgorithm;
 import tech.houssemnasri.api.algorithms.BaseAlgorithmPlayer;
 
-public class PAlgorithmPlayer extends BaseAlgorithmPlayer {
-    public PAlgorithmPlayer(BaseAlgorithm thisAlgorithm) {
+public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
+    public SimpleAlgoPlayer(BaseAlgorithm thisAlgorithm) {
         super(thisAlgorithm);
     }
 
