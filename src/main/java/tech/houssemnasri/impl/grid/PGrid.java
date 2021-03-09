@@ -7,7 +7,6 @@ import javafx.beans.property.ObjectProperty;
 
 import tech.houssemnasri.util.GridChecker;
 import tech.houssemnasri.api.node.INode;
-import tech.houssemnasri.exception.PositionOutOfBoundsException;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.node.PNode;
@@ -135,12 +134,13 @@ public final class PGrid implements IGrid, Serializable {
     /**
      * {@inheritDoc}
      *
-     * @throws PositionOutOfBoundsException when entered position is out of bounds
      */
     @Override
     public PNode getNode(IPosition position) {
-        GridChecker.checkPosition(position, getRows(), getColumns());
-        return nodes[position.getX()][position.getY()];
+        if(GridChecker.checkPosition(position, getRows(), getColumns())){
+            return nodes[position.getX()][position.getY()];
+        }
+        return null;
     }
 
     /** Sets {@code node} at {@code position} */

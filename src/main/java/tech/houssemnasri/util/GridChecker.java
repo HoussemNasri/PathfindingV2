@@ -29,13 +29,9 @@ public final class GridChecker {
      * @param position the position
      * @param rows the number of rows in the grid
      * @param cols the number of columns in the grid
-     * @return {@code position} if it is within bounds of the range
-     * @throws PositionOutOfBoundsException if the {@code position} is out of bounds
+     * @return {@code True} if it is within bounds of the range, {@code False} otherwise.
      */
-    public static IPosition checkPosition(IPosition position, int rows, int cols) {
-        if (position.getX() >= cols || position.getY() >= rows) {
-            throw new PositionOutOfBoundsException(position);
-        }
-        return position;
+    public static boolean checkPosition(IPosition position, int rows, int cols) {
+        return position.getX() < cols && position.getY() < rows;
     }
 }
