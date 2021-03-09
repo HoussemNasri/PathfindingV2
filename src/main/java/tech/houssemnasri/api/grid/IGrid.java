@@ -3,6 +3,7 @@ package tech.houssemnasri.api.grid;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
+import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.node.PNode;
 
@@ -48,7 +49,7 @@ public interface IGrid {
      * @param node the potential source node
      * @return True if {@code node} is the source node, False otherwise
      */
-    boolean isSourceNode(PNode node);
+    boolean isSourceNode(INode node);
 
     /**
      * Returns whether {@code node} is the destination node or not.
@@ -56,7 +57,7 @@ public interface IGrid {
      * @param node the potential destination node
      * @return True if {@code node} is the destination node, False otherwise
      */
-    boolean isDestinationNode(PNode node);
+    boolean isDestinationNode(INode node);
 
     /**
      * Returns the node at the specified position in this grid.
