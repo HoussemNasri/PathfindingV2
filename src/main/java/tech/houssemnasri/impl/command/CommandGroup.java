@@ -20,4 +20,8 @@ public class CommandGroup {
     public ICommand pop() {
         return commands.pop();
     }
+
+    public boolean isEmpty() {
+        return commands.isEmpty();
+    }
 }

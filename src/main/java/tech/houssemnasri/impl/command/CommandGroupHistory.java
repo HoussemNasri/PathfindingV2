@@ -17,4 +17,8 @@ public class CommandGroupHistory {
     public CommandGroup pop() {
         return commandGroups.pop();
     }
+
+    public boolean isEmpty() {
+        return commandGroups.isEmpty();
+    }
 }
