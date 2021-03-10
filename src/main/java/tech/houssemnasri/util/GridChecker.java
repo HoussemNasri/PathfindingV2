@@ -32,6 +32,9 @@ public final class GridChecker {
      * @return {@code True} if it is within bounds of the range, {@code False} otherwise.
      */
     public static boolean checkPosition(IPosition position, int rows, int cols) {
-        return position.getX() < cols && position.getY() < rows;
+        return position.getX() >= 0
+                && position.getY() >= 0
+                && position.getX() < cols
+                && position.getY() < rows;
     }
 }
