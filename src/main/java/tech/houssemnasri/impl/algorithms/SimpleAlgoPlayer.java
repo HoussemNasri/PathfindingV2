@@ -1,5 +1,7 @@
 package tech.houssemnasri.impl.algorithms;
 
+import javafx.animation.AnimationTimer;
+
 import tech.houssemnasri.api.algorithms.BaseAlgorithm;
 import tech.houssemnasri.api.algorithms.BaseAlgorithmPlayer;
 
@@ -20,16 +22,27 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
 
     @Override
     public void play() {
-
+        AnimationTimer timer =
+                new AnimationTimer() {
+                    private long start = -1;
+                    @Override
+                    public void handle(long now) {
+                        if (start == -1 || now - start >= 15000000) {
+                            start = now;
+                            if (getAlgorithm().isPathFound()) {
+                                this.stop();
+                            } else {
+                                getAlgorithm().forward();
+                            }
+                        }
+                    }
+                };
+        timer.start();
     }
 
     @Override
-    public void pause() {
-
-    }
+    public void pause() {}
 
     @Override
-    public void reset() {
-
-    }
+    public void reset() {}
 }
