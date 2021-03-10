@@ -98,6 +98,9 @@ public final class PGrid implements IGrid, Serializable {
 
     @Override
     public boolean isSourceNode(INode node) {
+        if(node == null) {
+            return false;
+        }
         return node.getPosition().equals(getSourcePosition());
     }
 
@@ -128,6 +131,9 @@ public final class PGrid implements IGrid, Serializable {
 
     @Override
     public boolean isDestinationNode(INode node) {
+        if(node == null) {
+            return false;
+        }
         return node.getPosition().equals(getDestinationPosition());
     }
 
