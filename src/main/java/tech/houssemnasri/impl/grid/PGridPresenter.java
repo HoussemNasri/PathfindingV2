@@ -2,6 +2,7 @@ package tech.houssemnasri.impl.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
@@ -116,8 +117,10 @@ public class PGridPresenter implements IGridPresenter {
     }
 
     @Override
-    public void onNodeClicked(IPosition clickedNodePosition) {
-        doDrawWall(clickedNodePosition);
+    public void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition) {
+        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+            doDrawWall(clickedNodePosition);
+        }
     }
 
     private void doDrawWall(IPosition clickedNodePosition) {
@@ -129,33 +132,32 @@ public class PGridPresenter implements IGridPresenter {
         }
     }
 
+    public void doDragGrid(MouseEvent mouseEvent) {
+        System.out.println("Dragging....");
+    }
+
     /** Helper method for better readability */
     private boolean not(boolean bool) {
         return !bool;
     }
 
     @Override
-    public void onNodeDragOver(IPosition draggedOverNodePosition) {
-        doDrawWall(draggedOverNodePosition);
+    public void onGridDragged(MouseEvent mouseEvent, IPosition intersectedNodePosition) {
+        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+            doDrawWall(intersectedNodePosition);
+        } else {
+            doDragGrid(mouseEvent);
+        }
     }
 
     @Override
     public void onNodeHover(IPosition hoverNodePosition) {}
 
     @Override
-    public void onSourceNodeDragged(MouseEvent mouseEvent) {
-
-    }
+    public void onSourceNodeDragged(MouseEvent mouseEvent) {}
 
     @Override
-    public void onDestinationNodeDragged(MouseEvent mouseEvent) {
-
-    }
-
-    @Override
-    public void onGridDragged(MouseEvent mouseEvent) {
-
-    }
+    public void onDestinationNodeDragged(MouseEvent mouseEvent) {}
 
     @Override
     public void onScroll(ScrollEvent scrollEvent) {

@@ -48,13 +48,15 @@ public interface IGridPresenter {
     // The presenter takes actions according to the user’s input notification from the View.
 
     /** notify the presenter when the node at {@code clickedNodePosition} is clicked */
-    void onNodeClicked(IPosition clickedNodePosition);
+    void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition);
 
     /**
-     * notify the presenter when there is a dragging gesture detected over the node at position
-     * {@code draggedOverNodePosition}.
+     * notify the presenter when there is a dragging gesture detected on grid.
+     *
+     * @param mouseEvent the mouse event of the drag gesture
+     * @param intersectedNodePosition the position of the node intersected with the drag gesture.
      */
-    void onNodeDragOver(IPosition draggedOverNodePosition);
+    void onGridDragged(MouseEvent mouseEvent, IPosition intersectedNodePosition);
 
     /**
      * notify the presenter when the mouse pointer is over the node at {@code hoverNodePosition}.
@@ -71,8 +73,6 @@ public interface IGridPresenter {
      * start at the destination node.
      */
     void onDestinationNodeDragged(MouseEvent mouseEvent);
-
-    void onGridDragged(MouseEvent mouseEvent);
 
     /**
      * Defines a function to be called when user performs a scrolling action.

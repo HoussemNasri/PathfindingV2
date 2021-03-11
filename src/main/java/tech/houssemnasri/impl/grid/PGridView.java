@@ -44,11 +44,11 @@ public class PGridView implements IGridView {
     }
 
     private void listenForMouseDrags() {
-        root.setOnMouseDragged(e -> presenter.onNodeDragOver(findIntersectedNodePosition(e)));
+        root.setOnMouseDragged(e -> presenter.onGridDragged(e, findIntersectedNodePosition(e)));
     }
 
     private void listenForMouseClicks() {
-        root.setOnMouseClicked(e -> presenter.onNodeClicked(findIntersectedNodePosition(e)));
+        root.setOnMouseClicked(e -> presenter.onNodeClicked(e, findIntersectedNodePosition(e)));
     }
 
     private void listenForScrollEvent() {
