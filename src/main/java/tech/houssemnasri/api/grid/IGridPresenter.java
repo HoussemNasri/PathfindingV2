@@ -80,4 +80,6 @@ public interface IGridPresenter {
      * @param scrollEvent the scroll event
      */
     void onScroll(ScrollEvent scrollEvent);
+
+    void onNodePressed(MouseEvent mouseEvent, IPosition intersectedNodePosition);
 }

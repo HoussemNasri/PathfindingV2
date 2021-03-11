@@ -24,6 +24,7 @@ public class PGridView implements IGridView {
 
     private IGridPresenter presenter = null;
     private final GridPane root = new GridPane();
+    private boolean refreshed = false;
 
     public PGridView(IGridPresenter presenter) {
         setPresenter(presenter);
@@ -31,6 +32,7 @@ public class PGridView implements IGridView {
         listenForMouseClicks();
         listenForMouseDrags();
         listenForScrollEvent();
+        listenForMousePress();
         initScaleTransition();
     }
 
@@ -53,6 +55,10 @@ public class PGridView implements IGridView {
 
     private void listenForScrollEvent() {
         root.setOnScroll(e -> presenter.onScroll(e));
+    }
+
+    private void listenForMousePress() {
+        root.setOnMousePressed(e -> presenter.onNodePressed(e, findIntersectedNodePosition(e)));
     }
 
     /**
@@ -107,7 +113,10 @@ public class PGridView implements IGridView {
 
     @Override
     public Node getRoot() {
-        refresh();
+        if (!refreshed) {
+            refresh();
+            refreshed = true;
+        }
         return root;
     }
 

@@ -2,6 +2,7 @@ package tech.houssemnasri.impl.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
@@ -29,6 +30,7 @@ public class PGridPresenter implements IGridPresenter {
     private final ObjectProperty<ITheme> themeProperty = new ComplexObjectProperty<>();
     private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
     private final IntegerProperty colsProperty = new ComplexIntegerProperty();
+    private final DragContext sceneDragContext = new DragContext();
 
     /** The M in MVP */
     private IGrid gridModel;
@@ -132,8 +134,16 @@ public class PGridPresenter implements IGridPresenter {
         }
     }
 
-    public void doDragGrid(MouseEvent mouseEvent) {
-        System.out.println("Dragging....");
+    public void doDragGrid(MouseEvent event) {
+        if (!event.isSecondaryButtonDown()) return;
+        Node rootView = gridView.getRoot();
+
+        double transX =
+                sceneDragContext.translateAnchorX + event.getSceneX() - sceneDragContext.mouseAnchorX;
+        double transY =
+                sceneDragContext.translateAnchorY + event.getSceneY() - sceneDragContext.mouseAnchorY;
+        rootView.setTranslateX(transX);
+        rootView.setTranslateY(transY);
     }
 
     /** Helper method for better readability */
@@ -166,5 +176,27 @@ public class PGridPresenter implements IGridPresenter {
         } else {
             zoomIn();
         }
+    }
+
+    @Override
+    public void onNodePressed(MouseEvent mouseEvent, IPosition intersectedNodePosition) {
+        // right mouse button => panning
+        if (!mouseEvent.isSecondaryButtonDown()) return;
+
+        sceneDragContext.mouseAnchorX = mouseEvent.getSceneX();
+        sceneDragContext.mouseAnchorY = mouseEvent.getSceneY();
+
+        sceneDragContext.translateAnchorX = gridView.getRoot().getTranslateX();
+        sceneDragContext.translateAnchorY = gridView.getRoot().getTranslateY();
+    }
+
+    /** Mouse drag context used for scene and nodes. */
+    private static class DragContext {
+
+        double mouseAnchorX;
+        double mouseAnchorY;
+
+        double translateAnchorX;
+        double translateAnchorY;
     }
 }
