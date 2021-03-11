@@ -8,6 +8,7 @@ import java.util.Set;
 
 import tech.houssemnasri.CostEntity;
 import tech.houssemnasri.api.algorithms.BaseAlgorithm;
+import tech.houssemnasri.api.algorithms.Distance;
 import tech.houssemnasri.api.algorithms.cost.IAstarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
@@ -19,38 +20,33 @@ import tech.houssemnasri.impl.node.PPosition;
 
 /** A* implementation */
 public class AstarAlgorithm extends BaseAlgorithm {
+    private static final int HORIZ_VERT_DISTANCE = 10;
+    private static final int DIAGONAL_DISTANCE = 14;
+
     private final Set<INode> openNodes = new HashSet<>();
     private final Set<INode> closedNodes = new HashSet<>();
     private INode currentNode;
 
     public AstarAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
         super(grid, isDiagonalAllowed);
-        init();
+        initialize();
     }
 
     public AstarAlgorithm(IGrid grid) {
         this(grid, false);
     }
 
-    private void init() {
-        for (int x = 0; x < grid.getColumns(); x++) {
-            for (int y = 0; y < grid.getRows(); y++) {
-                IPosition thisNodePosition = PPosition.of(x, y);
-                IPosition destNodePosition = grid.getDestinationPosition();
-                INode thisNode = grid.getNode(thisNodePosition);
-                thisNode.setCostEntity(new CostEntity(new int[] {0, 0, 0}));
-                IAstarCost astarCost = new AstarCostAdapter(thisNode.getCostEntity());
-                astarCost.updateHCost(
-                        new ManhattanDistance(10).apply(thisNodePosition, destNodePosition));
-            }
-        }
-    }
+    private void initialize() {
+        grid.stream().forEach(node -> {
+            IPosition thisPosition = node.getPosition();
+            IPosition destPosition = node.getPosition();
+            CostEntity thisCost = new CostEntity(new int[3]);
+            node.setCostEntity(thisCost);
+            Distance distance = new ManhattanDistance(HORIZ_VERT_DISTANCE);
+            new AstarCostAdapter(thisCost)
+                    .updateHCost(distance.apply(thisPosition, destPosition));
 
-    private int manhattanDistance(IPosition a, IPosition b) {
-        int dx = Math.abs(a.getX() - b.getX());
-        int dy = Math.abs(a.getY() - b.getY());
-
-        return 10 * (dx + dy);
+        });
     }
 
     @Override

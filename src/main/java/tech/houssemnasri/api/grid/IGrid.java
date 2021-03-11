@@ -1,5 +1,7 @@
 package tech.houssemnasri.api.grid;
 
+import java.util.stream.Stream;
+
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
@@ -66,6 +68,8 @@ public interface IGrid {
      * @return the node at the specified position in this grid
      */
     PNode getNode(IPosition position);
+
+    Stream<INode> stream();
 
     /**
      * Clear all {@code OPEN}, {@code CLOSED} and {@code PATH} nodes by resetting them to {@code

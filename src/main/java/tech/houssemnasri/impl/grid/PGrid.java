@@ -1,6 +1,9 @@
 package tech.houssemnasri.impl.grid;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Stream;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
@@ -147,6 +150,17 @@ public final class PGrid implements IGrid, Serializable {
             return nodes[position.getX()][position.getY()];
         }
         return null;
+    }
+
+    @Override
+    public Stream<INode> stream() {
+        final List<INode> allNodes = new ArrayList<>();
+        for (int x = 0; x < getColumns(); x++) {
+            for (int y = 0; y < getRows(); y++) {
+                allNodes.add(getNode(PPosition.of(x, y)));
+            }
+        }
+        return allNodes.stream();
     }
 
     /** Sets {@code node} at {@code position} */
