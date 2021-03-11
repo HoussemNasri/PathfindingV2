@@ -40,7 +40,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
 
     private void initializeNode(INode node) {
         IPosition thisPosition = node.getPosition();
-        IPosition destPosition = node.getPosition();
+        IPosition destPosition = grid.getDestinationPosition();
         CostEntity thisCost = new CostEntity(new int[3]);
         node.setCostEntity(thisCost);
         Distance distance = new ManhattanDistance();
