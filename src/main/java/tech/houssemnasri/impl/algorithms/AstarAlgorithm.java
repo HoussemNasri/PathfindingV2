@@ -71,7 +71,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
             IAstarCost neighborNodeCost = new AstarCostAdapter(nei.getCostEntity());
             int gCostForCurrent = currentNodeCost.gCost();
             int gCostForNeighbor = neighborNodeCost.gCost();
-            int gCostForNeighborUpdate = gCostForCurrent + 10;
+            int gCostForNeighborUpdate = gCostForCurrent + HORIZ_VERT_DISTANCE;
             if (isNodeOpen(nei)) {
                 if (gCostForNeighbor > gCostForNeighborUpdate) {
                     neighborNodeCost.updateGCost(gCostForNeighborUpdate);
