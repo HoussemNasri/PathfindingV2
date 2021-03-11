@@ -61,6 +61,9 @@ public class PGridView implements IGridView {
      */
     private IPosition findIntersectedNodePosition(MouseEvent mouseEvent) {
         Node intersectedNode = mouseEvent.getPickResult().getIntersectedNode();
+        if (intersectedNode == null) {
+            return PPosition.ERROR;
+        }
         Integer eventXPosition = GridPane.getColumnIndex(intersectedNode);
         Integer eventYPosition = GridPane.getRowIndex(intersectedNode);
         if (eventXPosition != null && eventYPosition != null) {
