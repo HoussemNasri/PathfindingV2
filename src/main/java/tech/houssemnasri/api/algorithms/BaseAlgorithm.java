@@ -69,23 +69,23 @@ public abstract class BaseAlgorithm {
     /** Returns list of unique {@code INode} which this algorithm already explored. */
     public abstract Set<INode> getClosedSet();
 
-    protected boolean isPositionValid(IPosition position) {
+    protected final boolean isPositionValid(IPosition position) {
         return GridChecker.checkPosition(position, grid.getRows(), grid.getColumns());
     }
 
-    protected boolean isWalkable(IPosition position) {
+    protected final boolean isWalkable(IPosition position) {
         return NodeUtils.isWalkable(grid.getNode(position));
     }
 
-    protected boolean not(boolean b) {
+    protected final boolean not(boolean b) {
         return !b;
     }
 
-    protected boolean isNodeClosed(INode node) {
+    protected final boolean isNodeClosed(INode node) {
         return getClosedSet().contains(node);
     }
 
-    protected boolean isNodeOpen(INode node) {
+    protected final boolean isNodeOpen(INode node) {
         return getOpenSet().contains(node);
     }
 
@@ -97,7 +97,7 @@ public abstract class BaseAlgorithm {
         }
     }
 
-    protected List<INode> getCurrentNodeNeighbors() {
+    protected final List<INode> getCurrentNodeNeighbors() {
         List<INode> result = new ArrayList<>();
         int currX = getCurrentNode().getPosition().getX();
         int currY = getCurrentNode().getPosition().getY();
