@@ -4,6 +4,7 @@ import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.input.ScrollEvent;
 
+import tech.houssemnasri.Clamp;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
@@ -13,7 +14,6 @@ import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
-import tech.houssemnasri.util.MathUtils;
 
 /** The P in MVP */
 public class PGridPresenter implements IGridPresenter {
@@ -103,14 +103,14 @@ public class PGridPresenter implements IGridPresenter {
     @Override
     public boolean zoomIn() {
         double scale = gridView.getScale() * SCALE_DELTA;
-        gridView.setScale(MathUtils.clamp(scale, MIN_SCALE, MAX_SCALE), true);
+        gridView.setScale(new Clamp(scale).apply(MIN_SCALE, MAX_SCALE), true);
         return false;
     }
 
     @Override
     public boolean zoomOut() {
         double scale = gridView.getScale() / SCALE_DELTA;
-        gridView.setScale(MathUtils.clamp(scale, MIN_SCALE, MAX_SCALE), true);
+        gridView.setScale(new Clamp(scale).apply(MIN_SCALE, MAX_SCALE), true);
         return false;
     }
 
