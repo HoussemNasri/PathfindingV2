@@ -85,49 +85,6 @@ public class AstarAlgorithm extends BaseAlgorithm {
         }
     }
 
-    private boolean isNodeClosed(INode node) {
-        return getClosedSet().contains(node);
-    }
-
-    private boolean isNodeOpen(INode node) {
-        return getOpenSet().contains(node);
-    }
-
-    private void doTraceBackPath() {
-        INode tempNode = currentNode;
-        while (tempNode != null){
-            tempNode.setType(INode.Type.PATH);
-            tempNode = tempNode.getParent();
-        }
-    }
-
-    private List<INode> getCurrentNodeNeighbors() {
-        List<INode> result = new ArrayList<>();
-        int currX = currentNode.getPosition().getX();
-        int currY = currentNode.getPosition().getY();
-
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                int neiX = currX + i;
-                int neiY = currY + j;
-                IPosition neiPosition = PPosition.of(neiX, neiY);
-                if (not(isPositionValid(neiPosition))) {
-                    continue;
-                } else if (not(isWalkable(neiPosition))) {
-                    continue;
-                } else if (PPosition.of(currX, currY).equals(neiPosition)) {
-                    continue;
-                } else if (not(isDiagonalAllowed())) {
-                    if (Math.abs(i) - Math.abs(j) == 0) {
-                        continue;
-                    }
-                }
-                result.add(grid.getNode(neiPosition));
-            }
-        }
-        return result;
-    }
-
     private INode getLeastCostNode() {
         PriorityQueue<INode> priorityQueue = new PriorityQueue<>(new AstarNodeComparator());
         priorityQueue.addAll(openNodes);

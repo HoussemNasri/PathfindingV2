@@ -1,10 +1,13 @@
 package tech.houssemnasri.api.algorithms;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.util.GridChecker;
 import tech.houssemnasri.util.NodeUtils;
 
@@ -73,5 +76,48 @@ public abstract class BaseAlgorithm {
 
     protected boolean not(boolean b) {
         return !b;
+    }
+
+    protected boolean isNodeClosed(INode node) {
+        return getClosedSet().contains(node);
+    }
+
+    protected boolean isNodeOpen(INode node) {
+        return getOpenSet().contains(node);
+    }
+
+    public void doTraceBackPath() {
+        INode tempNode = getCurrentNode();
+        while (tempNode != null){
+            tempNode.setType(INode.Type.PATH);
+            tempNode = tempNode.getParent();
+        }
+    }
+
+    protected List<INode> getCurrentNodeNeighbors() {
+        List<INode> result = new ArrayList<>();
+        int currX = getCurrentNode().getPosition().getX();
+        int currY = getCurrentNode().getPosition().getY();
+
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int neiX = currX + i;
+                int neiY = currY + j;
+                IPosition neiPosition = PPosition.of(neiX, neiY);
+                if (not(isPositionValid(neiPosition))) {
+                    continue;
+                } else if (not(isWalkable(neiPosition))) {
+                    continue;
+                } else if (PPosition.of(currX, currY).equals(neiPosition)) {
+                    continue;
+                } else if (not(isDiagonalAllowed())) {
+                    if (Math.abs(i) - Math.abs(j) == 0) {
+                        continue;
+                    }
+                }
+                result.add(grid.getNode(neiPosition));
+            }
+        }
+        return result;
     }
 }
