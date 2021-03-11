@@ -25,14 +25,14 @@ public class AstarAlgorithm extends BaseAlgorithm {
 
     public AstarAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
         super(grid, isDiagonalAllowed);
-        initAstarNodes();
+        init();
     }
 
     public AstarAlgorithm(IGrid grid) {
         this(grid, false);
     }
 
-    private void initAstarNodes() {
+    private void init() {
         for (int x = 0; x < grid.getColumns(); x++) {
             for (int y = 0; y < grid.getRows(); y++) {
                 IPosition thisNodePosition = PPosition.of(x, y);
