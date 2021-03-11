@@ -2,6 +2,7 @@ package tech.houssemnasri.api.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 import tech.houssemnasri.api.node.INode;
@@ -61,10 +62,17 @@ public interface IGridPresenter {
     void onNodeHover(IPosition hoverNodePosition);
 
     /**
-     * notify the presenter when the node at {@code draggedNodePosition} is being dragged, the drag
-     * gesture needs to start at the mentioned node.
+     * notify the presenter when the source node is being dragged, the drag gesture needs to start
+     * at the source node.
      */
-    void onNodeDragged(IPosition draggedNodePosition);
+    void onSourceNodeDragged(MouseEvent mouseEvent);
+    /**
+     * notify the presenter when the destination node is being dragged, the drag gesture needs to
+     * start at the destination node.
+     */
+    void onDestinationNodeDragged(MouseEvent mouseEvent);
+
+    void onGridDragged(MouseEvent mouseEvent);
 
     /**
      * Defines a function to be called when user performs a scrolling action.

@@ -12,7 +12,6 @@ import tech.houssemnasri.api.algorithms.cost.IAstarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.impl.algorithms.distance.DiagonalDistance;
 import tech.houssemnasri.impl.algorithms.distance.ManhattanDistance;
 import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;

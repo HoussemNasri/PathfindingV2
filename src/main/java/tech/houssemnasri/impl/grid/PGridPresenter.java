@@ -2,6 +2,7 @@ package tech.houssemnasri.impl.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 import tech.houssemnasri.Clamp;
@@ -142,7 +143,19 @@ public class PGridPresenter implements IGridPresenter {
     public void onNodeHover(IPosition hoverNodePosition) {}
 
     @Override
-    public void onNodeDragged(IPosition draggedNodePosition) {}
+    public void onSourceNodeDragged(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void onDestinationNodeDragged(MouseEvent mouseEvent) {
+
+    }
+
+    @Override
+    public void onGridDragged(MouseEvent mouseEvent) {
+
+    }
 
     @Override
     public void onScroll(ScrollEvent scrollEvent) {
