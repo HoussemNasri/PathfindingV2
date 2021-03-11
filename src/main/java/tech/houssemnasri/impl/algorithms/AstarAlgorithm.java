@@ -35,16 +35,16 @@ public class AstarAlgorithm extends BaseAlgorithm {
 
     @Override
     protected void initialize() {
-        grid.stream().forEach(node -> {
-            IPosition thisPosition = node.getPosition();
-            IPosition destPosition = node.getPosition();
-            CostEntity thisCost = new CostEntity(new int[3]);
-            node.setCostEntity(thisCost);
-            Distance distance = new ManhattanDistance(HORIZ_VERT_DISTANCE);
-            new AstarCostAdapter(thisCost)
-                    .updateHCost(distance.apply(thisPosition, destPosition));
+        grid.stream().forEach(this::initializeNode);
+    }
 
-        });
+    private void initializeNode(INode node) {
+        IPosition thisPosition = node.getPosition();
+        IPosition destPosition = node.getPosition();
+        CostEntity thisCost = new CostEntity(new int[3]);
+        node.setCostEntity(thisCost);
+        Distance distance = new ManhattanDistance(HORIZ_VERT_DISTANCE);
+        new AstarCostAdapter(thisCost).updateHCost(distance.apply(thisPosition, destPosition));
     }
 
     @Override
