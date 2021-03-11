@@ -12,6 +12,7 @@ import tech.houssemnasri.api.algorithms.cost.IAstarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.algorithms.distance.DiagonalDistance;
 import tech.houssemnasri.impl.algorithms.distance.ManhattanDistance;
 import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
@@ -43,7 +44,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
         IPosition destPosition = node.getPosition();
         CostEntity thisCost = new CostEntity(new int[3]);
         node.setCostEntity(thisCost);
-        Distance distance = new ManhattanDistance(HORIZ_VERT_DISTANCE);
+        Distance distance = new ManhattanDistance();
         new AstarCostAdapter(thisCost).updateHCost(distance.apply(thisPosition, destPosition));
     }
 
@@ -69,7 +70,8 @@ public class AstarAlgorithm extends BaseAlgorithm {
             IAstarCost neighborNodeCost = new AstarCostAdapter(nei.getCostEntity());
             int gCostForCurrent = currentNodeCost.gCost();
             int gCostForNeighbor = neighborNodeCost.gCost();
-            int gCostForNeighborUpdate = gCostForCurrent + HORIZ_VERT_DISTANCE;
+            int gCostForNeighborUpdate = gCostForCurrent +
+                    (isNodeOnDiagonalOfCurrent(nei) ? DIAGONAL_DISTANCE : HORIZ_VERT_DISTANCE);
             if (isNodeOpen(nei)) {
                 if (gCostForNeighbor > gCostForNeighborUpdate) {
                     neighborNodeCost.updateGCost(gCostForNeighborUpdate);

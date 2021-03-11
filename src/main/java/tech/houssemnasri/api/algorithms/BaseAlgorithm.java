@@ -91,10 +91,16 @@ public abstract class BaseAlgorithm {
 
     public void doTraceBackPath() {
         INode tempNode = getCurrentNode();
-        while (tempNode != null){
+        while (tempNode != null) {
             tempNode.setType(INode.Type.PATH);
             tempNode = tempNode.getParent();
         }
+    }
+
+    protected boolean isNodeOnDiagonalOfCurrent(INode node) {
+        int dx = getCurrentNode().getPosition().getX() - node.getPosition().getX();
+        int dy = getCurrentNode().getPosition().getY() - node.getPosition().getY();
+        return Math.abs(dx) - Math.abs(dy) == 0;
     }
 
     protected final List<INode> getCurrentNodeNeighbors() {
