@@ -12,6 +12,7 @@ import tech.houssemnasri.api.algorithms.cost.IAstarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.algorithms.distance.ManhattanDistance;
 import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
 import tech.houssemnasri.impl.node.PPosition;
@@ -39,7 +40,8 @@ public class AstarAlgorithm extends BaseAlgorithm {
                 INode thisNode = grid.getNode(thisNodePosition);
                 thisNode.setCostEntity(new CostEntity(new int[] {0, 0, 0}));
                 IAstarCost astarCost = new AstarCostAdapter(thisNode.getCostEntity());
-                astarCost.updateHCost(manhattanDistance(thisNodePosition, destNodePosition));
+                astarCost.updateHCost(
+                        new ManhattanDistance(10).apply(thisNodePosition, destNodePosition));
             }
         }
     }
