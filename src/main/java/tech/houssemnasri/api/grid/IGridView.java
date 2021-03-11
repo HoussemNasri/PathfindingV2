@@ -9,6 +9,12 @@ public interface IGridView {
     /** Returns the JavaFx root node. */
     Node getRoot();
 
+    /** Refresh the root node and returns it. */
+    default Node getRootAndRefresh() {
+        refresh();
+        return getRoot();
+    }
+
     /**
      * Showing cost info on the views when using an algorithm that uses costs.
      *

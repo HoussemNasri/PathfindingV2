@@ -24,7 +24,6 @@ public class PGridView implements IGridView {
 
     private IGridPresenter presenter = null;
     private final GridPane root = new GridPane();
-    private boolean refreshed = false;
 
     public PGridView(IGridPresenter presenter) {
         setPresenter(presenter);
@@ -113,10 +112,6 @@ public class PGridView implements IGridView {
 
     @Override
     public Node getRoot() {
-        if (!refreshed) {
-            refresh();
-            refreshed = true;
-        }
         return root;
     }
 
