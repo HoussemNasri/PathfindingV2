@@ -23,11 +23,14 @@ public abstract class BaseAlgorithm {
     public BaseAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
         this.grid = grid;
         this.isDiagonalAllowed = isDiagonalAllowed;
+        initialize();
     }
 
     public BaseAlgorithm(IGrid grid) {
         this(grid, false);
     }
+
+    protected abstract void initialize();
 
     /**
      * move forward and explore the grid looking for the path from {@code source} to {@code

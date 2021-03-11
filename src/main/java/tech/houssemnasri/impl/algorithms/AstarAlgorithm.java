@@ -1,6 +1,5 @@
 package tech.houssemnasri.impl.algorithms;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.PriorityQueue;
@@ -16,7 +15,6 @@ import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.algorithms.distance.ManhattanDistance;
 import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
-import tech.houssemnasri.impl.node.PPosition;
 
 /** A* implementation */
 public class AstarAlgorithm extends BaseAlgorithm {
@@ -29,14 +27,14 @@ public class AstarAlgorithm extends BaseAlgorithm {
 
     public AstarAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
         super(grid, isDiagonalAllowed);
-        initialize();
     }
 
     public AstarAlgorithm(IGrid grid) {
-        this(grid, false);
+        super(grid, false);
     }
 
-    private void initialize() {
+    @Override
+    protected void initialize() {
         grid.stream().forEach(node -> {
             IPosition thisPosition = node.getPosition();
             IPosition destPosition = node.getPosition();
