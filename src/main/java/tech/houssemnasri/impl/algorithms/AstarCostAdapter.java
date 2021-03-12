@@ -39,6 +39,6 @@ public class AstarCostAdapter implements IAstarCost {
         if (o1.fCost() != o2.fCost()) {
             return Integer.compare(o1.fCost(), o2.fCost());
         }
-        return Integer.compare(o1.gCost(), o2.gCost());
+        return Integer.compare(o1.hCost(), o2.hCost());
     }
 }
