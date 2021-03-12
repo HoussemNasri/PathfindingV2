@@ -100,6 +100,26 @@ public class PGridPresenter implements IGridPresenter {
     }
 
     @Override
+    public IPosition getSourcePosition() {
+        return gridModel.getSourcePosition();
+    }
+
+    @Override
+    public ObjectProperty<IPosition> sourcePositionProperty() {
+        return gridModel.sourceNodePositionProperty();
+    }
+
+    @Override
+    public IPosition getDestinationPosition() {
+        return gridModel.getDestinationPosition();
+    }
+
+    @Override
+    public ObjectProperty<IPosition> destinationPositionProperty() {
+        return gridModel.destinationNodePositionProperty();
+    }
+
+    @Override
     public INode getNodeModel(IPosition position) {
         return gridModel.getNode(position);
     }
@@ -139,9 +159,13 @@ public class PGridPresenter implements IGridPresenter {
         Node rootView = gridView.getRoot();
 
         double transX =
-                sceneDragContext.translateAnchorX + event.getSceneX() - sceneDragContext.mouseAnchorX;
+                sceneDragContext.translateAnchorX
+                        + event.getSceneX()
+                        - sceneDragContext.mouseAnchorX;
         double transY =
-                sceneDragContext.translateAnchorY + event.getSceneY() - sceneDragContext.mouseAnchorY;
+                sceneDragContext.translateAnchorY
+                        + event.getSceneY()
+                        - sceneDragContext.mouseAnchorY;
         rootView.setTranslateX(transX);
         rootView.setTranslateY(transY);
     }

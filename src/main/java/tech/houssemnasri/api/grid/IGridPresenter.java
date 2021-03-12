@@ -28,6 +28,14 @@ public interface IGridPresenter {
 
     IntegerProperty colsProperty();
 
+    IPosition getSourcePosition();
+
+    ObjectProperty<IPosition> sourcePositionProperty();
+
+    IPosition getDestinationPosition();
+
+    ObjectProperty<IPosition> destinationPositionProperty();
+
     /** Returns the node model at position {@code position} */
     INode getNodeModel(IPosition position);
 
