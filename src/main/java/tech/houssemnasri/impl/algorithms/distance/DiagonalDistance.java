@@ -17,7 +17,7 @@ public class DiagonalDistance extends Distance {
     }
 
     public DiagonalDistance() {
-        this(10);
+        this(DEFAULT_FACTOR);
     }
 
     @Override

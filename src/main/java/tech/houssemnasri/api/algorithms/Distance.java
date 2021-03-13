@@ -5,6 +5,7 @@ import java.util.function.BiFunction;
 import tech.houssemnasri.api.node.IPosition;
 
 public abstract class Distance implements BiFunction<IPosition, IPosition, Integer> {
+    protected final static int DEFAULT_FACTOR = 10;
     protected final int factor;
 
     public Distance(final int factor) {
@@ -12,6 +13,6 @@ public abstract class Distance implements BiFunction<IPosition, IPosition, Integ
     }
 
     public Distance() {
-        this(10);
+        this(DEFAULT_FACTOR);
     }
 }
