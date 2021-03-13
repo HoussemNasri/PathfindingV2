@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
 
+import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
@@ -16,7 +17,7 @@ import tech.houssemnasri.util.NodeUtils;
  * explore the grid for {@code destinationNode} using {@code this} algorithm logic, also for going
  * back to the previous algorithm state.
  */
-public abstract class BaseAlgorithm {
+public abstract class BaseAlgorithm implements BooleanExtensions {
     protected final IGrid grid;
     protected final boolean isDiagonalAllowed;
 
@@ -75,10 +76,6 @@ public abstract class BaseAlgorithm {
 
     protected final boolean isWalkable(IPosition position) {
         return NodeUtils.isWalkable(grid.getNode(position));
-    }
-
-    protected final boolean not(boolean b) {
-        return !b;
     }
 
     protected final boolean isNodeClosed(INode node) {
