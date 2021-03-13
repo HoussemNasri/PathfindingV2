@@ -41,17 +41,13 @@ public interface IGridPresenter {
 
     /**
      * Zoom in, and increase node size.
-     *
-     * @return True if the zoom happened and we didn't reach our maximum zoom level.
      */
-    boolean zoomIn();
+    void zoomIn();
 
     /**
      * Zoom out, and decrease node size.
-     *
-     * @return True if the zoom happened and we didn't reach our minimum zooming level.
      */
-    boolean zoomOut();
+    void zoomOut();
 
     // The presenter takes actions according to the user’s input notification from the View.
 

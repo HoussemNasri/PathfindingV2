@@ -129,17 +129,15 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     }
 
     @Override
-    public boolean zoomIn() {
+    public void zoomIn() {
         double scale = gridView.getScale() * SCALE_DELTA;
         gridView.setScale(new Clamp(scale).apply(MIN_SCALE, MAX_SCALE), true);
-        return false;
     }
 
     @Override
-    public boolean zoomOut() {
+    public void zoomOut() {
         double scale = gridView.getScale() / SCALE_DELTA;
         gridView.setScale(new Clamp(scale).apply(MIN_SCALE, MAX_SCALE), true);
-        return false;
     }
 
     @Override
