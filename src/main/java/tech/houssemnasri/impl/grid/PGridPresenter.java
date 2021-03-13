@@ -22,13 +22,6 @@ import tech.houssemnasri.property.ComplexObjectProperty;
 
 /** The P in MVP */
 public class PGridPresenter implements IGridPresenter, BooleanExtensions {
-    /** The minimum scale zoom out can reach. */
-    private static final double MIN_SCALE = 1;
-    /** The maximum scale zoom in can reach. */
-    private static final double MAX_SCALE = 10;
-    /** The amount of which the scale increase or decrease each zoomIn or zoomOut */
-    private static final double SCALE_DELTA = 1.2;
-
     private boolean isDraggingSourceNode = false;
     private boolean isDraggingDestinationNode = false;
 
@@ -44,7 +37,8 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     /** The V in MVP */
     private IGridView gridView;
 
-    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme, IGridMagnifier gridMagnifier) {
+    public PGridPresenter(
+            IGrid gridModel, IGridView gridView, ITheme theme, IGridMagnifier gridMagnifier) {
         setGridModel(gridModel);
         setGridView(gridView);
         bindColsPropertyToModel();
@@ -53,7 +47,7 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
         setGridMagnifier(gridMagnifier);
     }
 
-    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme){
+    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
         this(gridModel, gridView, theme, null);
     }
 
@@ -142,14 +136,18 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
 
     @Override
     public void zoomIn() {
-        double scale = gridView.getScale() * SCALE_DELTA;
-        gridView.setScale(new Clamp(scale).apply(MIN_SCALE, MAX_SCALE), true);
+        if (gridMagnifier == null) {
+            return;
+        }
+        gridMagnifier.zoomIn();
     }
 
     @Override
     public void zoomOut() {
-        double scale = gridView.getScale() / SCALE_DELTA;
-        gridView.setScale(new Clamp(scale).apply(MIN_SCALE, MAX_SCALE), true);
+        if (gridMagnifier == null) {
+            return;
+        }
+        gridMagnifier.zoomOut();
     }
 
     @Override
