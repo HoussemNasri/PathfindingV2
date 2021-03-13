@@ -32,7 +32,10 @@ public interface IGrid {
     /** Returns source node position in grid. */
     IPosition getSourcePosition();
 
-    /** change the position of the source node to {@code newSourceLocation} */
+    /**
+     * change the position of the source node to {@code newSourceLocation} and perform the
+     * transition of states for the previous source node and the new source node.
+     */
     void relocateSource(IPosition newSourceLocation);
 
     ObjectProperty<IPosition> sourceNodePositionProperty();
@@ -40,7 +43,10 @@ public interface IGrid {
     /** Returns destination node position in grid. */
     IPosition getDestinationPosition();
 
-    /** change the position of the destination node to {@code newDestinationLocation} */
+    /**
+     * change the position of the destination node to {@code newDestinationLocation} and perform the
+     * transition of states for the previous destination node and the new destination node.
+     */
     void relocateDestination(IPosition newDestinationLocation);
 
     ObjectProperty<IPosition> destinationNodePositionProperty();

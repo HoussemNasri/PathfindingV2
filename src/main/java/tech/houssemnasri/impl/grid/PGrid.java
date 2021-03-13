@@ -3,7 +3,6 @@ package tech.houssemnasri.impl.grid;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Stream;
 
 import javafx.beans.property.IntegerProperty;
@@ -17,6 +16,7 @@ import tech.houssemnasri.impl.node.PNode;
 import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
+import static tech.houssemnasri.api.node.INode.*;
 
 /**
  * The {@code PGrid} class represent the grid state, it keeps all state variables in one place,
@@ -57,8 +57,8 @@ public final class PGrid implements IGrid, Serializable {
             for (int y = 0; y < getRows(); y++) {
                 PPosition newNodePosition = PPosition.of(x, y);
                 PNode newNode = new PNode(newNodePosition);
-                if (isSourceNode(newNode)) newNode.setType(INode.Type.SOURCE);
-                if (isDestinationNode(newNode)) newNode.setType(INode.Type.DESTINATION);
+                if (isSourceNode(newNode)) newNode.setType(Type.SOURCE);
+                if (isDestinationNode(newNode)) newNode.setType(Type.DESTINATION);
                 setNode(newNode, newNodePosition);
             }
         }
@@ -122,10 +122,9 @@ public final class PGrid implements IGrid, Serializable {
         if(newSourceLocation.equals(getSourcePosition())){
             return;
         }
-        getNode(getSourcePosition()).setType(INode.Type.BASIC);
-
+        getNode(getSourcePosition()).setType(Type.BASIC);
         sourcePositionProperty.set(newSourceLocation);
-        getNode(getSourcePosition()).setType(INode.Type.SOURCE);
+        getNode(newSourceLocation).setType(Type.SOURCE);
     }
 
     @Override
@@ -142,10 +141,9 @@ public final class PGrid implements IGrid, Serializable {
         if(newDestinationLocation.equals(getDestinationPosition())){
             return;
         }
-        getNode(getDestinationPosition()).setType(INode.Type.BASIC);
-
+        getNode(getDestinationPosition()).setType(Type.BASIC);
         destinationPositionProperty.set(newDestinationLocation);
-        getNode(getDestinationPosition()).setType(INode.Type.DESTINATION);
+        getNode(newDestinationLocation).setType(Type.DESTINATION);
     }
 
     @Override
@@ -176,7 +174,8 @@ public final class PGrid implements IGrid, Serializable {
     @Override
     public boolean isWalkable(IPosition position) {
         if(GridChecker.checkPosition(position, getRows(), getColumns())){
-            return Objects.requireNonNull(getNode(position)).getType() != INode.Type.WALL;
+            INode node = getNode(position);
+            return node.getType() != Type.WALL && getNode(position) != PNode.NULL;
         }
         return false;
     }
