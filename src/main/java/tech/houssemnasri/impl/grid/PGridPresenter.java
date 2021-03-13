@@ -7,6 +7,7 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
+import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.Clamp;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridPresenter;
@@ -19,7 +20,7 @@ import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
 /** The P in MVP */
-public class PGridPresenter implements IGridPresenter {
+public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     /** The minimum scale zoom out can reach. */
     private static final double MIN_SCALE = 1;
     /** The maximum scale zoom in can reach. */
@@ -173,11 +174,6 @@ public class PGridPresenter implements IGridPresenter {
         rootView.setTranslateY(transY);
     }
 
-    /** Helper method for better readability */
-    private boolean not(boolean bool) {
-        return !bool;
-    }
-
     @Override
     public void onGridDragged(MouseEvent mouseEvent, IPosition intersection) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -194,17 +190,19 @@ public class PGridPresenter implements IGridPresenter {
     }
 
     private void doRelocateDestinationTo(IPosition intersection) {
-        if (not(intersection.equals(PPosition.ERROR))
-                && gridModel.isWalkable(intersection)
-                && not(gridModel.isSourceNode(gridModel.getNode(intersection)))) {
+        if (and(
+                not(intersection.equals(PPosition.ERROR)),
+                gridModel.isWalkable(intersection),
+                not(gridModel.isSourceNode(gridModel.getNode(intersection))))) {
             gridModel.relocateDestination(intersection);
         }
     }
 
     private void doRelocateSourceTo(IPosition intersection) {
-        if (not(intersection.equals(PPosition.ERROR))
-                && gridModel.isWalkable(intersection)
-                && not(gridModel.isDestinationNode(gridModel.getNode(intersection)))) {
+        if (and(
+                not(intersection.equals(PPosition.ERROR)),
+                gridModel.isWalkable(intersection),
+                not(gridModel.isDestinationNode(gridModel.getNode(intersection))))) {
             gridModel.relocateSource(intersection);
         }
     }
@@ -223,7 +221,7 @@ public class PGridPresenter implements IGridPresenter {
 
     @Override
     public void onNodePressed(MouseEvent mouseEvent, IPosition intersection) {
-        if (mouseEvent.isPrimaryButtonDown() && not(intersection.equals(PPosition.ERROR))) {
+        if (and(mouseEvent.isPrimaryButtonDown(), not(intersection.equals(PPosition.ERROR)))) {
             if (gridModel.isSourceNode(gridModel.getNode(intersection))) {
                 isDraggingSourceNode = true;
             } else if (gridModel.isDestinationNode(gridModel.getNode(intersection))) {
