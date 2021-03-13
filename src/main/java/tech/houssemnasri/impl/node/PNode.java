@@ -8,6 +8,7 @@ import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
 public final class PNode implements INode {
+    public static final INode NULL = new PNode(PPosition.ERROR, Type.BASIC, null, null);
     /** This is the position of this node on the grid */
     private IPosition position;
     /**

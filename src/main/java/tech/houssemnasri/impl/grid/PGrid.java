@@ -166,11 +166,11 @@ public final class PGrid implements IGrid, Serializable {
      *
      */
     @Override
-    public PNode getNode(IPosition position) {
+    public INode getNode(IPosition position) {
         if(GridChecker.checkPosition(position, getRows(), getColumns())){
             return nodes[position.getX()][position.getY()];
         }
-        return null;
+        return PNode.NULL;
     }
 
     @Override
@@ -202,7 +202,7 @@ public final class PGrid implements IGrid, Serializable {
     public void clearPath() {
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
-                PNode node = getNode(PPosition.of(x, y));
+                INode node = getNode(PPosition.of(x, y));
                 INode.Type nodeType = node.getType();
                 switch (nodeType){
                     case PATH,OPEN,CLOSED -> node.clear();
@@ -217,7 +217,7 @@ public final class PGrid implements IGrid, Serializable {
         setDestinationPosition(PPosition.of(getColumns() - 1, getRows() - 1));
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
-                PNode node = getNode(PPosition.of(x, y));
+                INode node = getNode(PPosition.of(x, y));
                 if (!(isSourceNode(node) || isDestinationNode(node))) {
                     node.clear();
                 }

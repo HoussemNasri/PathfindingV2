@@ -67,7 +67,7 @@ public interface IGrid {
      * @param position position of the node to return
      * @return the node at the specified position in this grid
      */
-    PNode getNode(IPosition position);
+    INode getNode(IPosition position);
 
     boolean isWalkable(IPosition position);
 
