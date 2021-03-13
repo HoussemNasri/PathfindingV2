@@ -1,9 +1,9 @@
-package tech.houssemnasri.impl.algorithms;
+package tech.houssemnasri.impl.pathfinder.player;
 
 import javafx.animation.AnimationTimer;
 
-import tech.houssemnasri.api.algorithms.BaseAlgorithm;
-import tech.houssemnasri.api.algorithms.BaseAlgorithmPlayer;
+import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
+import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
 
 public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
     public SimpleAlgoPlayer(BaseAlgorithm thisAlgorithm) {

@@ -1,4 +1,4 @@
-package tech.houssemnasri.api.algorithms.cost;
+package tech.houssemnasri.api.pathfinder.cost;
 
 import java.util.Comparator;
 

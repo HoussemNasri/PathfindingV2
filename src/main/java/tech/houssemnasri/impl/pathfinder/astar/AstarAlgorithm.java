@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl.algorithms;
+package tech.houssemnasri.impl.pathfinder.astar;
 
 import java.util.HashSet;
 import java.util.List;
@@ -6,13 +6,13 @@ import java.util.PriorityQueue;
 import java.util.Set;
 
 import tech.houssemnasri.CostEntity;
-import tech.houssemnasri.api.algorithms.BaseAlgorithm;
-import tech.houssemnasri.api.algorithms.Distance;
-import tech.houssemnasri.api.algorithms.cost.IAstarCost;
+import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
+import tech.houssemnasri.api.pathfinder.Distance;
+import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.impl.algorithms.distance.ManhattanDistance;
+import tech.houssemnasri.impl.pathfinder.distance.ManhattanDistance;
 import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
 

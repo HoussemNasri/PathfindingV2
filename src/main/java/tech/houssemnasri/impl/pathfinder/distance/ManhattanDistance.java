@@ -1,6 +1,6 @@
-package tech.houssemnasri.impl.algorithms.distance;
+package tech.houssemnasri.impl.pathfinder.distance;
 
-import tech.houssemnasri.api.algorithms.Distance;
+import tech.houssemnasri.api.pathfinder.Distance;
 import tech.houssemnasri.api.node.IPosition;
 import static java.lang.Math.*;
 

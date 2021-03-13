@@ -1,8 +1,8 @@
-package tech.houssemnasri.impl.algorithms;
+package tech.houssemnasri.impl.pathfinder.astar;
 
 import java.util.Comparator;
 
-import tech.houssemnasri.api.algorithms.cost.IAstarCost;
+import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
 import tech.houssemnasri.api.node.INode;
 
 public class AstarNodeComparator implements Comparator<INode> {

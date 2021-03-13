@@ -1,4 +1,4 @@
-package tech.houssemnasri.api.algorithms;
+package tech.houssemnasri.api.pathfinder;
 
 import java.util.ArrayList;
 import java.util.List;

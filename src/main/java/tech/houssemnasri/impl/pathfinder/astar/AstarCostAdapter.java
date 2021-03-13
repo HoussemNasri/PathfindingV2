@@ -1,7 +1,7 @@
-package tech.houssemnasri.impl.algorithms;
+package tech.houssemnasri.impl.pathfinder.astar;
 
 import tech.houssemnasri.CostEntity;
-import tech.houssemnasri.api.algorithms.cost.IAstarCost;
+import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
 
 public class AstarCostAdapter implements IAstarCost {
     private final CostEntity costInfo;

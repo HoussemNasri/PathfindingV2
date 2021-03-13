@@ -1,6 +1,6 @@
 package tech.houssemnasri.impl.command;
 
-import tech.houssemnasri.api.algorithms.BaseAlgorithm;
+import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.command.AlgoCommand;
 import tech.houssemnasri.api.node.INode;
 import static tech.houssemnasri.api.node.INode.*;

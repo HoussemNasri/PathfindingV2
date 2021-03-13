@@ -1,4 +1,4 @@
-package tech.houssemnasri.api.algorithms;
+package tech.houssemnasri.api.pathfinder;
 
 /**
  * This class {@code BaseAlgorithmPlayer} is responsible for managing the player state and perform
