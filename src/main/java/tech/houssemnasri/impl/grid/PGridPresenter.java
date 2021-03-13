@@ -27,6 +27,9 @@ public class PGridPresenter implements IGridPresenter {
     /** The amount of which the scale increase or decrease each zoomIn or zoomOut */
     private static final double SCALE_DELTA = 1.2;
 
+    private boolean isDraggingSourceNode = false;
+    private boolean isDraggingDestinationNode = false;
+
     private final ObjectProperty<ITheme> themeProperty = new ComplexObjectProperty<>();
     private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
     private final IntegerProperty colsProperty = new ComplexIntegerProperty();
@@ -140,7 +143,7 @@ public class PGridPresenter implements IGridPresenter {
 
     @Override
     public void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition) {
-        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+        if (mouseEvent.isPrimaryButtonDown()) {
             doDrawWall(clickedNodePosition);
         }
     }
@@ -176,22 +179,38 @@ public class PGridPresenter implements IGridPresenter {
     }
 
     @Override
-    public void onGridDragged(MouseEvent mouseEvent, IPosition intersectedNodePosition) {
+    public void onGridDragged(MouseEvent mouseEvent, IPosition intersection) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-            doDrawWall(intersectedNodePosition);
+            if (isDraggingSourceNode) {
+                doRelocateSourceTo(intersection);
+            } else if (isDraggingDestinationNode) {
+                doRelocateDestinationTo(intersection);
+            } else {
+                doDrawWall(intersection);
+            }
         } else {
             doDragGrid(mouseEvent);
         }
     }
 
+    private void doRelocateDestinationTo(IPosition intersection) {
+        if (not(intersection.equals(PPosition.ERROR))
+                && gridModel.isWalkable(intersection)
+                && not(gridModel.isSourceNode(gridModel.getNode(intersection)))) {
+            gridModel.relocateDestination(intersection);
+        }
+    }
+
+    private void doRelocateSourceTo(IPosition intersection) {
+        if (not(intersection.equals(PPosition.ERROR))
+                && gridModel.isWalkable(intersection)
+                && not(gridModel.isDestinationNode(gridModel.getNode(intersection)))) {
+            gridModel.relocateSource(intersection);
+        }
+    }
+
     @Override
     public void onNodeHover(IPosition hoverNodePosition) {}
-
-    @Override
-    public void onSourceNodeDragged(MouseEvent mouseEvent) {}
-
-    @Override
-    public void onDestinationNodeDragged(MouseEvent mouseEvent) {}
 
     @Override
     public void onScroll(ScrollEvent scrollEvent) {
@@ -203,15 +222,29 @@ public class PGridPresenter implements IGridPresenter {
     }
 
     @Override
-    public void onNodePressed(MouseEvent mouseEvent, IPosition intersectedNodePosition) {
-        // right mouse button => panning
-        if (!mouseEvent.isSecondaryButtonDown()) return;
+    public void onNodePressed(MouseEvent mouseEvent, IPosition intersection) {
+        if (mouseEvent.isPrimaryButtonDown() && not(intersection.equals(PPosition.ERROR))) {
+            if (gridModel.isSourceNode(gridModel.getNode(intersection))) {
+                isDraggingSourceNode = true;
+            } else if (gridModel.isDestinationNode(gridModel.getNode(intersection))) {
+                isDraggingDestinationNode = true;
+            }
+            return;
+        }
+
+        if (not(mouseEvent.isSecondaryButtonDown())) return;
 
         sceneDragContext.mouseAnchorX = mouseEvent.getSceneX();
         sceneDragContext.mouseAnchorY = mouseEvent.getSceneY();
 
         sceneDragContext.translateAnchorX = gridView.getRoot().getTranslateX();
         sceneDragContext.translateAnchorY = gridView.getRoot().getTranslateY();
+    }
+
+    @Override
+    public void onMouseRelease(MouseEvent mouseEvent, IPosition releaseNodePosition) {
+        isDraggingSourceNode = false;
+        isDraggingDestinationNode = false;
     }
 
     /** Mouse drag context used for scene and nodes. */

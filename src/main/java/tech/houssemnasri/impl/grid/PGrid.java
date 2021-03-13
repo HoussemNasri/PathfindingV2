@@ -3,6 +3,7 @@ package tech.houssemnasri.impl.grid;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Stream;
 
 import javafx.beans.property.IntegerProperty;
@@ -40,14 +41,14 @@ public final class PGrid implements IGrid, Serializable {
     private PGrid(int rows, int cols, IPosition sourcePosition, IPosition destinationPosition) {
         setRows(rows);
         setColumns(cols);
-        relocateSource(sourcePosition);
-        relocateDestination(destinationPosition);
+        setSourcePosition(sourcePosition);
+        setDestinationPosition(destinationPosition);
         nodes = new PNode[getColumns()][getRows()];
         createNodes();
     }
 
     private PGrid(int rows, int cols) {
-        this(rows, cols, PPosition.of(0, 0), PPosition.of(cols - 1, rows - 1));
+        this(rows, cols, PPosition.of(8, 10), PPosition.of(cols - 15, rows - 12));
     }
 
     /** create and initialize the nodes based on the current state */
@@ -112,9 +113,19 @@ public final class PGrid implements IGrid, Serializable {
         return destinationPositionProperty.get();
     }
 
+    private void setSourcePosition(IPosition initialSourcePosition){
+        sourcePositionProperty.set(initialSourcePosition);
+    }
+
     @Override
     public void relocateSource(IPosition newSourceLocation) {
+        if(newSourceLocation.equals(getSourcePosition())){
+            return;
+        }
+        getNode(getSourcePosition()).setType(INode.Type.BASIC);
+
         sourcePositionProperty.set(newSourceLocation);
+        getNode(getSourcePosition()).setType(INode.Type.SOURCE);
     }
 
     @Override
@@ -122,9 +133,19 @@ public final class PGrid implements IGrid, Serializable {
         return sourcePositionProperty;
     }
 
+    private void setDestinationPosition(IPosition initialDestinationPosition){
+        destinationPositionProperty.set(initialDestinationPosition);
+    }
+
     @Override
     public void relocateDestination(IPosition newDestinationLocation) {
+        if(newDestinationLocation.equals(getDestinationPosition())){
+            return;
+        }
+        getNode(getDestinationPosition()).setType(INode.Type.BASIC);
+
         destinationPositionProperty.set(newDestinationLocation);
+        getNode(getDestinationPosition()).setType(INode.Type.DESTINATION);
     }
 
     @Override
@@ -150,6 +171,14 @@ public final class PGrid implements IGrid, Serializable {
             return nodes[position.getX()][position.getY()];
         }
         return null;
+    }
+
+    @Override
+    public boolean isWalkable(IPosition position) {
+        if(GridChecker.checkPosition(position, getRows(), getColumns())){
+            return Objects.requireNonNull(getNode(position)).getType() != INode.Type.WALL;
+        }
+        return false;
     }
 
     @Override
@@ -184,8 +213,8 @@ public final class PGrid implements IGrid, Serializable {
 
     @Override
     public void resetGrid() {
-        relocateSource(PPosition.of(0, 0));
-        relocateDestination(PPosition.of(getColumns() - 1, getRows() - 1));
+        setSourcePosition(PPosition.of(0, 0));
+        setDestinationPosition(PPosition.of(getColumns() - 1, getRows() - 1));
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
                 PNode node = getNode(PPosition.of(x, y));

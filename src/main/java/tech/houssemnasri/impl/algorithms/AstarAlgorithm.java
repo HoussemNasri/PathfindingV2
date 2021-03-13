@@ -35,16 +35,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
 
     @Override
     protected void initialize() {
-        grid.stream().forEach(this::initializeNode);
-    }
-
-    private void initializeNode(INode node) {
-        IPosition thisPosition = node.getPosition();
-        IPosition destPosition = grid.getDestinationPosition();
-        CostEntity thisCost = new CostEntity(new int[3]);
-        node.setCostEntity(thisCost);
-        Distance distance = new ManhattanDistance();
-        new AstarCostAdapter(thisCost).updateHCost(distance.apply(thisPosition, destPosition));
+        grid.stream().forEach(node -> node.setCostEntity(new CostEntity(new int[2])));
     }
 
     @Override
@@ -69,8 +60,11 @@ public class AstarAlgorithm extends BaseAlgorithm {
             IAstarCost neighborNodeCost = new AstarCostAdapter(nei.getCostEntity());
             int gCostForCurrent = currentNodeCost.gCost();
             int gCostForNeighbor = neighborNodeCost.gCost();
-            int gCostForNeighborUpdate = gCostForCurrent +
-                    (isNodeOnDiagonalOfCurrent(nei) ? DIAGONAL_DISTANCE : HORIZ_VERT_DISTANCE);
+            int gCostForNeighborUpdate =
+                    gCostForCurrent
+                            + (isNodeOnDiagonalOfCurrent(nei)
+                                    ? DIAGONAL_DISTANCE
+                                    : HORIZ_VERT_DISTANCE);
             if (isNodeOpen(nei)) {
                 if (gCostForNeighbor > gCostForNeighborUpdate) {
                     neighborNodeCost.updateGCost(gCostForNeighborUpdate);
@@ -79,9 +73,18 @@ public class AstarAlgorithm extends BaseAlgorithm {
             } else {
                 neighborNodeCost.updateGCost(gCostForNeighborUpdate);
                 nei.setParent(currentNode);
+                setHCost(nei);
                 new OpenNodeCommand(this, nei).execute();
             }
         }
+    }
+
+    private void setHCost(INode node) {
+        IPosition thisPosition = node.getPosition();
+        IPosition destPosition = grid.getDestinationPosition();
+        Distance distance = new ManhattanDistance();
+        new AstarCostAdapter(node.getCostEntity())
+                .updateHCost(distance.apply(thisPosition, destPosition));
     }
 
     private INode getLeastCostNode() {

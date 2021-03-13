@@ -69,6 +69,8 @@ public interface IGrid {
      */
     PNode getNode(IPosition position);
 
+    boolean isWalkable(IPosition position);
+
     Stream<INode> stream();
 
     /**

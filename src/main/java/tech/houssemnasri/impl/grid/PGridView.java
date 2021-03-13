@@ -3,6 +3,9 @@ package tech.houssemnasri.impl.grid;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ObservableList;
+import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
@@ -18,6 +21,7 @@ import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.node.PPosition;
 
 public class PGridView implements IGridView {
+    private static final EventHandler<? super MouseEvent> REMOVE_LISTENER = null;
     private final ScaleTransition scaleTransition = new ScaleTransition();
 
     private static PGridView INSTANCE = null;
@@ -26,22 +30,25 @@ public class PGridView implements IGridView {
     private final GridPane root = new GridPane();
 
     public PGridView(IGridPresenter presenter) {
+        // Init
         setPresenter(presenter);
         initRoot();
+        initScaleTransition();
+
+        // Listen For Mouse Events
         listenForMouseClicks();
         listenForMouseDrags();
         listenForScrollEvent();
         listenForMousePress();
-        initScaleTransition();
-    }
-
-    private void initScaleTransition() {
-        scaleTransition.setNode(root);
-        scaleTransition.setInterpolator(Interpolator.EASE_IN);
+        listenForMouseRelease();
     }
 
     private PGridView() {
         this(null);
+    }
+
+    private void listenForMouseRelease() {
+        root.setOnMouseReleased(e -> presenter.onMouseRelease(e, findIntersectedNodePosition(e)));
     }
 
     private void listenForMouseDrags() {
@@ -58,6 +65,11 @@ public class PGridView implements IGridView {
 
     private void listenForMousePress() {
         root.setOnMousePressed(e -> presenter.onNodePressed(e, findIntersectedNodePosition(e)));
+    }
+
+    private void initScaleTransition() {
+        scaleTransition.setNode(root);
+        scaleTransition.setInterpolator(Interpolator.EASE_IN);
     }
 
     /**
@@ -120,6 +132,9 @@ public class PGridView implements IGridView {
 
     @Override
     public void setPresenter(IGridPresenter presenter) {
+        if (presenter == null) {
+            return;
+        }
         this.presenter = presenter;
     }
 

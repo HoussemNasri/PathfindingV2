@@ -72,17 +72,6 @@ public interface IGridPresenter {
     void onNodeHover(IPosition hoverNodePosition);
 
     /**
-     * notify the presenter when the source node is being dragged, the drag gesture needs to start
-     * at the source node.
-     */
-    void onSourceNodeDragged(MouseEvent mouseEvent);
-    /**
-     * notify the presenter when the destination node is being dragged, the drag gesture needs to
-     * start at the destination node.
-     */
-    void onDestinationNodeDragged(MouseEvent mouseEvent);
-
-    /**
      * Defines a function to be called when user performs a scrolling action.
      *
      * @param scrollEvent the scroll event
@@ -90,4 +79,6 @@ public interface IGridPresenter {
     void onScroll(ScrollEvent scrollEvent);
 
     void onNodePressed(MouseEvent mouseEvent, IPosition intersectedNodePosition);
+
+    void onMouseRelease(MouseEvent mouseEvent, IPosition releaseNodePosition);
 }
