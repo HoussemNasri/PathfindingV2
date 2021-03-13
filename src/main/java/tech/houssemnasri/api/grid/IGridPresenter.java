@@ -39,6 +39,8 @@ public interface IGridPresenter {
     /** Returns the node model at position {@code position} */
     INode getNodeModel(IPosition position);
 
+    void setGridMagnifier(IGridMagnifier gridMagnifier);
+
     /**
      * Zoom in, and increase node size.
      */

@@ -10,6 +10,7 @@ import javafx.scene.input.ScrollEvent;
 import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.Clamp;
 import tech.houssemnasri.api.grid.IGrid;
+import tech.houssemnasri.api.grid.IGridMagnifier;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INode;
@@ -31,6 +32,7 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     private boolean isDraggingSourceNode = false;
     private boolean isDraggingDestinationNode = false;
 
+    private IGridMagnifier gridMagnifier;
     private final ObjectProperty<ITheme> themeProperty = new ComplexObjectProperty<>();
     private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
     private final IntegerProperty colsProperty = new ComplexIntegerProperty();
@@ -42,12 +44,17 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     /** The V in MVP */
     private IGridView gridView;
 
-    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
+    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme, IGridMagnifier gridMagnifier) {
         setGridModel(gridModel);
         setGridView(gridView);
         bindColsPropertyToModel();
         bindRowsPropertyToModel();
         setTheme(theme);
+        setGridMagnifier(gridMagnifier);
+    }
+
+    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme){
+        this(gridModel, gridView, theme, null);
     }
 
     private void bindColsPropertyToModel() {
@@ -126,6 +133,11 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     @Override
     public INode getNodeModel(IPosition position) {
         return gridModel.getNode(position);
+    }
+
+    @Override
+    public void setGridMagnifier(IGridMagnifier gridMagnifier) {
+        this.gridMagnifier = gridMagnifier;
     }
 
     @Override
