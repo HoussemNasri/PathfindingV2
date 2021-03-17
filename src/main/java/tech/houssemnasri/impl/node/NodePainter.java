@@ -13,7 +13,7 @@ import static tech.houssemnasri.api.node.INode.*;
 public class NodePainter {
     private final Pane toPaintView;
     private ITheme theme;
-    private Type currentType = null;
+    private Type currentType = Type.BASIC;
 
     public NodePainter(Pane toPaintView, ITheme theme) {
         this.toPaintView = toPaintView;
@@ -38,9 +38,7 @@ public class NodePainter {
 
     public void switchTheme(ITheme newTheme){
         this.theme = newTheme;
-        if(currentType != null){
-            paint(currentType);
-        }
+        paint(currentType);
     }
 
     private void paintDestination() {
