@@ -1,35 +1,22 @@
 package tech.houssemnasri.impl.node;
 
-import javafx.beans.property.ObjectProperty;
 import javafx.beans.value.ObservableValue;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.StackPane;
-import javafx.scene.paint.Color;
 
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.INode.*;
-import tech.houssemnasri.api.theme.ITheme;
-import tech.houssemnasri.property.ComplexObjectProperty;
 
 public class PNodeView extends StackPane implements INodeView {
     public static final int INITIAL_NODE_SIZE = 25;
-
     private INode nodeModel;
-    private final ObjectProperty<ITheme> themeObjectProperty = new ComplexObjectProperty<>();
+    private NodePainter painter;
 
-    public PNodeView(INode nodeModel, ITheme theme) {
+    public PNodeView(INode nodeModel) {
         setNodeModel(nodeModel);
         setPrefWidth(INITIAL_NODE_SIZE);
         setPrefHeight(INITIAL_NODE_SIZE);
-        setTheme(theme);
-        listenForThemeChange();
         listenForTypeChange();
-    }
-
-    public PNodeView(INode nodeModel){
-        this(nodeModel, null);
     }
 
     private void setNodeModel(INode nodeModel) {
@@ -42,79 +29,24 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     @Override
-    public void setTheme(ITheme newTheme) {
-        if(newTheme != null && !themeObjectProperty.isBound())
-            themeObjectProperty.set(newTheme);
+    public void setPainter(NodePainter painter) {
+        this.painter = painter;
+        doPaint(null, null, nodeModel.getType());
     }
 
     @Override
-    public ITheme getTheme() {
-        return themeObjectProperty.get();
+    public NodePainter getPainter() {
+        return painter;
     }
 
-    @Override
-    public ObjectProperty<ITheme> themeProperty() {
-        return themeObjectProperty;
-    }
-
-    private void paintView(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
-        //At startup we might not have the theme ready so we need to wait for
-        // the presenter to send us the theme, and execute the theming code at {code changeTheme()}
-        if(getTheme() == null) return;
-        switch (nodeType){
-            case BASIC -> paintBasic();
-            case OPEN -> paintOpen();
-            case CLOSED -> paintClosed();
-            case WALL -> paintWall();
-            case PATH -> paintPath();
-            case SOURCE -> paintSource();
-            case DESTINATION -> paintDestination();
+    private void doPaint(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
+        if (painter != null) {
+            painter.paint(nodeType);
         }
     }
 
-    private void paintDestination() {
-        setBackgroundColor(getTheme().getDestinationNodeColor());
-    }
-
-    private void paintSource() {
-        setBackgroundColor(getTheme().getSourceNodeColor());
-    }
-
-    private void paintBasic(){
-        setBackgroundColor(getTheme().getBasicNodeColor());
-    }
-    private void paintOpen(){
-        setBackgroundColor(getTheme().getOpenNodeColor());
-    }
-
-    private void paintClosed(){
-        setBackgroundColor(getTheme().getClosedNodeColor());
-    }
-    private void paintWall(){
-        setBackgroundColor(getTheme().getWallNodeColor());
-    }
-
-    private void paintPath() {
-        setBackgroundColor(getTheme().getPathNodeColor());
-    }
-
-    private void listenForTypeChange(){
-        nodeModel.nodeTypeProperty().addListener(this::paintView);
-    }
-
-    private void onThemeChanged(ObservableValue<? extends ITheme> observable, ITheme oldValue, ITheme nodeType){
-        paintView(null, null , nodeModel.getType());
-    }
-
-    private void listenForThemeChange(){
-        themeObjectProperty.addListener(this::onThemeChanged);
-    }
-
-    private void setBackgroundColor(Color color){
-        Background coloredBackground = new Background(new BackgroundFill(
-                color, null,null
-        ));
-        setBackground(coloredBackground);
+    private void listenForTypeChange() {
+        nodeModel.nodeTypeProperty().addListener(this::doPaint);
     }
 
     @Override

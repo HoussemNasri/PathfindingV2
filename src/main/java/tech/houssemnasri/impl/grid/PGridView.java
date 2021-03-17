@@ -3,11 +3,15 @@ package tech.houssemnasri.impl.grid;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
+import javafx.beans.InvalidationListener;
+import javafx.beans.Observable;
+import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -15,6 +19,7 @@ import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.node.NodePainter;
 import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.node.PPosition;
 
@@ -70,6 +75,35 @@ public class PGridView implements IGridView {
         scaleTransition.setInterpolator(Interpolator.EASE_IN);
     }
 
+    private void listenForThemeChange() {
+        presenter.themeObjectProperty().addListener(this::refreshNodePainters);
+    }
+
+    private void refreshNodePainters(Observable observable) {
+        int cols = presenter.getColumns();
+        int rows = presenter.getRows();
+        for (int x = 0; x < cols; x++) {
+            for (int y = 0; y < rows; y++) {
+                INodeView thisNodeView = getNodeAtPosition(PPosition.of(x, y));
+                if (thisNodeView != null) {
+                    thisNodeView.getPainter().switchTheme(presenter.getTheme());
+                }
+            }
+        }
+    }
+
+    public INodeView getNodeAtPosition(IPosition position) {
+        int row = position.getY();
+        int column = position.getX();
+        ObservableList<Node> children = root.getChildren();
+        for (Node node : children) {
+            if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
+                return (INodeView) node;
+            }
+        }
+        return null;
+    }
+
     /**
      * Returns the {@code IPosition} of the intersected node. Returns {@code PPosition.ERROR} if
      * position out of logical bounds.
@@ -105,19 +139,12 @@ public class PGridView implements IGridView {
             for (int y = 0; y < rows; y++) {
                 IPosition position = PPosition.of(x, y);
                 INodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
-                bindTheme(thisNodeView);
-
-                StackPane realNodeView = (StackPane) thisNodeView;
-                GridPane.setColumnIndex(realNodeView, x);
-                GridPane.setRowIndex(realNodeView, y);
-                root.add(realNodeView, x, y);
+                thisNodeView.setPainter(new NodePainter((Pane) thisNodeView, presenter.getTheme()));
+                GridPane.setColumnIndex((StackPane) thisNodeView, x);
+                GridPane.setRowIndex((StackPane) thisNodeView, y);
+                root.add((StackPane) thisNodeView, x, y);
             }
         }
-    }
-
-    /** Binding {@code nodeView} theme to presenter's theme */
-    private void bindTheme(INodeView nodeView) {
-        nodeView.themeProperty().bind(presenter.themeObjectProperty());
     }
 
     @Override
@@ -134,6 +161,7 @@ public class PGridView implements IGridView {
             return;
         }
         this.presenter = presenter;
+        listenForThemeChange();
     }
 
     @Override
