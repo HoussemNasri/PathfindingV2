@@ -19,7 +19,7 @@ public interface INodeView {
 
     INode getNodeModel();
 
-    void setPainter(NodePainter painter);
-
     NodePainter getPainter();
+
+    void repaint();
 }

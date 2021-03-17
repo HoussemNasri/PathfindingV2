@@ -12,8 +12,9 @@ public class PNodeView extends StackPane implements INodeView {
     private INode nodeModel;
     private NodePainter painter;
 
-    public PNodeView(INode nodeModel) {
+    public PNodeView(INode nodeModel, NodePainter painter) {
         setNodeModel(nodeModel);
+        setPainter(painter);
         setPrefWidth(INITIAL_NODE_SIZE);
         setPrefHeight(INITIAL_NODE_SIZE);
         listenForTypeChange();
@@ -23,15 +24,16 @@ public class PNodeView extends StackPane implements INodeView {
         this.nodeModel = nodeModel;
     }
 
-    @Override
-    public INode getNodeModel() {
-        return nodeModel;
+    private void setPainter(NodePainter painter) {
+        if (painter != null) {
+            this.painter = painter;
+            painter.themeProperty().addListener(e -> repaint());
+        }
     }
 
     @Override
-    public void setPainter(NodePainter painter) {
-        this.painter = painter;
-        doPaint(null, null, nodeModel.getType());
+    public INode getNodeModel() {
+        return nodeModel;
     }
 
     @Override
@@ -39,9 +41,15 @@ public class PNodeView extends StackPane implements INodeView {
         return painter;
     }
 
-    private void doPaint(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
+    @Override
+    public void repaint() {
+        doPaint(null, null, nodeModel.getType());
+    }
+
+    private void doPaint(
+            ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
         if (painter != null) {
-            painter.paint(nodeType);
+            painter.paint(this, nodeType);
         }
     }
 

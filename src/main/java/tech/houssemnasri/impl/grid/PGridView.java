@@ -3,7 +3,6 @@ package tech.houssemnasri.impl.grid;
 import javafx.animation.Animation;
 import javafx.animation.Interpolator;
 import javafx.animation.ScaleTransition;
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -11,7 +10,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.StackPane;
 import javafx.util.Duration;
 
@@ -31,6 +29,7 @@ public class PGridView implements IGridView {
 
     private IGridPresenter presenter = null;
     private final GridPane root = new GridPane();
+    private NodePainter nodePainter;
 
     public PGridView(IGridPresenter presenter) {
         // Init
@@ -76,17 +75,18 @@ public class PGridView implements IGridView {
     }
 
     private void listenForThemeChange() {
-        presenter.themeObjectProperty().addListener(this::refreshNodePainters);
+        presenter.themeObjectProperty().addListener(this::onThemeChanged);
     }
 
-    private void refreshNodePainters(Observable observable) {
+    private void onThemeChanged(Observable observable) {
         int cols = presenter.getColumns();
         int rows = presenter.getRows();
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 INodeView thisNodeView = getNodeAtPosition(PPosition.of(x, y));
                 if (thisNodeView != null) {
-                    thisNodeView.getPainter().switchTheme(presenter.getTheme());
+                    nodePainter.switchTheme(presenter.getTheme());
+                    thisNodeView.repaint();
                 }
             }
         }
@@ -135,11 +135,12 @@ public class PGridView implements IGridView {
         root.getChildren().clear();
         int cols = presenter.getColumns();
         int rows = presenter.getRows();
+        nodePainter = new NodePainter(presenter.getTheme());
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 IPosition position = PPosition.of(x, y);
-                INodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
-                thisNodeView.setPainter(new NodePainter((Pane) thisNodeView, presenter.getTheme()));
+                INodeView thisNodeView =
+                        new PNodeView(presenter.getNodeModel(position), nodePainter);
                 GridPane.setColumnIndex((StackPane) thisNodeView, x);
                 GridPane.setRowIndex((StackPane) thisNodeView, y);
                 root.add((StackPane) thisNodeView, x, y);
