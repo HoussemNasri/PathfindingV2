@@ -11,7 +11,7 @@ import tech.houssemnasri.api.theme.ITheme;
 
 import static tech.houssemnasri.api.node.INode.*;
 
-/** This class{@code NodePainter} is responsible for painting the view according to it's type and the current theme. */
+/** This class {@code NodePainter} is responsible for painting {@code PNodeView} according to it's type and the current theme. */
 public class NodePainter {
     private final ObjectProperty<ITheme> themeProperty = new SimpleObjectProperty<>();
 
@@ -19,7 +19,7 @@ public class NodePainter {
         switchTheme(theme);
     }
 
-    public void paint(Pane nodeView, Type nodeType) {
+    public void paint(PNodeView nodeView, Type nodeType) {
         //At startup we might not have the theme ready so we need to wait for
         // the presenter to send us the theme, and execute the theming code at {code changeTheme()}
         if(getTheme() == null) return;
@@ -38,35 +38,35 @@ public class NodePainter {
         themeProperty.set(newTheme);
     }
 
-    private void paintDestination(Pane nodeView) {
+    private void paintDestination(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getDestinationNodeColor());
     }
 
-    private void paintSource(Pane nodeView) {
+    private void paintSource(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getSourceNodeColor());
     }
 
-    private void paintBasic(Pane nodeView) {
+    private void paintBasic(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getBasicNodeColor());
     }
 
-    private void paintOpen(Pane nodeView) {
+    private void paintOpen(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getOpenNodeColor());
     }
 
-    private void paintClosed(Pane nodeView) {
+    private void paintClosed(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getClosedNodeColor());
     }
 
-    private void paintWall(Pane nodeView) {
+    private void paintWall(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getWallNodeColor());
     }
 
-    private void paintPath(Pane nodeView) {
+    private void paintPath(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getPathNodeColor());
     }
 
-    private void setBackgroundColor(Pane nodeView, Color color) {
+    private void setBackgroundColor(PNodeView nodeView, Color color) {
         Background coloredBackground = new Background(new BackgroundFill(color, null, null));
         nodeView.setBackground(coloredBackground);
     }
