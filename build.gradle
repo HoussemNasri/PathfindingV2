@@ -5,7 +5,12 @@ plugins {
 
 group 'tech.houssemnasri'
 version '1.1'
-
+if (hasProperty('buildScan')) {
+    buildScan {
+        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+        termsOfServiceAgree = 'no'
+    }
+}
 javafx {
     version = "15.0.1"
     modules = ['javafx.controls', 'javafx.fxml']
@@ -13,11 +18,20 @@ javafx {
 
 repositories {
     mavenCentral()
+    jcenter()
 }
 
 dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+    implementation 'io.github.typhon0:AnimateFX:1.2.2'
 }
 
 mainClassName = "${group}.App"
+
+jar {
+    manifest {
+        attributes "Main-Class": mainClassName
+    }
+
+}
