@@ -8,7 +8,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.input.ScrollEvent;
 
 import tech.houssemnasri.BooleanExtensions;
-import tech.houssemnasri.Clamp;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridMagnifier;
 import tech.houssemnasri.api.grid.IGridPresenter;
@@ -152,7 +151,8 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
 
     @Override
     public void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition) {
-        if (mouseEvent.isPrimaryButtonDown()) {
+        if (mouseEvent.getButton() == MouseButton.PRIMARY) {
+            System.out.println("Clicked");
             doDrawWall(clickedNodePosition);
         }
     }

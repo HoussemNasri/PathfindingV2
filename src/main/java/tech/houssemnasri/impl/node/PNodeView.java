@@ -6,13 +6,14 @@ import javafx.scene.layout.StackPane;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.INode.*;
+import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
 public class PNodeView extends StackPane implements INodeView {
     public static final int INITIAL_NODE_SIZE = 25;
     private INode nodeModel;
-    private NodePainter painter;
+    private BaseNodePainter painter;
 
-    public PNodeView(INode nodeModel, NodePainter painter) {
+    public PNodeView(INode nodeModel, BaseNodePainter painter) {
         setNodeModel(nodeModel);
         setPainter(painter);
         setPrefWidth(INITIAL_NODE_SIZE);
@@ -20,14 +21,20 @@ public class PNodeView extends StackPane implements INodeView {
         listenForTypeChange();
     }
 
+    public PNodeView(INode nodeModel) {
+        this(nodeModel, null);
+    }
+
     private void setNodeModel(INode nodeModel) {
         this.nodeModel = nodeModel;
     }
 
-    private void setPainter(NodePainter painter) {
+    @Override
+    public void setPainter(BaseNodePainter painter) {
         if (painter != null) {
             this.painter = painter;
             painter.themeProperty().addListener(e -> repaint());
+            repaint();
         }
     }
 
@@ -37,7 +44,7 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     @Override
-    public NodePainter getPainter() {
+    public BaseNodePainter getPainter() {
         return painter;
     }
 
@@ -46,10 +53,9 @@ public class PNodeView extends StackPane implements INodeView {
         doPaint(null, null, nodeModel.getType());
     }
 
-    private void doPaint(
-            ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
+    private void doPaint(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
         if (painter != null) {
-            painter.paint(this, nodeType);
+            painter.paint(nodeType);
         }
     }
 

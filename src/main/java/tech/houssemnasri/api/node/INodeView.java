@@ -1,9 +1,6 @@
 package tech.houssemnasri.api.node;
 
-import javafx.beans.property.ObjectProperty;
-
-import tech.houssemnasri.api.theme.ITheme;
-import tech.houssemnasri.impl.node.NodePainter;
+import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
 /**
  * The {@code INodeView} is a self contained view we use to display our model {@code INode}, it
@@ -19,7 +16,9 @@ public interface INodeView {
 
     INode getNodeModel();
 
-    NodePainter getPainter();
+    void setPainter(BaseNodePainter painter);
+
+    BaseNodePainter getPainter();
 
     void repaint();
 }
