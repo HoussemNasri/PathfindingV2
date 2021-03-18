@@ -11,9 +11,9 @@ public abstract class BaseNodePainter {
     private final ObjectProperty<ITheme> themeProperty = new SimpleObjectProperty<>();
     private PNodeView nodeView;
 
-    public BaseNodePainter(ITheme theme, PNodeView nodeView) {
-        switchTheme(theme);
+    public BaseNodePainter(PNodeView nodeView, ITheme theme) {
         setNodeView(nodeView);
+        switchTheme(theme);
     }
 
     private void setNodeView(PNodeView nodeView) {

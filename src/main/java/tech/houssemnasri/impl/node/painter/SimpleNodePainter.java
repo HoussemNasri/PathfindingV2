@@ -13,7 +13,7 @@ import static tech.houssemnasri.api.node.INode.*;
 public class SimpleNodePainter extends BaseNodePainter{
 
     public SimpleNodePainter(ITheme theme, PNodeView nodeView) {
-        super(theme, nodeView);
+        super(nodeView, theme);
     }
 
     @Override

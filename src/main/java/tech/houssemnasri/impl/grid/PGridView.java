@@ -139,8 +139,8 @@ public class PGridView implements IGridView {
                 PNodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
                 thisNodeView.setPainter(
                         new AnimatedNodePainter(
-                                presenter.getTheme(),
                                 thisNodeView,
+                                getPresenter().getTheme(),
                                 new AnimationSuite.Builder().build()));
                 GridPane.setColumnIndex(thisNodeView, x);
                 GridPane.setRowIndex(thisNodeView, y);
