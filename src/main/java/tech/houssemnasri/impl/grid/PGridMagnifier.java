@@ -25,7 +25,7 @@ public class PGridMagnifier implements IGridMagnifier {
     }
 
     public PGridMagnifier(IGridView gridView, double minScale, double maxScale, double scaleDelta) {
-        this(gridView, minScale, maxScale, scaleDelta, false);
+        this(gridView, minScale, maxScale, scaleDelta, true);
     }
 
     public PGridMagnifier(IGridView gridView, double minScale, double maxScale) {
