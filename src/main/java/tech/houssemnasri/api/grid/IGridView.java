@@ -20,7 +20,7 @@ public interface IGridView {
      *
      * @param show If true cost information will be visible.
      */
-    void showCostInfo(boolean show);
+    void setShowCostInfo(boolean show);
 
     /** Enforcing the MVP architecture pattern by having a reference to the view presenter. */
     void setPresenter(IGridPresenter presenter);

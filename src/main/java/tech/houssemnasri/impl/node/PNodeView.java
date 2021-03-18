@@ -64,5 +64,5 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     @Override
-    public void showCostInfo(boolean show) {}
+    public void setShowCostInfo(boolean show) {}
 }

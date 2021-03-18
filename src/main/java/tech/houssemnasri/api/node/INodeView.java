@@ -12,7 +12,7 @@ public interface INodeView {
      *
      * @param show If true cost information will be visible.
      */
-    void showCostInfo(boolean show);
+    void setShowCostInfo(boolean show);
 
     INode getNodeModel();
 

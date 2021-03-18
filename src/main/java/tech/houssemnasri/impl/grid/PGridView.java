@@ -155,7 +155,7 @@ public class PGridView implements IGridView {
     }
 
     @Override
-    public void showCostInfo(boolean show) {}
+    public void setShowCostInfo(boolean show) {}
 
     @Override
     public void setPresenter(IGridPresenter presenter) {
