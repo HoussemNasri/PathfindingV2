@@ -1,6 +1,7 @@
 package tech.houssemnasri.impl.node;
 
 import javafx.beans.property.ObjectProperty;
+import javafx.collections.FXCollections;
 
 import tech.houssemnasri.CostEntity;
 import tech.houssemnasri.api.node.INode;
@@ -37,7 +38,7 @@ public final class PNode implements INode {
     }
 
     public PNode(IPosition position, Type type, INode parent) {
-        this(position, type, parent, NO_COST);
+        this(position, type, parent, new CostEntity(FXCollections.observableArrayList(0, 0, 0, 0, 0)));
     }
 
     public PNode(IPosition position, Type type) {

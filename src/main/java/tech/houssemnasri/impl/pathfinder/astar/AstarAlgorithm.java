@@ -37,7 +37,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
 
     @Override
     protected void initialize() {
-        grid.stream().forEach(node -> node.setCostEntity(new CostEntity(FXCollections.observableArrayList(0, 0, 0))));
+        // Initialize.
     }
 
     @Override
