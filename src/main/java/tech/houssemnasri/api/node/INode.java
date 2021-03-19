@@ -6,7 +6,7 @@ import tech.houssemnasri.CostEntity;
 
 public interface INode {
     /** constant for no cost */
-    CostEntity NO_COST = new CostEntity(new int[0]);
+    CostEntity NO_COST = null;
 
     IPosition getPosition();
 

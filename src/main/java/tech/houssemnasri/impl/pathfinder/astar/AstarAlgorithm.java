@@ -5,6 +5,8 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import javafx.collections.FXCollections;
+
 import tech.houssemnasri.CostEntity;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.pathfinder.Distance;
@@ -35,7 +37,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
 
     @Override
     protected void initialize() {
-        grid.stream().forEach(node -> node.setCostEntity(new CostEntity(new int[3])));
+        grid.stream().forEach(node -> node.setCostEntity(new CostEntity(FXCollections.observableArrayList(0, 0, 0))));
     }
 
     @Override
@@ -76,6 +78,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
                 setHCost(nei);
                 new OpenNodeCommand(this, nei).execute();
             }
+            System.out.println(neighborNodeCost.fCost());
         }
     }
 
