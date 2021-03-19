@@ -1,5 +1,7 @@
 package tech.houssemnasri.api.node;
 
+import javafx.scene.text.Text;
+
 import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
 /**
@@ -19,6 +21,8 @@ public interface INodeView {
     void setPainter(BaseNodePainter painter);
 
     BaseNodePainter getPainter();
+
+    Text getCenterText();
 
     void repaint();
 }
