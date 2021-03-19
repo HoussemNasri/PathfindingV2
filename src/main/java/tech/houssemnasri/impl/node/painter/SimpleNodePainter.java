@@ -42,22 +42,27 @@ public class SimpleNodePainter extends BaseNodePainter{
 
     private void paintBasic(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getBasicNodeColor());
+        nodeView.getCenterText().setVisible(false);
     }
 
     private void paintOpen(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getOpenNodeColor());
+        nodeView.getCenterText().setVisible(true);
     }
 
     private void paintClosed(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getClosedNodeColor());
+        nodeView.getCenterText().setVisible(true);
     }
 
     private void paintWall(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getWallNodeColor());
+        nodeView.getCenterText().setVisible(false);
     }
 
     private void paintPath(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getPathNodeColor());
+        nodeView.getCenterText().setVisible(true);
     }
 
     private void setBackgroundColor(PNodeView nodeView, Color color) {

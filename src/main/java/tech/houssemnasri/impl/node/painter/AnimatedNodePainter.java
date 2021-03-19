@@ -10,7 +10,7 @@ import tech.houssemnasri.impl.animation.AnimationSuite;
 import tech.houssemnasri.impl.node.PNode;
 import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.node.PPosition;
-import tech.houssemnasri.impl.node.proxy.AnimationFXProxy;
+import tech.houssemnasri.impl.animation.AnimationFXProxy;
 
 public class AnimatedNodePainter extends BaseNodePainter {
     private boolean isClippingEnabled = true;

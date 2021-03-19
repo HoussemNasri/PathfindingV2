@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl.node.proxy;
+package tech.houssemnasri.impl.animation;
 
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
