@@ -12,27 +12,27 @@ public class AstarCostAdapter implements IAstarCost {
     }
 
     private void setFCost() {
-        costInfo.getCostArguments().set(2, fCost());
+        costInfo.getCostArguments().set(0, fCost());
     }
 
     @Override
     public void updateGCost(int newGCost) {
-        costInfo.getCostArguments().set(0, newGCost);
+        costInfo.getCostArguments().set(1, newGCost);
     }
 
     @Override
     public int gCost() {
-        return costInfo.getCostArguments().get(0);
+        return costInfo.getCostArguments().get(1);
     }
 
     @Override
     public void updateHCost(int newHCost) {
-        costInfo.getCostArguments().set(1, newHCost);
+        costInfo.getCostArguments().set(2, newHCost);
     }
 
     @Override
     public int hCost() {
-        return costInfo.getCostArguments().get(1);
+        return costInfo.getCostArguments().get(2);
     }
 
     public CostEntity getCostEntity() {
