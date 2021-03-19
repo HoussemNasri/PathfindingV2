@@ -2,13 +2,14 @@ package tech.houssemnasri;
 
 import java.util.Arrays;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
 /**
  * The {@code CostEntity} class holds the cost information of a node, some algorithms use cost
  * values to determine the shortest path between a set of nodes
  */
-public final class CostEntity {
+public final class CostEntity implements Cloneable {
     /**
      * We encourage creating a new {@code CostEntity} object every time cost values change rather
      * than using an exiting one, this will help us listen for cost changes
@@ -26,8 +27,15 @@ public final class CostEntity {
 
     @Override
     public String toString() {
-        return "CostEntity{" +
-                "costArguments=" + costArguments +
-                '}';
+        return "CostEntity{" + "costArguments=" + costArguments + '}';
+    }
+
+    @Override
+    public Object clone() {
+        try {
+            return super.clone();
+        } catch (CloneNotSupportedException e) {
+            return new CostEntity(FXCollections.observableArrayList(getCostArguments()));
+        }
     }
 }
