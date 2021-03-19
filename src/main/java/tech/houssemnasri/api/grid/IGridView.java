@@ -12,7 +12,7 @@ public interface IGridView {
     Region getRoot();
 
     /** Refresh the root node and returns it. */
-    default Node getRootAndRefresh() {
+    default Region getRootAndRefresh() {
         refresh();
         return getRoot();
     }

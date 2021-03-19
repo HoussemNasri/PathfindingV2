@@ -373,18 +373,19 @@ final class GesturePaneSkin extends SkinBase<GesturePane> {
                                 return;
                             }
                             switch (pane.scrollMode.get()) {
-                                case ZOOM:
+                                case ZOOM -> {
                                     double zoomFactor =
                                             DEFAULT_SCROLL_FACTOR * pane.scrollZoomFactor.get();
-                                    if (e.getDeltaY() < 0) zoomFactor *= -1;
+                                    if (e.getDeltaY() < 0)
+                                        zoomFactor *= -1;
                                     pane.scale(1 + zoomFactor, fromGesture(e));
-                                    break;
-                                case PAN:
+                                }
+                                case PAN -> {
                                     boolean invert = pane.invertScrollTranslate.get();
                                     pane.translate(
                                             invert ? e.getDeltaY() : e.getDeltaX(),
                                             invert ? e.getDeltaX() : e.getDeltaY());
-                                    break;
+                                }
                             }
                         }));
     }

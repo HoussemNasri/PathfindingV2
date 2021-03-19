@@ -48,7 +48,7 @@ public final class PGrid implements IGrid, Serializable {
     }
 
     private PGrid(int rows, int cols) {
-        this(rows, cols, PPosition.of(8, 10), PPosition.of(cols - 15, rows - 12));
+        this(rows, cols, PPosition.of(10, 10), PPosition.of(18, 10));
     }
 
     /** create and initialize the nodes based on the current state */
@@ -226,7 +226,7 @@ public final class PGrid implements IGrid, Serializable {
 
     public static PGrid getInstance() {
         if (INSTANCE == null) {
-            INSTANCE = new PGrid(28, 55);
+            INSTANCE = new PGrid(50, 65);
         }
         return INSTANCE;
     }

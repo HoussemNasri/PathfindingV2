@@ -17,6 +17,7 @@ import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.gesturefx.GesturePane;
 import tech.houssemnasri.impl.animation.AnimationSuite;
 import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.node.PPosition;
@@ -40,7 +41,6 @@ public class PGridView implements IGridView {
         // Listen For Mouse Events
         listenForMouseClicks();
         listenForMouseDrags();
-        listenForScrollEvent();
         listenForMousePress();
         listenForMouseRelease();
     }
@@ -59,10 +59,6 @@ public class PGridView implements IGridView {
 
     private void listenForMouseClicks() {
         root.setOnMouseClicked(e -> presenter.onNodeClicked(e, findIntersectedNodePosition(e)));
-    }
-
-    private void listenForScrollEvent() {
-        root.setOnScroll(e -> presenter.onScroll(e));
     }
 
     private void listenForMousePress() {
@@ -125,8 +121,13 @@ public class PGridView implements IGridView {
         root.setVgap(1.5);
         root.setSnapToPixel(false);
         root.setStyle("-fx-background-color: gray");
-        root.setMinSize(300, 300);
         root.setPadding(new Insets(1.5));
+    }
+
+    private void computeGridSize(int cols, int rows) {
+        double gridWidth = cols * PNodeView.INITIAL_NODE_SIZE + (cols + 1) * root.getHgap();
+        double gridHeight = rows * PNodeView.INITIAL_NODE_SIZE + (rows + 1) * root.getVgap();
+        root.setMinSize(gridWidth, gridHeight);
     }
 
     @Override
@@ -134,6 +135,7 @@ public class PGridView implements IGridView {
         root.getChildren().clear();
         int cols = presenter.getColumns();
         int rows = presenter.getRows();
+        computeGridSize(cols, rows);
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
                 IPosition position = PPosition.of(x, y);
@@ -152,7 +154,19 @@ public class PGridView implements IGridView {
 
     @Override
     public Region getRoot() {
-        return root;
+        return createGesturePane();
+    }
+
+    private GesturePane createGesturePane() {
+        GesturePane rootWrapper = new GesturePane(root);
+        rootWrapper.setGestureEnabled(true);
+        rootWrapper.setScrollMode(GesturePane.ScrollMode.ZOOM);
+        rootWrapper.setFitMode(GesturePane.FitMode.COVER);
+        rootWrapper.setFitWidth(true);
+        rootWrapper.setFitHeight(true);
+        rootWrapper.setMinScale(1);
+        rootWrapper.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+        return rootWrapper;
     }
 
     @Override

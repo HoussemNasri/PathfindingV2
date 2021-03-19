@@ -2,14 +2,11 @@ package tech.houssemnasri.impl.grid;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.scene.Node;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.input.ScrollEvent;
 
 import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.grid.IGrid;
-import tech.houssemnasri.api.grid.IGridMagnifier;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INode;
@@ -24,11 +21,9 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     private boolean isDraggingSourceNode = false;
     private boolean isDraggingDestinationNode = false;
 
-    private IGridMagnifier gridMagnifier;
     private final ObjectProperty<ITheme> themeProperty = new ComplexObjectProperty<>();
     private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
     private final IntegerProperty colsProperty = new ComplexIntegerProperty();
-    private final DragContext sceneDragContext = new DragContext();
 
     /** The M in MVP */
     private IGrid gridModel;
@@ -36,18 +31,12 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     /** The V in MVP */
     private IGridView gridView;
 
-    public PGridPresenter(
-            IGrid gridModel, IGridView gridView, ITheme theme, IGridMagnifier gridMagnifier) {
+    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
         setGridModel(gridModel);
         setGridView(gridView);
         bindColsPropertyToModel();
         bindRowsPropertyToModel();
         setTheme(theme);
-        setGridMagnifier(gridMagnifier);
-    }
-
-    public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
-        this(gridModel, gridView, theme, null);
     }
 
     private void bindColsPropertyToModel() {
@@ -129,27 +118,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     }
 
     @Override
-    public void setGridMagnifier(IGridMagnifier gridMagnifier) {
-        this.gridMagnifier = gridMagnifier;
-    }
-
-    @Override
-    public void zoomIn() {
-        if (gridMagnifier == null) {
-            return;
-        }
-        gridMagnifier.zoomIn();
-    }
-
-    @Override
-    public void zoomOut() {
-        if (gridMagnifier == null) {
-            return;
-        }
-        gridMagnifier.zoomOut();
-    }
-
-    @Override
     public void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
             System.out.println("Clicked");
@@ -166,22 +134,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
         }
     }
 
-    public void doDragGrid(MouseEvent event) {
-        if (!event.isSecondaryButtonDown()) return;
-        Node rootView = gridView.getRoot();
-
-        double transX =
-                sceneDragContext.translateAnchorX
-                        + event.getSceneX()
-                        - sceneDragContext.mouseAnchorX;
-        double transY =
-                sceneDragContext.translateAnchorY
-                        + event.getSceneY()
-                        - sceneDragContext.mouseAnchorY;
-        rootView.setTranslateX(transX);
-        rootView.setTranslateY(transY);
-    }
-
     @Override
     public void onGridDragged(MouseEvent mouseEvent, IPosition intersection) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
@@ -192,8 +144,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
             } else {
                 doDrawWall(intersection);
             }
-        } else {
-            doDragGrid(mouseEvent);
         }
     }
 
@@ -219,15 +169,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     public void onNodeHover(IPosition hoverNodePosition) {}
 
     @Override
-    public void onScroll(ScrollEvent scrollEvent) {
-        if (scrollEvent.getDeltaY() < 0) {
-            zoomOut();
-        } else {
-            zoomIn();
-        }
-    }
-
-    @Override
     public void onNodePressed(MouseEvent mouseEvent, IPosition intersection) {
         if (and(mouseEvent.isPrimaryButtonDown(), not(intersection.equals(PPosition.ERROR)))) {
             if (gridModel.isSourceNode(gridModel.getNode(intersection))) {
@@ -235,31 +176,12 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
             } else if (gridModel.isDestinationNode(gridModel.getNode(intersection))) {
                 isDraggingDestinationNode = true;
             }
-            return;
         }
-
-        if (not(mouseEvent.isSecondaryButtonDown())) return;
-
-        sceneDragContext.mouseAnchorX = mouseEvent.getSceneX();
-        sceneDragContext.mouseAnchorY = mouseEvent.getSceneY();
-
-        sceneDragContext.translateAnchorX = gridView.getRoot().getTranslateX();
-        sceneDragContext.translateAnchorY = gridView.getRoot().getTranslateY();
     }
 
     @Override
     public void onMouseRelease(MouseEvent mouseEvent, IPosition releaseNodePosition) {
         isDraggingSourceNode = false;
         isDraggingDestinationNode = false;
-    }
-
-    /** Mouse drag context used for scene and nodes. */
-    private static class DragContext {
-
-        double mouseAnchorX;
-        double mouseAnchorY;
-
-        double translateAnchorX;
-        double translateAnchorY;
     }
 }
