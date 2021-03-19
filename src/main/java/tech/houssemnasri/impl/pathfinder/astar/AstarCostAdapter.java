@@ -8,16 +8,17 @@ public class AstarCostAdapter implements IAstarCost {
 
     public AstarCostAdapter(CostEntity costInfo) {
         this.costInfo = costInfo;
-        setFCost();
+        updateFCost();
     }
 
-    private void setFCost() {
+    private void updateFCost() {
         costInfo.getCostArguments().set(0, fCost());
     }
 
     @Override
     public void updateGCost(int newGCost) {
         costInfo.getCostArguments().set(1, newGCost);
+        updateFCost();
     }
 
     @Override
@@ -28,6 +29,7 @@ public class AstarCostAdapter implements IAstarCost {
     @Override
     public void updateHCost(int newHCost) {
         costInfo.getCostArguments().set(2, newHCost);
+        updateFCost();
     }
 
     @Override
