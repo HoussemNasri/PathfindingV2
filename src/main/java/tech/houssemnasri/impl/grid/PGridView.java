@@ -10,6 +10,7 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Region;
 import javafx.util.Duration;
 
 import tech.houssemnasri.api.grid.IGridPresenter;
@@ -150,7 +151,7 @@ public class PGridView implements IGridView {
     }
 
     @Override
-    public Node getRoot() {
+    public Region getRoot() {
         return root;
     }
 
