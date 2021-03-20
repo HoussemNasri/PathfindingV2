@@ -36,10 +36,6 @@ public interface INode {
 
     ObjectProperty<PathCost> nodeCostProperty();
 
-    default boolean isWalkable(){
-        return getType() != INode.Type.WALL;
-    }
-
     /** Reset the node to it's initial state as a basic node with no parent and no cost arguments */
     void clear();
 

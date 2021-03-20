@@ -1,17 +1,12 @@
 package tech.houssemnasri.impl.grid;
 
-import javafx.animation.Animation;
-import javafx.animation.Interpolator;
-import javafx.animation.ScaleTransition;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Region;
-import javafx.util.Duration;
 
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;

@@ -75,7 +75,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     }
 
     protected final boolean isWalkable(IPosition position) {
-        return grid.getNode(position).isWalkable();
+        return grid.isWalkable(position);
     }
 
     protected final boolean isNodeClosed(INode node) {
