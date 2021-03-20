@@ -8,6 +8,7 @@ import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.impl.command.TracePathCommand;
 import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.util.GridChecker;
 
@@ -86,11 +87,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     }
 
     public void doTraceBackPath() {
-        INode tempNode = getCurrentNode();
-        while (tempNode != null) {
-            tempNode.setType(INode.Type.PATH);
-            tempNode = tempNode.getParent();
-        }
+        new TracePathCommand(this, getCurrentNode()).execute();
     }
 
     protected boolean isNodeOnDiagonalOfCurrent(INode node) {
@@ -103,7 +100,6 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
         List<INode> result = new ArrayList<>();
         int currX = getCurrentNode().getPosition().getX();
         int currY = getCurrentNode().getPosition().getY();
-
         for (int i = -1; i <= 1; i++) {
             for (int j = -1; j <= 1; j++) {
                 int neiX = currX + i;
