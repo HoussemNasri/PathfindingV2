@@ -80,7 +80,6 @@ public class AstarAlgorithm extends BaseAlgorithm {
                 setHCost(nei);
                 new OpenNodeCommand(this, nei).execute();
             }
-            System.out.println(neighborNodeCost.fCost());
         }
     }
 
