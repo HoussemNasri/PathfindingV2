@@ -16,7 +16,7 @@ public class AStarCostAdapter implements IAstarCost {
     }
 
     @Override
-    public void updateGCost(int newGCost) {
+    public void setG(int newGCost) {
         costInfo.getCostArguments().set(1, newGCost);
         updateFCost();
     }
@@ -27,7 +27,7 @@ public class AStarCostAdapter implements IAstarCost {
     }
 
     @Override
-    public void updateHCost(int newHCost) {
+    public void setH(int newHCost) {
         costInfo.getCostArguments().set(2, newHCost);
         updateFCost();
     }

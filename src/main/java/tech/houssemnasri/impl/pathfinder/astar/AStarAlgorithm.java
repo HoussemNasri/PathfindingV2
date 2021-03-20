@@ -42,7 +42,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
         if (openNodes.isEmpty()) {
             new OpenNodeCommand(this, grid.getNode(grid.getSourcePosition())).execute();
             computeHCost(grid.getNode(grid.getSourcePosition()));
-            new AStarCostAdapter(getGrid().getNode(getGrid().getSourcePosition()).getCostEntity()).updateGCost(0);
+            new AStarCostAdapter(getGrid().getNode(getGrid().getSourcePosition()).getCostEntity()).setG(0);
         }
         setCurrentNode(getLeastCostNode());
         new CloseNodeCommand(this, getCurrentNode()).execute();
@@ -68,11 +68,11 @@ public class AStarAlgorithm extends BaseAlgorithm {
                                     : HORIZ_VERT_DISTANCE);
             if (isNodeOpen(nei)) {
                 if (gCostForNeighbor > gCostForNeighborUpdate) {
-                    neighborNodeCost.updateGCost(gCostForNeighborUpdate);
+                    neighborNodeCost.setG(gCostForNeighborUpdate);
                     nei.setParent(currentNode);
                 }
             } else {
-                neighborNodeCost.updateGCost(gCostForNeighborUpdate);
+                neighborNodeCost.setG(gCostForNeighborUpdate);
                 nei.setParent(currentNode);
                 computeHCost(nei);
                 new OpenNodeCommand(this, nei).execute();
@@ -85,7 +85,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
         IPosition destPosition = grid.getDestinationPosition();
         Distance distance = new ManhattanDistance();
         new AStarCostAdapter(node.getCostEntity())
-                .updateHCost(distance.apply(thisPosition, destPosition));
+                .setH(distance.apply(thisPosition, destPosition));
     }
 
     private INode getLeastCostNode() {
