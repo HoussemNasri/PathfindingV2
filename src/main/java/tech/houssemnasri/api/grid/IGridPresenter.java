@@ -36,6 +36,8 @@ public interface IGridPresenter {
 
     ObjectProperty<IPosition> destinationPositionProperty();
 
+    void setShowCostInfo(boolean showCostInfo);
+
     /** Returns the node model at position {@code position} */
     INode getNodeModel(IPosition position);
 

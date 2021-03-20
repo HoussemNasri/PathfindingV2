@@ -113,6 +113,11 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     }
 
     @Override
+    public void setShowCostInfo(boolean showCostInfo) {
+        gridView.setShowCostInfo(showCostInfo);
+    }
+
+    @Override
     public INode getNodeModel(IPosition position) {
         return gridModel.getNode(position);
     }
