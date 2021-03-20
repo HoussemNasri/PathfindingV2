@@ -99,13 +99,14 @@ public class PNodeView extends StackPane implements INodeView {
     private void doHandleCostChange(ListChangeListener.Change<? extends Integer> change) {
         while (change.next()) {
             if (change.getAddedSize() == 1) {
+                String newValue = String.valueOf(change.getAddedSubList().get(0));
                 if (change.getFrom() == 0) {
-                    center.setText(String.valueOf(change.getAddedSubList().get(0)));
+                    center.setText(newValue);
                 }
                 else if(change.getFrom() == 1){
-                    topLeftCorner.setText(String.valueOf(change.getAddedSubList().get(0)));
+                    topLeftCorner.setText(newValue);
                 }else if(change.getFrom() == 2){
-                    topRightCorner.setText(String.valueOf(change.getAddedSubList().get(0)));
+                    topRightCorner.setText(newValue);
                 }
             }
         }
