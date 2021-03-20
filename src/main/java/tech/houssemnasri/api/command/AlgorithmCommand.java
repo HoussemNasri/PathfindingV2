@@ -8,21 +8,21 @@ import tech.houssemnasri.api.node.INode;
  * pathfinding algorithms like opening a node or closing it.
  */
 public abstract class AlgorithmCommand implements ICommand {
-    protected BaseAlgorithm algorithm;
-    /** The node to perform this action on. */
-    protected INode node;
+  protected BaseAlgorithm algorithm;
+  /** The node to perform this action on. */
+  protected INode node;
 
-    public AlgorithmCommand(BaseAlgorithm algorithm, INode node) {
-        this.algorithm = algorithm;
-        this.node = node;
-    }
+  public AlgorithmCommand(BaseAlgorithm algorithm, INode node) {
+    this.algorithm = algorithm;
+    this.node = node;
+  }
 
-    /** Returns the algorithm object using this command. */
-    public BaseAlgorithm getAlgorithm() {
-        return algorithm;
-    }
+  /** Returns the algorithm object using this command. */
+  public BaseAlgorithm getAlgorithm() {
+    return algorithm;
+  }
 
-    public INode getNode() {
-        return node;
-    }
+  public INode getNode() {
+    return node;
+  }
 }

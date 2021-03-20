@@ -10,54 +10,50 @@ import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.api.theme.ITheme;
 
 public interface IGridPresenter {
-    // The presenter manages the state of the view
+  /** Setting and updating the current theme. */
+  void setTheme(ITheme newTheme);
 
-    /** Setting and updating the current theme. */
-    void setTheme(ITheme newTheme);
+  /** Returns the currently used theme. */
+  ITheme getTheme();
 
-    /** Returns the currently used theme. */
-    ITheme getTheme();
+  ObjectProperty<ITheme> themeObjectProperty();
 
-    ObjectProperty<ITheme> themeObjectProperty();
+  int getRows();
 
-    int getRows();
+  IntegerProperty rowsProperty();
 
-    IntegerProperty rowsProperty();
+  int getColumns();
 
-    int getColumns();
+  IntegerProperty colsProperty();
 
-    IntegerProperty colsProperty();
+  IPosition getSourcePosition();
 
-    IPosition getSourcePosition();
+  ObjectProperty<IPosition> sourcePositionProperty();
 
-    ObjectProperty<IPosition> sourcePositionProperty();
+  IPosition getDestinationPosition();
 
-    IPosition getDestinationPosition();
+  ObjectProperty<IPosition> destinationPositionProperty();
 
-    ObjectProperty<IPosition> destinationPositionProperty();
+  void setShowCostInfo(boolean showCostInfo);
 
-    void setShowCostInfo(boolean showCostInfo);
+  /** Returns the node model at position {@code position} */
+  INode getNodeModel(IPosition position);
 
-    /** Returns the node model at position {@code position} */
-    INode getNodeModel(IPosition position);
+  /** notify the presenter when the node at {@code clickedNodePosition} is clicked */
+  void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition);
 
-    /** notify the presenter when the node at {@code clickedNodePosition} is clicked */
-    void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition);
+  /**
+   * notify the presenter when there is a dragging gesture detected on grid.
+   *
+   * @param mouseEvent the mouse event of the drag gesture
+   * @param intersectedNodePosition the position of the node intersected with the drag gesture.
+   */
+  void onGridDragged(MouseEvent mouseEvent, IPosition intersectedNodePosition);
 
-    /**
-     * notify the presenter when there is a dragging gesture detected on grid.
-     *
-     * @param mouseEvent the mouse event of the drag gesture
-     * @param intersectedNodePosition the position of the node intersected with the drag gesture.
-     */
-    void onGridDragged(MouseEvent mouseEvent, IPosition intersectedNodePosition);
+  /** notify the presenter when the mouse pointer is over the node at {@code hoverNodePosition}. */
+  void onNodeHover(IPosition hoverNodePosition);
 
-    /**
-     * notify the presenter when the mouse pointer is over the node at {@code hoverNodePosition}.
-     */
-    void onNodeHover(IPosition hoverNodePosition);
+  void onNodePressed(MouseEvent mouseEvent, IPosition intersectedNodePosition);
 
-    void onNodePressed(MouseEvent mouseEvent, IPosition intersectedNodePosition);
-
-    void onMouseRelease(MouseEvent mouseEvent, IPosition releaseNodePosition);
+  void onMouseRelease(MouseEvent mouseEvent, IPosition releaseNodePosition);
 }
