@@ -1,5 +1,6 @@
 package tech.houssemnasri.api.node;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.text.Text;
 
 import tech.houssemnasri.impl.node.painter.BaseNodePainter;
@@ -16,6 +17,10 @@ public interface INodeView {
      */
     void setShowCostInfo(boolean show);
 
+    boolean isShowCostEnabled();
+
+    BooleanProperty showCostProperty();
+
     INode getNodeModel();
 
     void setPainter(BaseNodePainter painter);
@@ -23,6 +28,10 @@ public interface INodeView {
     BaseNodePainter getPainter();
 
     Text getCenterText();
+
+    Text getTopLeftCornerText();
+
+    Text getTopRightCornerText();
 
     void repaint();
 }

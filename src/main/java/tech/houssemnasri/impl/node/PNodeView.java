@@ -1,5 +1,7 @@
 package tech.houssemnasri.impl.node;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
@@ -18,7 +20,11 @@ public class PNodeView extends StackPane implements INodeView {
     public static final int INITIAL_NODE_SIZE = 25;
     private INode nodeModel;
     private BaseNodePainter painter;
-    private Text centerText;
+
+    private final Text center = new Text();
+    private final Text topLeftCorner = new Text();
+    private final Text topRightCorner = new Text();
+    private final BooleanProperty showCostProperty = new SimpleBooleanProperty(true);
 
     public PNodeView(INode nodeModel, BaseNodePainter painter) {
         setNodeModel(nodeModel);
@@ -27,7 +33,9 @@ public class PNodeView extends StackPane implements INodeView {
         setPrefHeight(INITIAL_NODE_SIZE);
         listenForTypeChange();
         listenForCostChange();
-        setCenterText();
+        setupCenter();
+        setupTopLeftCorner();
+        setupTopRightCorner();
     }
 
     public PNodeView(INode nodeModel) {
@@ -57,13 +65,28 @@ public class PNodeView extends StackPane implements INodeView {
         return painter;
     }
 
-    private void setCenterText() {
-        this.centerText = new Text();
-        this.centerText.setFont(Font.font(8));
-        StackPane.setMargin(centerText, new Insets(0, 0, 4, 0));
-        this.centerText.setVisible(false);
-        StackPane.setAlignment(centerText, Pos.BOTTOM_CENTER);
-        getChildren().add(centerText);
+    private void setupCenter(){
+        center.setFont(Font.font(8));
+        StackPane.setMargin(center, new Insets(0, 0, 3, 0));
+        this.center.setVisible(false);
+        StackPane.setAlignment(center, Pos.BOTTOM_CENTER);
+        getChildren().add(center);
+    }
+
+    private void setupTopLeftCorner(){
+        topLeftCorner.setFont(Font.font(5));
+        StackPane.setMargin(topLeftCorner, new Insets(3, 0, 0, 3));
+        topLeftCorner.setVisible(false);
+        StackPane.setAlignment(topLeftCorner, Pos.TOP_LEFT);
+        getChildren().add(topLeftCorner);
+    }
+
+    private void setupTopRightCorner(){
+        topRightCorner.setFont(Font.font(5));
+        StackPane.setMargin(topRightCorner, new Insets(3, 3, 0, 0));
+        topRightCorner.setVisible(false);
+        StackPane.setAlignment(topRightCorner, Pos.TOP_RIGHT);
+        getChildren().add(topRightCorner);
     }
 
     private void listenForCostChange() {
@@ -78,8 +101,14 @@ public class PNodeView extends StackPane implements INodeView {
             System.out.printf(
                     "[%d : %d] -> %d%n", change.getFrom(), change.getTo(), change.getAddedSize());
             if (change.getAddedSize() == 1) {
+                System.out.println(change.getAddedSubList());
                 if (change.getFrom() == 0) {
-                    centerText.setText(String.valueOf(change.getAddedSubList().get(0)));
+                    center.setText(String.valueOf(change.getAddedSubList().get(0)));
+                }
+                else if(change.getFrom() == 1){
+                    topLeftCorner.setText(String.valueOf(change.getAddedSubList().get(0)));
+                }else if(change.getFrom() == 2){
+                    topRightCorner.setText(String.valueOf(change.getAddedSubList().get(0)));
                 }
             }
         }
@@ -87,7 +116,17 @@ public class PNodeView extends StackPane implements INodeView {
 
     @Override
     public Text getCenterText() {
-        return centerText;
+        return center;
+    }
+
+    @Override
+    public Text getTopLeftCornerText() {
+        return topLeftCorner;
+    }
+
+    @Override
+    public Text getTopRightCornerText() {
+        return topRightCorner;
     }
 
     @Override
@@ -106,5 +145,17 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     @Override
-    public void setShowCostInfo(boolean show) {}
+    public void setShowCostInfo(boolean show) {
+        showCostProperty.set(show);
+    }
+
+    @Override
+    public boolean isShowCostEnabled() {
+        return showCostProperty.get();
+    }
+
+    @Override
+    public BooleanProperty showCostProperty() {
+        return this.showCostProperty;
+    }
 }

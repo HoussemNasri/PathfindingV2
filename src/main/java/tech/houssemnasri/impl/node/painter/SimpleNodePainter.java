@@ -14,6 +14,7 @@ public class SimpleNodePainter extends BaseNodePainter{
 
     public SimpleNodePainter(ITheme theme, PNodeView nodeView) {
         super(nodeView, theme);
+        nodeView.showCostProperty().addListener((observable, oldValue, newValue) -> setShowCost(newValue));
     }
 
     @Override
@@ -32,37 +33,48 @@ public class SimpleNodePainter extends BaseNodePainter{
         }
     }
 
+    private void setShowCost(boolean show){
+        if(!getNodeView().isShowCostEnabled() && show){
+            return;
+        }
+        getNodeView().getCenterText().setVisible(show);
+        getNodeView().getTopLeftCornerText().setVisible(show);
+        getNodeView().getTopRightCornerText().setVisible(show);
+    }
+
     private void paintDestination(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getDestinationNodeColor());
+        setShowCost(true);
     }
 
     private void paintSource(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getSourceNodeColor());
+        setShowCost(true);
     }
 
     private void paintBasic(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getBasicNodeColor());
-        nodeView.getCenterText().setVisible(false);
+        setShowCost(false);
     }
 
     private void paintOpen(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getOpenNodeColor());
-        nodeView.getCenterText().setVisible(true);
+        setShowCost(true);
     }
 
     private void paintClosed(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getClosedNodeColor());
-        nodeView.getCenterText().setVisible(true);
+        setShowCost(true);
     }
 
     private void paintWall(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getWallNodeColor());
-        nodeView.getCenterText().setVisible(false);
+        setShowCost(false);
     }
 
     private void paintPath(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getPathNodeColor());
-        nodeView.getCenterText().setVisible(true);
+        setShowCost(true);
     }
 
     private void setBackgroundColor(PNodeView nodeView, Color color) {
