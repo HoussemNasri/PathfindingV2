@@ -8,7 +8,7 @@ import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
 public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
     private static final long SPEED_SLOW = 700000000;
     private static final long SPEED_MEDIUM = 70000000;
-    private static final long SPEED_FAST = 12000000;
+    private static final long SPEED_FAST = 9000000;
 
     public SimpleAlgoPlayer(BaseAlgorithm thisAlgorithm) {
         super(thisAlgorithm);
@@ -31,7 +31,7 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
                     private long start = -1;
                     @Override
                     public void handle(long now) {
-                        if (start == -1 || now - start >= SPEED_MEDIUM) {
+                        if (start == -1 || now - start >= SPEED_FAST) {
                             start = now;
                             if (getAlgorithm().isPathFound()) {
                                 this.stop();

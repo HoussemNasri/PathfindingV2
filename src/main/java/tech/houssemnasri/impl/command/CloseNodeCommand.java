@@ -1,11 +1,11 @@
 package tech.houssemnasri.impl.command;
 
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
-import tech.houssemnasri.api.command.AlgoCommand;
+import tech.houssemnasri.api.command.AlgorithmCommand;
 import tech.houssemnasri.api.node.INode;
 import static tech.houssemnasri.api.node.INode.*;
 
-public class CloseNodeCommand extends AlgoCommand {
+public class CloseNodeCommand extends AlgorithmCommand {
     public CloseNodeCommand(BaseAlgorithm algorithm, INode node) {
         super(algorithm, node);
     }

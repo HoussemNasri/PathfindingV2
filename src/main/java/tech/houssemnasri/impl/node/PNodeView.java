@@ -100,13 +100,10 @@ public class PNodeView extends StackPane implements INodeView {
         while (change.next()) {
             if (change.getAddedSize() == 1) {
                 String newValue = String.valueOf(change.getAddedSubList().get(0));
-                if (change.getFrom() == 0) {
-                    center.setText(newValue);
-                }
-                else if(change.getFrom() == 1){
-                    topLeftCorner.setText(newValue);
-                }else if(change.getFrom() == 2){
-                    topRightCorner.setText(newValue);
+                switch (change.getFrom()){
+                    case 0 -> center.setText(newValue);
+                    case 1 -> topLeftCorner.setText(newValue);
+                    case 2 -> topRightCorner.setText(newValue);
                 }
             }
         }
