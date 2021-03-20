@@ -170,7 +170,18 @@ public class PGridView implements IGridView {
     }
 
     @Override
-    public void setShowCostInfo(boolean show) {}
+    public void setShowCostInfo(boolean show) {
+        int cols = presenter.getColumns();
+        int rows = presenter.getRows();
+        for (int x = 0; x < cols; x++) {
+            for (int y = 0; y < rows; y++) {
+                INodeView thisNodeView = getNodeAtPosition(PPosition.of(x, y));
+                if (thisNodeView != null) {
+                    thisNodeView.setShowCostInfo(show);
+                }
+            }
+        }
+    }
 
     @Override
     public void setPresenter(IGridPresenter presenter) {
