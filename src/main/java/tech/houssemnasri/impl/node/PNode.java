@@ -3,7 +3,7 @@ package tech.houssemnasri.impl.node;
 import javafx.beans.property.ObjectProperty;
 import javafx.collections.FXCollections;
 
-import tech.houssemnasri.CostEntity;
+import tech.houssemnasri.PathCost;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.property.ComplexObjectProperty;
@@ -28,17 +28,17 @@ public final class PNode implements INode {
      * The cost data of the node, algorithms like A* choose the best or shortest path by calculating
      * a cost and choosing the smallest cost value.
      */
-    private final ObjectProperty<CostEntity> costProperty = new ComplexObjectProperty<>();
+    private final ObjectProperty<PathCost> costProperty = new ComplexObjectProperty<>();
 
-    public PNode(IPosition position, Type type, INode parent, CostEntity costEntity) {
+    public PNode(IPosition position, Type type, INode parent, PathCost pathCost) {
         setPosition(position);
         setType(type);
         setParent(parent);
-        setCostEntity(costEntity);
+        setCostEntity(pathCost);
     }
 
     public PNode(IPosition position, Type type, INode parent) {
-        this(position, type, parent, new CostEntity(FXCollections.observableArrayList(0, 0, 0, 0, 0)));
+        this(position, type, parent, new PathCost(FXCollections.observableArrayList(0, 0, 0, 0, 0)));
     }
 
     public PNode(IPosition position, Type type) {
@@ -84,17 +84,17 @@ public final class PNode implements INode {
     }
 
     @Override
-    public void setCostEntity(CostEntity costEntity) {
-        costProperty.set(costEntity);
+    public void setCostEntity(PathCost pathCost) {
+        costProperty.set(pathCost);
     }
 
     @Override
-    public CostEntity getCostEntity() {
+    public PathCost getCostEntity() {
         return costProperty.get();
     }
 
     @Override
-    public ObjectProperty<CostEntity> nodeCostProperty() {
+    public ObjectProperty<PathCost> nodeCostProperty() {
         return costProperty;
     }
 

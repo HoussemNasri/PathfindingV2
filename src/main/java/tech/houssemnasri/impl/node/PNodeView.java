@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import tech.houssemnasri.CostEntity;
+import tech.houssemnasri.PathCost;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.INode.*;
@@ -90,7 +90,7 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     private void listenForCostChange() {
-        CostEntity cost = nodeModel.getCostEntity();
+        PathCost cost = nodeModel.getCostEntity();
         if (cost != null) {
             cost.getCostArguments().addListener(this::doHandleCostChange);
         }

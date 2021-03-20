@@ -1,12 +1,12 @@
 package tech.houssemnasri.impl.pathfinder.astar;
 
-import tech.houssemnasri.CostEntity;
+import tech.houssemnasri.PathCost;
 import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
 
 public class AStarCostAdapter implements IAstarCost {
-    private final CostEntity costInfo;
+    private final PathCost costInfo;
 
-    public AStarCostAdapter(CostEntity costInfo) {
+    public AStarCostAdapter(PathCost costInfo) {
         this.costInfo = costInfo;
         updateFCost();
     }
@@ -37,7 +37,7 @@ public class AStarCostAdapter implements IAstarCost {
         return costInfo.getCostArguments().get(2);
     }
 
-    public CostEntity getCostEntity() {
+    public PathCost getCostEntity() {
         return costInfo;
     }
 

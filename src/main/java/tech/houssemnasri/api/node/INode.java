@@ -2,11 +2,11 @@ package tech.houssemnasri.api.node;
 
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.CostEntity;
+import tech.houssemnasri.PathCost;
 
 public interface INode {
     /** constant for no cost */
-    CostEntity NO_COST = null;
+    PathCost NO_COST = null;
 
     IPosition getPosition();
 
@@ -30,11 +30,11 @@ public interface INode {
 
     INode getParent();
 
-    void setCostEntity(CostEntity costEntity);
+    void setCostEntity(PathCost pathCost);
 
-    CostEntity getCostEntity();
+    PathCost getCostEntity();
 
-    ObjectProperty<CostEntity> nodeCostProperty();
+    ObjectProperty<PathCost> nodeCostProperty();
 
     default boolean isWalkable(){
         return getType() != INode.Type.WALL;
