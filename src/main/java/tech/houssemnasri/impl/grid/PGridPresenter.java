@@ -125,7 +125,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     @Override
     public void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition) {
         if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-            System.out.println("Clicked");
             doDrawWall(clickedNodePosition);
         }
     }
