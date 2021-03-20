@@ -5,9 +5,6 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import javafx.collections.FXCollections;
-
-import tech.houssemnasri.CostEntity;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.pathfinder.Distance;
 import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
@@ -44,7 +41,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
     public void forward() {
         if (openNodes.isEmpty()) {
             new OpenNodeCommand(this, grid.getNode(grid.getSourcePosition())).execute();
-            setHCost(grid.getNode(grid.getSourcePosition()));
+            computeHCost(grid.getNode(grid.getSourcePosition()));
             new AstarCostAdapter(getGrid().getNode(getGrid().getSourcePosition()).getCostEntity()).updateGCost(0);
         }
         setCurrentNode(getLeastCostNode());
@@ -77,13 +74,13 @@ public class AstarAlgorithm extends BaseAlgorithm {
             } else {
                 neighborNodeCost.updateGCost(gCostForNeighborUpdate);
                 nei.setParent(currentNode);
-                setHCost(nei);
+                computeHCost(nei);
                 new OpenNodeCommand(this, nei).execute();
             }
         }
     }
 
-    private void setHCost(INode node) {
+    private void computeHCost(INode node) {
         IPosition thisPosition = node.getPosition();
         IPosition destPosition = grid.getDestinationPosition();
         Distance distance = new ManhattanDistance();
