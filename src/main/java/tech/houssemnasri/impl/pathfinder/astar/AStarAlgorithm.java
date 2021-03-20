@@ -16,7 +16,7 @@ import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
 
 /** A* implementation */
-public class AstarAlgorithm extends BaseAlgorithm {
+public class AStarAlgorithm extends BaseAlgorithm {
     private static final int HORIZ_VERT_DISTANCE = 10;
     private static final int DIAGONAL_DISTANCE = 14;
 
@@ -24,11 +24,11 @@ public class AstarAlgorithm extends BaseAlgorithm {
     private final Set<INode> closedNodes = new HashSet<>();
     private INode currentNode;
 
-    public AstarAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
+    public AStarAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
         super(grid, isDiagonalAllowed);
     }
 
-    public AstarAlgorithm(IGrid grid) {
+    public AStarAlgorithm(IGrid grid) {
         super(grid, false);
     }
 
@@ -42,7 +42,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
         if (openNodes.isEmpty()) {
             new OpenNodeCommand(this, grid.getNode(grid.getSourcePosition())).execute();
             computeHCost(grid.getNode(grid.getSourcePosition()));
-            new AstarCostAdapter(getGrid().getNode(getGrid().getSourcePosition()).getCostEntity()).updateGCost(0);
+            new AStarCostAdapter(getGrid().getNode(getGrid().getSourcePosition()).getCostEntity()).updateGCost(0);
         }
         setCurrentNode(getLeastCostNode());
         new CloseNodeCommand(this, getCurrentNode()).execute();
@@ -53,12 +53,12 @@ public class AstarAlgorithm extends BaseAlgorithm {
         }
 
         List<INode> neighbors = getCurrentNodeNeighbors();
-        IAstarCost currentNodeCost = new AstarCostAdapter(getCurrentNode().getCostEntity());
+        IAstarCost currentNodeCost = new AStarCostAdapter(getCurrentNode().getCostEntity());
         for (INode nei : neighbors) {
             if (isNodeClosed(nei)) {
                 continue;
             }
-            IAstarCost neighborNodeCost = new AstarCostAdapter(nei.getCostEntity());
+            IAstarCost neighborNodeCost = new AStarCostAdapter(nei.getCostEntity());
             int gCostForCurrent = currentNodeCost.gCost();
             int gCostForNeighbor = neighborNodeCost.gCost();
             int gCostForNeighborUpdate =
@@ -84,12 +84,12 @@ public class AstarAlgorithm extends BaseAlgorithm {
         IPosition thisPosition = node.getPosition();
         IPosition destPosition = grid.getDestinationPosition();
         Distance distance = new ManhattanDistance();
-        new AstarCostAdapter(node.getCostEntity())
+        new AStarCostAdapter(node.getCostEntity())
                 .updateHCost(distance.apply(thisPosition, destPosition));
     }
 
     private INode getLeastCostNode() {
-        PriorityQueue<INode> priorityQueue = new PriorityQueue<>(new AstarNodeComparator());
+        PriorityQueue<INode> priorityQueue = new PriorityQueue<>(new AStarNodeComparator());
         priorityQueue.addAll(openNodes);
         return priorityQueue.poll();
     }
