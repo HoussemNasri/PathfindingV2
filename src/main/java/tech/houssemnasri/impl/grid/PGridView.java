@@ -24,9 +24,6 @@ import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.impl.node.painter.AnimatedNodePainter;
 
 public class PGridView implements IGridView {
-    private static final EventHandler<? super MouseEvent> REMOVE_LISTENER = null;
-    private final ScaleTransition scaleTransition = new ScaleTransition();
-
     private static PGridView INSTANCE = null;
 
     private IGridPresenter presenter = null;
@@ -36,7 +33,6 @@ public class PGridView implements IGridView {
         // Init
         setPresenter(presenter);
         initRoot();
-        initScaleTransition();
 
         // Listen For Mouse Events
         listenForMouseClicks();
@@ -63,11 +59,6 @@ public class PGridView implements IGridView {
 
     private void listenForMousePress() {
         root.setOnMousePressed(e -> presenter.onNodePressed(e, findIntersectedNodePosition(e)));
-    }
-
-    private void initScaleTransition() {
-        scaleTransition.setNode(root);
-        scaleTransition.setInterpolator(Interpolator.EASE_IN);
     }
 
     private void listenForThemeChange() {
@@ -190,22 +181,6 @@ public class PGridView implements IGridView {
         }
         this.presenter = presenter;
         listenForThemeChange();
-    }
-
-    @Override
-    public void setScale(double scale, boolean animate) {
-        if (scaleTransition.getStatus() == Animation.Status.RUNNING) {
-            return;
-        }
-        scaleTransition.setDuration(animate ? Duration.millis(300) : Duration.ONE);
-        scaleTransition.setToX(scale);
-        scaleTransition.setToY(scale);
-        scaleTransition.play();
-    }
-
-    @Override
-    public double getScale() {
-        return root.getScaleX();
     }
 
     public IGridPresenter getPresenter() {
