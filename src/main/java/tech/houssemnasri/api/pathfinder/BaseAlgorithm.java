@@ -10,7 +10,6 @@ import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.node.PPosition;
 import tech.houssemnasri.util.GridChecker;
-import tech.houssemnasri.util.NodeUtils;
 
 /**
  * This class {@code BaseAlgorithm} should provide an api for the {@code BaseAlgorithmPlayer} to
@@ -75,7 +74,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     }
 
     protected final boolean isWalkable(IPosition position) {
-        return NodeUtils.isWalkable(grid.getNode(position));
+        return grid.getNode(position).isWalkable();
     }
 
     protected final boolean isNodeClosed(INode node) {
