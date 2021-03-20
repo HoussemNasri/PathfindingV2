@@ -1,4 +1,4 @@
-package tech.houssemnasri;
+package tech.houssemnasri.math;
 
 import java.util.function.BiFunction;
 

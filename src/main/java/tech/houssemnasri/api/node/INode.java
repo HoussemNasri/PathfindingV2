@@ -2,7 +2,7 @@ package tech.houssemnasri.api.node;
 
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.PathCost;
+import tech.houssemnasri.impl.pathfinder.PathCost;
 
 public interface INode {
     /** constant for no cost */

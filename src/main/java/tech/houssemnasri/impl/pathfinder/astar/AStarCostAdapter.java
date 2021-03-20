@@ -1,6 +1,6 @@
 package tech.houssemnasri.impl.pathfinder.astar;
 
-import tech.houssemnasri.PathCost;
+import tech.houssemnasri.impl.pathfinder.PathCost;
 import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
 
 public class AStarCostAdapter implements IAstarCost {

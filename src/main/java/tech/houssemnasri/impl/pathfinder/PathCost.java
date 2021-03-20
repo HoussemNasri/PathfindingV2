@@ -1,4 +1,4 @@
-package tech.houssemnasri;
+package tech.houssemnasri.impl.pathfinder;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

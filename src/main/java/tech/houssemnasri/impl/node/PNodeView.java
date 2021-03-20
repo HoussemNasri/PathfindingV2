@@ -10,7 +10,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
-import tech.houssemnasri.PathCost;
+import tech.houssemnasri.impl.pathfinder.PathCost;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.INode.*;
