@@ -45,6 +45,7 @@ public class AstarAlgorithm extends BaseAlgorithm {
         if (openNodes.isEmpty()) {
             new OpenNodeCommand(this, grid.getNode(grid.getSourcePosition())).execute();
             setHCost(grid.getNode(grid.getSourcePosition()));
+            new AstarCostAdapter(getGrid().getNode(getGrid().getSourcePosition()).getCostEntity()).updateGCost(0);
         }
         setCurrentNode(getLeastCostNode());
         new CloseNodeCommand(this, getCurrentNode()).execute();
