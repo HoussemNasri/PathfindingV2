@@ -15,7 +15,7 @@ import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.gesturefx.GesturePane;
 import tech.houssemnasri.impl.animation.AnimationSuite;
 import tech.houssemnasri.impl.node.PNodeView;
-import tech.houssemnasri.impl.node.PPosition;
+import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.impl.node.painter.AnimatedNodePainter;
 
 public class PGridView implements IGridView {
@@ -65,7 +65,7 @@ public class PGridView implements IGridView {
         int rows = presenter.getRows();
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
-                INodeView thisNodeView = getNodeAtPosition(PPosition.of(x, y));
+                INodeView thisNodeView = getNodeAtPosition(Position.of(x, y));
                 if (thisNodeView != null) {
                     thisNodeView.getPainter().switchTheme(presenter.getTheme());
                 }
@@ -92,14 +92,14 @@ public class PGridView implements IGridView {
     private IPosition findIntersectedNodePosition(MouseEvent mouseEvent) {
         Node intersectedNode = mouseEvent.getPickResult().getIntersectedNode();
         if (intersectedNode == null) {
-            return PPosition.ERROR;
+            return Position.ERROR;
         }
         Integer eventXPosition = GridPane.getColumnIndex(intersectedNode);
         Integer eventYPosition = GridPane.getRowIndex(intersectedNode);
         if (eventXPosition != null && eventYPosition != null) {
-            return PPosition.of(eventXPosition, eventYPosition);
+            return Position.of(eventXPosition, eventYPosition);
         }
-        return PPosition.ERROR;
+        return Position.ERROR;
     }
 
     private void initRoot() {
@@ -124,7 +124,7 @@ public class PGridView implements IGridView {
         computeGridSize(cols, rows);
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
-                IPosition position = PPosition.of(x, y);
+                IPosition position = Position.of(x, y);
                 PNodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
                 thisNodeView.setPainter(
                         new AnimatedNodePainter(
@@ -161,7 +161,7 @@ public class PGridView implements IGridView {
         int rows = presenter.getRows();
         for (int x = 0; x < cols; x++) {
             for (int y = 0; y < rows; y++) {
-                INodeView thisNodeView = getNodeAtPosition(PPosition.of(x, y));
+                INodeView thisNodeView = getNodeAtPosition(Position.of(x, y));
                 if (thisNodeView != null) {
                     thisNodeView.setShowCostInfo(show);
                 }

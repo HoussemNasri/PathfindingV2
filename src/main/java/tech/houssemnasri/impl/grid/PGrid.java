@@ -13,7 +13,7 @@ import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.node.PNode;
-import tech.houssemnasri.impl.node.PPosition;
+import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 import static tech.houssemnasri.api.node.INode.*;
@@ -48,14 +48,14 @@ public final class PGrid implements IGrid, Serializable {
     }
 
     private PGrid(int rows, int cols) {
-        this(rows, cols, PPosition.of(10, 10), PPosition.of(18, 10));
+        this(rows, cols, Position.of(10, 10), Position.of(18, 10));
     }
 
     /** create and initialize the nodes based on the current state */
     private void createNodes() {
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
-                PPosition newNodePosition = PPosition.of(x, y);
+                Position newNodePosition = Position.of(x, y);
                 PNode newNode = new PNode(newNodePosition);
                 if (isSourceNode(newNode)) newNode.setType(Type.SOURCE);
                 if (isDestinationNode(newNode)) newNode.setType(Type.DESTINATION);
@@ -185,14 +185,14 @@ public final class PGrid implements IGrid, Serializable {
         final List<INode> allNodes = new ArrayList<>();
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
-                allNodes.add(getNode(PPosition.of(x, y)));
+                allNodes.add(getNode(Position.of(x, y)));
             }
         }
         return allNodes.stream();
     }
 
     /** Sets {@code node} at {@code position} */
-    private void setNode(PNode node, PPosition position) {
+    private void setNode(PNode node, Position position) {
         GridChecker.checkPosition(position, getRows(), getColumns());
         nodes[position.getX()][position.getY()] = node;
     }
@@ -201,7 +201,7 @@ public final class PGrid implements IGrid, Serializable {
     public void clearPath() {
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
-                INode node = getNode(PPosition.of(x, y));
+                INode node = getNode(Position.of(x, y));
                 INode.Type nodeType = node.getType();
                 switch (nodeType){
                     case PATH,OPEN,CLOSED -> node.clear();
@@ -212,11 +212,11 @@ public final class PGrid implements IGrid, Serializable {
 
     @Override
     public void resetGrid() {
-        setSourcePosition(PPosition.of(0, 0));
-        setDestinationPosition(PPosition.of(getColumns() - 1, getRows() - 1));
+        setSourcePosition(Position.of(0, 0));
+        setDestinationPosition(Position.of(getColumns() - 1, getRows() - 1));
         for (int x = 0; x < getColumns(); x++) {
             for (int y = 0; y < getRows(); y++) {
-                INode node = getNode(PPosition.of(x, y));
+                INode node = getNode(Position.of(x, y));
                 if (!(isSourceNode(node) || isDestinationNode(node))) {
                     node.clear();
                 }

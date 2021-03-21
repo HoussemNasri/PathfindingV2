@@ -9,7 +9,7 @@ import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.animation.AnimationSuite;
 import tech.houssemnasri.impl.node.PNode;
 import tech.houssemnasri.impl.node.PNodeView;
-import tech.houssemnasri.impl.node.PPosition;
+import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.impl.animation.AnimationFXProxy;
 
 public class AnimatedNodePainter extends BaseNodePainter {
@@ -41,7 +41,7 @@ public class AnimatedNodePainter extends BaseNodePainter {
     }
 
     private PNodeView createTransitionNode(INode.Type newState) {
-        PNodeView view = new PNodeView(new PNode(PPosition.ERROR, newState));
+        PNodeView view = new PNodeView(new PNode(Position.ERROR, newState));
         view.setPainter(new SimpleNodePainter(getTheme(), view));
         getNodeView().getChildren().add(view);
         Rectangle clip = new Rectangle(getNodeView().getPrefWidth(), getNodeView().getPrefHeight());

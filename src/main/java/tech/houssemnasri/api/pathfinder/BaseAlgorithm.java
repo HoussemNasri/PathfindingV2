@@ -12,7 +12,7 @@ import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.command.CommandRecord;
 import tech.houssemnasri.impl.command.CommandHistory;
 import tech.houssemnasri.impl.command.TracePathCommand;
-import tech.houssemnasri.impl.node.PPosition;
+import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.util.GridChecker;
 
 /**
@@ -120,12 +120,12 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
       for (int j = -1; j <= 1; j++) {
         int neiX = currX + i;
         int neiY = currY + j;
-        IPosition neiPosition = PPosition.of(neiX, neiY);
+        IPosition neiPosition = Position.of(neiX, neiY);
         if (not(isPositionValid(neiPosition))) {
           continue;
         } else if (not(isWalkable(neiPosition))) {
           continue;
-        } else if (PPosition.of(currX, currY).equals(neiPosition)) {
+        } else if (Position.of(currX, currY).equals(neiPosition)) {
           continue;
         } else if (not(isDiagonalAllowed())) {
           if (Math.abs(i) - Math.abs(j) == 0) {

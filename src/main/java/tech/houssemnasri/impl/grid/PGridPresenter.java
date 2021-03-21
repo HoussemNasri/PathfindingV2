@@ -12,7 +12,7 @@ import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.api.theme.ITheme;
-import tech.houssemnasri.impl.node.PPosition;
+import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
@@ -130,7 +130,7 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     }
 
     private void doDrawWall(IPosition clickedNodePosition) {
-        if (not(clickedNodePosition.equals(PPosition.ERROR))) {
+        if (not(clickedNodePosition.equals(Position.ERROR))) {
             INode clickedNode = gridModel.getNode(clickedNodePosition);
             if (clickedNode.getType() == INode.Type.BASIC) {
                 clickedNode.setType(INode.Type.WALL);
@@ -153,7 +153,7 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
 
     private void doRelocateDestinationTo(IPosition intersection) {
         if (and(
-                not(intersection.equals(PPosition.ERROR)),
+                not(intersection.equals(Position.ERROR)),
                 gridModel.isWalkable(intersection),
                 not(gridModel.isSourceNode(gridModel.getNode(intersection))))) {
             gridModel.relocateDestination(intersection);
@@ -162,7 +162,7 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
 
     private void doRelocateSourceTo(IPosition intersection) {
         if (and(
-                not(intersection.equals(PPosition.ERROR)),
+                not(intersection.equals(Position.ERROR)),
                 gridModel.isWalkable(intersection),
                 not(gridModel.isDestinationNode(gridModel.getNode(intersection))))) {
             gridModel.relocateSource(intersection);
@@ -174,7 +174,7 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
 
     @Override
     public void onNodePressed(MouseEvent mouseEvent, IPosition intersection) {
-        if (and(mouseEvent.isPrimaryButtonDown(), not(intersection.equals(PPosition.ERROR)))) {
+        if (and(mouseEvent.isPrimaryButtonDown(), not(intersection.equals(Position.ERROR)))) {
             if (gridModel.isSourceNode(gridModel.getNode(intersection))) {
                 isDraggingSourceNode = true;
             } else if (gridModel.isDestinationNode(gridModel.getNode(intersection))) {
