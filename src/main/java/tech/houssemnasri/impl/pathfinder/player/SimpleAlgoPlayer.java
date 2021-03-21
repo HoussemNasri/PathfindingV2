@@ -29,7 +29,6 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
     AnimationTimer timer =
         new AnimationTimer() {
           private long start = -1;
-
           @Override
           public void handle(long now) {
             if (start == -1 || now - start >= SPEED_FAST) {

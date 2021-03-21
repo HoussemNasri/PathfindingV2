@@ -45,9 +45,9 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   public abstract void forward();
   /** go back to previous grid state and remove recent algorithm changes. */
   public final void back() {
-    CommandRecord lastStepCommands = algorithmHistory.pop();
-    while (not(lastStepCommands.isEmpty())) {
-      lastStepCommands.pop().undo();
+    CommandRecord stepRecord = algorithmHistory.pop();
+    while (not(stepRecord.isEmpty())) {
+      stepRecord.pop().undo();
     }
   }
 
@@ -103,7 +103,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   }
 
   public void doTraceBackPath() {
-    recordStep(new TracePathCommand(this, getCurrentNode()).executeAndReturn());
+    saveRecord(new TracePathCommand(this, getCurrentNode()).executeAndReturn());
   }
 
   protected boolean isNodeOnDiagonalOfCurrent(INode node) {
@@ -138,11 +138,11 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     return result;
   }
 
-  protected void recordStep(CommandRecord algorithmStep) {
+  protected void saveRecord(CommandRecord algorithmStep) {
     algorithmHistory.push(algorithmStep);
   }
 
-  protected void recordStep(ICommand command) {
-    recordStep(new CommandRecord(command));
+  protected void saveRecord(ICommand command) {
+    saveRecord(new CommandRecord(command));
   }
 }

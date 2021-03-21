@@ -53,7 +53,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
     commandRecord.push(new CloseNodeCommand(this, getCurrentNode()).executeAndReturn());
 
     if (isPathFound()) {
-      recordStep(commandRecord);
+      saveRecord(commandRecord);
       doTraceBackPath();
       return;
     }
@@ -82,7 +82,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
         commandRecord.push(new OpenNodeCommand(this, nei).executeAndReturn());
       }
     }
-    recordStep(commandRecord);
+    saveRecord(commandRecord);
   }
 
   private void computeHCost(INode node, CommandRecord commandRecord) {
