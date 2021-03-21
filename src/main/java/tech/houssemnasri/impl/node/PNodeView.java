@@ -90,7 +90,7 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     private void listenForCostChange() {
-        PathCost cost = nodeModel.getCostEntity();
+        PathCost cost = nodeModel.getPathCost();
         if (cost != null) {
             cost.getCostArguments().addListener(this::doHandleCostChange);
         }

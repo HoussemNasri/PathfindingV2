@@ -30,9 +30,9 @@ public interface INode {
 
     INode getParent();
 
-    void setCostEntity(PathCost pathCost);
+    void setPathCost(PathCost pathCost);
 
-    PathCost getCostEntity();
+    PathCost getPathCost();
 
     ObjectProperty<PathCost> nodeCostProperty();
 

@@ -45,10 +45,6 @@ public class AStarCostAdapter implements IAstarCost {
     return costInfo.getCostArguments().get(2);
   }
 
-  public PathCost getCostEntity() {
-    return costInfo;
-  }
-
   @Override
   public int compare(IAstarCost o1, IAstarCost o2) {
     if (o1.fCost() != o2.fCost()) {

@@ -34,7 +34,7 @@ public final class PNode implements INode {
         setPosition(position);
         setType(type);
         setParent(parent);
-        setCostEntity(pathCost);
+        setPathCost(pathCost);
     }
 
     public PNode(IPosition position, Type type, INode parent) {
@@ -84,12 +84,12 @@ public final class PNode implements INode {
     }
 
     @Override
-    public void setCostEntity(PathCost pathCost) {
+    public void setPathCost(PathCost pathCost) {
         costProperty.set(pathCost);
     }
 
     @Override
-    public PathCost getCostEntity() {
+    public PathCost getPathCost() {
         return costProperty.get();
     }
 
@@ -102,7 +102,7 @@ public final class PNode implements INode {
     public void clear() {
         setType(Type.BASIC);
         setParent(null);
-        setCostEntity(NO_COST);
+        setPathCost(NO_COST);
     }
 
     @Override

@@ -46,7 +46,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
       IPosition source = grid.getSourcePosition();
       commandRecord.push(new OpenNodeCommand(this, grid.getNode(source)).executeAndReturn());
       computeHCost(grid.getNode(source), commandRecord);
-      new AStarCostAdapter(getGrid().getNode(source).getCostEntity(), commandRecord).setG(0);
+      new AStarCostAdapter(getGrid().getNode(source).getPathCost(), commandRecord).setG(0);
     }
     // setCurrentNode(getLeastCostNode());
     commandRecord.push(new SetCurrentNodeCommand(this, getLeastCostNode()).executeAndReturn());
@@ -59,12 +59,12 @@ public class AStarAlgorithm extends BaseAlgorithm {
     }
 
     List<INode> neighbors = getCurrentNodeNeighbors();
-    IAstarCost currentNodeCost = new AStarCostAdapter(getCurrentNode().getCostEntity(), commandRecord);
+    IAstarCost currentNodeCost = new AStarCostAdapter(getCurrentNode().getPathCost(), commandRecord);
     for (INode nei : neighbors) {
       if (isNodeClosed(nei)) {
         continue;
       }
-      IAstarCost neighborNodeCost = new AStarCostAdapter(nei.getCostEntity(), commandRecord);
+      IAstarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), commandRecord);
       int gCostForCurrent = currentNodeCost.gCost();
       int gCostForNeighbor = neighborNodeCost.gCost();
       int gCostForNeighborUpdate =
@@ -89,7 +89,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
     IPosition thisPosition = node.getPosition();
     IPosition destPosition = grid.getDestinationPosition();
     Distance distance = new ManhattanDistance();
-    new AStarCostAdapter(node.getCostEntity(), commandRecord).setH(distance.apply(thisPosition, destPosition));
+    new AStarCostAdapter(node.getPathCost(), commandRecord).setH(distance.apply(thisPosition, destPosition));
   }
 
   private INode getLeastCostNode() {
