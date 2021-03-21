@@ -44,12 +44,12 @@ public class SimpleNodePainter extends BaseNodePainter{
 
     private void paintDestination(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getDestinationNodeColor());
-        setShowCost(true);
+        setShowCost(false);
     }
 
     private void paintSource(PNodeView nodeView) {
         setBackgroundColor(nodeView, getTheme().getSourceNodeColor());
-        setShowCost(true);
+        setShowCost(false);
     }
 
     private void paintBasic(PNodeView nodeView) {
