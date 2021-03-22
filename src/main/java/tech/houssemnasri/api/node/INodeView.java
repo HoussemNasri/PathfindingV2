@@ -3,13 +3,14 @@ package tech.houssemnasri.api.node;
 import javafx.beans.property.BooleanProperty;
 import javafx.scene.text.Text;
 
+import tech.houssemnasri.api.mvp.View;
 import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
 /**
  * The {@code INodeView} is a self contained view we use to display our model {@code INode}, it
  * listens for changes on the model and update itself accordingly.
  */
-public interface INodeView {
+public interface INodeView extends View {
   /**
    * Showing cost info on the view.
    *
