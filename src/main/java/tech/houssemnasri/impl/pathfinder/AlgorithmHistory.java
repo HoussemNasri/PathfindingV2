@@ -27,4 +27,8 @@ public class AlgorithmHistory {
   public boolean isEmpty() {
     return commandRecords.isEmpty();
   }
+
+  public void clear() {
+    commandRecords.clear();
+  }
 }
