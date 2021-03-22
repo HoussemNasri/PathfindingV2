@@ -1,8 +1,6 @@
 package tech.houssemnasri.api.pathfinder.cost;
 
-import java.util.Comparator;
-
-public interface IAstarCost extends Comparable<IAstarCost> {
+public interface IAStarCost extends Comparable<IAStarCost> {
   /** Sets the g cost to {@code newGCost} */
   void setG(int newGCost);
   /** Returns the cost from the start node to the current node. */

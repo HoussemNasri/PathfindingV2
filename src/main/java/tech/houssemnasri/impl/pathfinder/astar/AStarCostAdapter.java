@@ -3,9 +3,9 @@ package tech.houssemnasri.impl.pathfinder.astar;
 import tech.houssemnasri.impl.command.CommandRecord;
 import tech.houssemnasri.impl.command.UpdateCostCommand;
 import tech.houssemnasri.impl.pathfinder.PathCost;
-import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
+import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 
-public class AStarCostAdapter implements IAstarCost {
+public class AStarCostAdapter implements IAStarCost {
   private final PathCost costInfo;
   private final CommandRecord commandRecord;
 
@@ -46,7 +46,7 @@ public class AStarCostAdapter implements IAstarCost {
   }
 
   @Override
-  public int compareTo(IAstarCost o) {
+  public int compareTo(IAStarCost o) {
     if (fCost() != o.fCost()) {
       return Integer.compare(this.fCost(), o.fCost());
     }

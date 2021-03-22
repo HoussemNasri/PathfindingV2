@@ -7,7 +7,7 @@ import java.util.Set;
 
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.pathfinder.Distance;
-import tech.houssemnasri.api.pathfinder.cost.IAstarCost;
+import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
@@ -59,12 +59,12 @@ public class AStarAlgorithm extends BaseAlgorithm {
     }
 
     List<INode> neighbors = getCurrentNodeNeighbors();
-    IAstarCost currentNodeCost = new AStarCostAdapter(getCurrentNode().getPathCost(), commandRecord);
+    IAStarCost currentNodeCost = new AStarCostAdapter(getCurrentNode().getPathCost(), commandRecord);
     for (INode nei : neighbors) {
       if (isNodeClosed(nei)) {
         continue;
       }
-      IAstarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), commandRecord);
+      IAStarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), commandRecord);
       int gCostForCurrent = currentNodeCost.gCost();
       int gCostForNeighbor = neighborNodeCost.gCost();
       int gCostForNeighborUpdate =
