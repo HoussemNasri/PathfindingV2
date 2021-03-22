@@ -1,14 +1,16 @@
 package tech.houssemnasri.impl.command;
 
-import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.command.AlgorithmCommand;
 import tech.houssemnasri.api.node.INode;
 import static tech.houssemnasri.api.node.INode.*;
 
 public class CloseNodeCommand extends AlgorithmCommand {
+  private final Type undoType;
+
   public CloseNodeCommand(BaseAlgorithm algorithm, INode node) {
     super(algorithm, node);
+    this.undoType = node.getType();
   }
 
   @Override
@@ -29,14 +31,6 @@ public class CloseNodeCommand extends AlgorithmCommand {
   public void undo() {
     algorithm.getOpenSet().add(node);
     algorithm.getClosedSet().remove(node);
-    IGrid grid = getAlgorithm().getGrid();
-    if (grid.isSourceNode(node)) {
-      node.setType(Type.SOURCE);
-    } else if (grid.isDestinationNode(node)) {
-      System.out.println("Destination");
-      node.setType(Type.DESTINATION);
-    } else {
-      node.setType(Type.OPEN);
-    }
+    node.setType(undoType);
   }
 }

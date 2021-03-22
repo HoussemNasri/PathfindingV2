@@ -7,9 +7,10 @@ import tech.houssemnasri.api.node.INode;
 import static tech.houssemnasri.api.node.INode.*;
 
 public class OpenNodeCommand extends AlgorithmCommand {
-
+  private final Type undoType;
   public OpenNodeCommand(BaseAlgorithm algorithm, INode node) {
     super(algorithm, node);
+    this.undoType = node.getType();
   }
 
   @Override
@@ -29,13 +30,6 @@ public class OpenNodeCommand extends AlgorithmCommand {
   @Override
   public void undo() {
     algorithm.getOpenSet().remove(node);
-    IGrid grid = getAlgorithm().getGrid();
-    if (grid.isSourceNode(node)) {
-      node.setType(Type.SOURCE);
-    } else if (grid.isDestinationNode(node)) {
-      node.setType(Type.DESTINATION);
-    } else {
-      node.setType(Type.BASIC);
-    }
+    node.setType(undoType);
   }
 }
