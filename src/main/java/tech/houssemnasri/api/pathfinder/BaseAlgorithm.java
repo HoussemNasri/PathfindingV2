@@ -25,6 +25,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   protected final boolean isDiagonalAllowed;
   private final AlgorithmHistory algorithmHistory = new AlgorithmHistory();
   protected INode currentNode;
+  private boolean pathFound = false;
 
   public BaseAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
     this.grid = grid;
@@ -64,7 +65,11 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
 
   /** @return True if {@code currentNode} is the {@code destinationNode}, False otherwise. */
   public boolean isPathFound() {
-    return grid.isDestinationNode(getCurrentNode());
+    return pathFound;
+  }
+
+  public void setPathFound(boolean pathFound) {
+    this.pathFound = pathFound;
   }
 
   public IGrid getGrid() {
@@ -106,7 +111,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     saveRecord(new TracePathCommand(this, getCurrentNode()).executeAndReturn());
   }
 
-  protected boolean isNodeOnDiagonalOfCurrent(INode node) {
+  protected boolean isOnDiagonal(INode node) {
     int dx = getCurrentNode().getPosition().getX() - node.getPosition().getX();
     int dy = getCurrentNode().getPosition().getY() - node.getPosition().getY();
     return Math.abs(dx) - Math.abs(dy) == 0;
@@ -144,5 +149,14 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
 
   protected void saveRecord(ICommand command) {
     saveRecord(new CommandRecord(command));
+  }
+
+  public void reset() {
+    getClosedSet().clear();
+    getOpenSet().clear();
+    algorithmHistory.clear();
+    getGrid().clearPath();
+    setCurrentNode(null);
+    setPathFound(false);
   }
 }

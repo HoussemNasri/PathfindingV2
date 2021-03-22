@@ -52,9 +52,10 @@ public class AStarAlgorithm extends BaseAlgorithm {
     commandRecord.push(new SetCurrentNodeCommand(this, getLeastCostNode()).executeAndReturn());
     commandRecord.push(new CloseNodeCommand(this, getCurrentNode()).executeAndReturn());
 
-    if (isPathFound()) {
+    if (getGrid().isDestinationNode(getCurrentNode())) {
       saveRecord(commandRecord);
       doTraceBackPath();
+      setPathFound(true);
       return;
     }
 
@@ -69,8 +70,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
       int gCostForCurrent = currentNodeCost.gCost();
       int gCostForNeighbor = neighborNodeCost.gCost();
       int gCostForNeighborUpdate =
-          gCostForCurrent
-              + (isNodeOnDiagonalOfCurrent(nei) ? DIAGONAL_DISTANCE : HORIZ_VERT_DISTANCE);
+          gCostForCurrent + (isOnDiagonal(nei) ? DIAGONAL_DISTANCE : HORIZ_VERT_DISTANCE);
       if (isNodeOpen(nei)) {
         if (gCostForNeighbor > gCostForNeighborUpdate) {
           neighborNodeCost.setG(gCostForNeighborUpdate);
