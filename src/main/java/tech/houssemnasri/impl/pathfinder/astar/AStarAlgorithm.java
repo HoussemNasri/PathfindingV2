@@ -11,7 +11,7 @@ import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.impl.command.CommandRecord;
+import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
 import tech.houssemnasri.impl.command.SetCurrentNodeCommand;
 import tech.houssemnasri.impl.command.SetParentCommand;
 import tech.houssemnasri.impl.pathfinder.distance.ManhattanDistance;
@@ -41,19 +41,19 @@ public class AStarAlgorithm extends BaseAlgorithm {
 
   @Override
   public void forward() {
-    CommandRecord commandRecord = new CommandRecord();
+    AlgorithmStep algorithmStep = new AlgorithmStep();
     if (openNodes.isEmpty()) {
       IPosition source = grid.getSourcePosition();
-      commandRecord.push(new OpenNodeCommand(this, grid.getNode(source)).executeAndReturn());
-      computeHCost(grid.getNode(source), commandRecord);
-      new AStarCostAdapter(getGrid().getNode(source).getPathCost(), commandRecord).setG(0);
+      algorithmStep.push(new OpenNodeCommand(this, grid.getNode(source)).executeAndReturn());
+      computeHCost(grid.getNode(source), algorithmStep);
+      new AStarCostAdapter(getGrid().getNode(source).getPathCost(), algorithmStep).setG(0);
     }
     // setCurrentNode(getLeastCostNode());
-    commandRecord.push(new SetCurrentNodeCommand(this, getLeastCostNode()).executeAndReturn());
-    commandRecord.push(new CloseNodeCommand(this, getCurrentNode()).executeAndReturn());
+    algorithmStep.push(new SetCurrentNodeCommand(this, getLeastCostNode()).executeAndReturn());
+    algorithmStep.push(new CloseNodeCommand(this, getCurrentNode()).executeAndReturn());
 
     if (getGrid().isDestinationNode(getCurrentNode())) {
-      saveRecord(commandRecord);
+      recordStep(algorithmStep);
       doTraceBackPath();
       setPathFound(true);
       return;
@@ -61,12 +61,12 @@ public class AStarAlgorithm extends BaseAlgorithm {
 
     List<INode> neighbors = getCurrentNodeNeighbors();
     IAStarCost currentNodeCost =
-        new AStarCostAdapter(getCurrentNode().getPathCost(), commandRecord);
+        new AStarCostAdapter(getCurrentNode().getPathCost(), algorithmStep);
     for (INode nei : neighbors) {
       if (isNodeClosed(nei)) {
         continue;
       }
-      IAStarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), commandRecord);
+      IAStarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), algorithmStep);
       int gCostForCurrent = currentNodeCost.gCost();
       int gCostForNeighbor = neighborNodeCost.gCost();
       int gCostForNeighborUpdate =
@@ -74,23 +74,23 @@ public class AStarAlgorithm extends BaseAlgorithm {
       if (isNodeOpen(nei)) {
         if (gCostForNeighbor > gCostForNeighborUpdate) {
           neighborNodeCost.setG(gCostForNeighborUpdate);
-          commandRecord.push(new SetParentCommand(this, nei, currentNode).executeAndReturn());
+          algorithmStep.push(new SetParentCommand(this, nei, currentNode).executeAndReturn());
         }
       } else {
         neighborNodeCost.setG(gCostForNeighborUpdate);
-        commandRecord.push(new SetParentCommand(this, nei, currentNode).executeAndReturn());
-        computeHCost(nei, commandRecord);
-        commandRecord.push(new OpenNodeCommand(this, nei).executeAndReturn());
+        algorithmStep.push(new SetParentCommand(this, nei, currentNode).executeAndReturn());
+        computeHCost(nei, algorithmStep);
+        algorithmStep.push(new OpenNodeCommand(this, nei).executeAndReturn());
       }
     }
-    saveRecord(commandRecord);
+    recordStep(algorithmStep);
   }
 
-  private void computeHCost(INode node, CommandRecord commandRecord) {
+  private void computeHCost(INode node, AlgorithmStep algorithmStep) {
     IPosition thisPosition = node.getPosition();
     IPosition destPosition = grid.getDestinationPosition();
     Distance distance = new ManhattanDistance();
-    new AStarCostAdapter(node.getPathCost(), commandRecord)
+    new AStarCostAdapter(node.getPathCost(), algorithmStep)
         .setH(distance.apply(thisPosition, destPosition));
   }
 

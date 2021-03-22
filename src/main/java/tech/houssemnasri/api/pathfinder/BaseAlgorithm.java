@@ -9,7 +9,7 @@ import tech.houssemnasri.api.command.ICommand;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.impl.command.CommandRecord;
+import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
 import tech.houssemnasri.impl.pathfinder.AlgorithmHistory;
 import tech.houssemnasri.impl.command.TracePathCommand;
 import tech.houssemnasri.impl.node.Position;
@@ -46,7 +46,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   public abstract void forward();
   /** go back to previous grid state and remove recent algorithm changes. */
   public final void back() {
-    CommandRecord stepRecord = algorithmHistory.pop();
+    AlgorithmStep stepRecord = algorithmHistory.pop();
     while (not(stepRecord.isEmpty())) {
       stepRecord.pop().undo();
     }
@@ -108,7 +108,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   }
 
   public void doTraceBackPath() {
-    saveRecord(new TracePathCommand(this, getCurrentNode()).executeAndReturn());
+    recordStep(new TracePathCommand(this, getCurrentNode()).executeAndReturn());
   }
 
   protected boolean isOnDiagonal(INode node) {
@@ -143,12 +143,12 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     return result;
   }
 
-  protected void saveRecord(CommandRecord algorithmStep) {
+  protected void recordStep(AlgorithmStep algorithmStep) {
     algorithmHistory.push(algorithmStep);
   }
 
-  protected void saveRecord(ICommand command) {
-    saveRecord(new CommandRecord(command));
+  protected void recordStep(ICommand command) {
+    recordStep(new AlgorithmStep(command));
   }
 
   public void reset() {

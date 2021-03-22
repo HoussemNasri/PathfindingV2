@@ -83,8 +83,7 @@ public final class PNode implements INode {
     return parent;
   }
 
-  @Override
-  public void setPathCost(PathCost pathCost) {
+  private void setPathCost(PathCost pathCost) {
     costProperty.set(pathCost);
   }
 

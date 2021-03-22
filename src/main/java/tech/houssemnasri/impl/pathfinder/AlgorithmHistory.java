@@ -3,32 +3,30 @@ package tech.houssemnasri.impl.pathfinder;
 import java.util.List;
 import java.util.Stack;
 
-import tech.houssemnasri.impl.command.CommandRecord;
-
 public class AlgorithmHistory {
-  protected Stack<CommandRecord> commandRecords = new Stack<>();
+  protected Stack<AlgorithmStep> algorithmSteps = new Stack<>();
 
-  public AlgorithmHistory(List<CommandRecord> commandRecords) {
-    this.commandRecords.addAll(commandRecords);
+  public AlgorithmHistory(List<AlgorithmStep> algorithmSteps) {
+    this.algorithmSteps.addAll(algorithmSteps);
   }
 
   public AlgorithmHistory() {
     this(List.of());
   }
 
-  public void push(CommandRecord commandRecord) {
-    commandRecords.push(commandRecord);
+  public void push(AlgorithmStep algorithmStep) {
+    algorithmSteps.push(algorithmStep);
   }
 
-  public CommandRecord pop() {
-    return commandRecords.pop();
+  public AlgorithmStep pop() {
+    return algorithmSteps.pop();
   }
 
   public boolean isEmpty() {
-    return commandRecords.isEmpty();
+    return algorithmSteps.isEmpty();
   }
 
   public void clear() {
-    commandRecords.clear();
+    algorithmSteps.clear();
   }
 }

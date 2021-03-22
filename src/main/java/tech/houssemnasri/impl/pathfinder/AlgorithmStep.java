@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl.command;
+package tech.houssemnasri.impl.pathfinder;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,18 +6,18 @@ import java.util.Stack;
 
 import tech.houssemnasri.api.command.ICommand;
 
-public class CommandRecord {
+public class AlgorithmStep {
   protected Stack<ICommand> commands = new Stack<>();
 
-  public CommandRecord(List<ICommand> commands) {
+  public AlgorithmStep(List<ICommand> commands) {
     this.commands.addAll(commands);
   }
 
-  public CommandRecord(ICommand... commands) {
+  public AlgorithmStep(ICommand... commands) {
     this(Arrays.asList(commands));
   }
 
-  public CommandRecord() {
+  public AlgorithmStep() {
     this(List.of());
   }
 
