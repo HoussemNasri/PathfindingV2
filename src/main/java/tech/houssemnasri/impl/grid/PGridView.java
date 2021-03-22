@@ -118,7 +118,7 @@ public class PGridView implements IGridView {
   }
 
   @Override
-  public void refresh() {
+  public Region refresh() {
     root.getChildren().clear();
     int cols = presenter.getColumns();
     int rows = presenter.getRows();
@@ -126,15 +126,16 @@ public class PGridView implements IGridView {
     for (int x = 0; x < cols; x++) {
       for (int y = 0; y < rows; y++) {
         IPosition position = Position.of(x, y);
-        PNodeView thisNodeView = new PNodeView(presenter.getNodeModel(position));
-        thisNodeView.setPainter(
+        INodeView thisNode = new PNodeView(presenter.getNodeModel(position));
+        thisNode.setPainter(
             new AnimatedNodePainter(
-                thisNodeView, getPresenter().getTheme(), new AnimationSuite.Builder().build()));
-        GridPane.setColumnIndex(thisNodeView, x);
-        GridPane.setRowIndex(thisNodeView, y);
-        root.add(thisNodeView, x, y);
+                thisNode, getPresenter().getTheme(), new AnimationSuite.Builder().build()));
+        GridPane.setColumnIndex(thisNode.getRoot(), x);
+        GridPane.setRowIndex(thisNode.getRoot(), y);
+        root.add(thisNode.getRoot(), x, y);
       }
     }
+    return root;
   }
 
   @Override

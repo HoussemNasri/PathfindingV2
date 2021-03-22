@@ -5,6 +5,7 @@ import javafx.scene.layout.Pane;
 import javafx.scene.shape.Rectangle;
 
 import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.animation.AnimationSuite;
 import tech.houssemnasri.impl.node.PNode;
@@ -14,11 +15,11 @@ import tech.houssemnasri.impl.animation.AnimationFXProxy;
 
 public class AnimatedNodePainter extends BaseNodePainter {
     private boolean isClippingEnabled = true;
-    private PNodeView transitionNode;
+    private INodeView transitionNode;
     private AnimationSuite animationSuite;
     private AnimationFXProxy animation;
 
-    public AnimatedNodePainter(PNodeView nodeView, ITheme theme, AnimationSuite animationSuite) {
+    public AnimatedNodePainter(INodeView nodeView, ITheme theme, AnimationSuite animationSuite) {
         super(nodeView, theme);
         setAnimationSuite(animationSuite);
     }
@@ -32,7 +33,7 @@ public class AnimatedNodePainter extends BaseNodePainter {
      * applicable.
      */
     private void onAnimationFinished(INode.Type newState) {
-        getNodeView().getChildren().remove(getTransitionNode());
+        getNodeView().getRoot().getChildren().remove(getTransitionNode());
         // If by the time the animation finished, the node type changes then we don't paint the
         // node.
         if (newState == getNodeView().getNodeModel().getType()) {
@@ -40,17 +41,17 @@ public class AnimatedNodePainter extends BaseNodePainter {
         }
     }
 
-    private PNodeView createTransitionNode(INode.Type newState) {
-        PNodeView view = new PNodeView(new PNode(Position.ERROR, newState));
+    private INodeView createTransitionNode(INode.Type newState) {
+        INodeView view = new PNodeView(new PNode(Position.ERROR, newState));
         view.setPainter(new SimpleNodePainter(getTheme(), view));
-        getNodeView().getChildren().add(view);
-        Rectangle clip = new Rectangle(getNodeView().getPrefWidth(), getNodeView().getPrefHeight());
-        getNodeView().setClip(isClippingEnabled ? clip : null);
+        getNodeView().getRoot().getChildren().add(view.getRoot());
+        Rectangle clip = new Rectangle(getNodeView().getRoot().getPrefWidth(), getNodeView().getRoot().getPrefHeight());
+        getNodeView().getRoot().setClip(isClippingEnabled ? clip : null);
         return view;
     }
 
     protected Pane getTransitionNode() {
-        return transitionNode;
+        return transitionNode.getRoot();
     }
 
     public void setClippingEnabled(boolean clippingEnabled) {

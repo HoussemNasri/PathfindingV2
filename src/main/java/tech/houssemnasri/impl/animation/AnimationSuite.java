@@ -47,10 +47,12 @@ public class AnimationSuite {
 
     onEnterSource = new AnimationFXProxy(new ZoomIn());
     onEnterSource.setJumpTo(Duration.millis(200));
+    onEnterSource.setSpeed(2.0);
     onExitSource = new AnimationFXProxy(new ZoomOut());
 
     onEnterDestination = new AnimationFXProxy(new ZoomIn());
     onEnterDestination.setJumpTo(Duration.millis(200));
+    onEnterDestination.setSpeed(2.0);
     onExitDestination = new AnimationFXProxy(new ZoomOut());
 
     onEnterOpen = new AnimationFXProxy(new RotateIn());

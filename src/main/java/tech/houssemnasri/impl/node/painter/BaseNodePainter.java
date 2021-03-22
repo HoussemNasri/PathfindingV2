@@ -4,19 +4,20 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
 import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.node.PNodeView;
 
 public abstract class BaseNodePainter {
   private final ObjectProperty<ITheme> themeProperty = new SimpleObjectProperty<>();
-  private PNodeView nodeView;
+  private INodeView nodeView;
 
-  public BaseNodePainter(PNodeView nodeView, ITheme theme) {
+  public BaseNodePainter(INodeView nodeView, ITheme theme) {
     setNodeView(nodeView);
     switchTheme(theme);
   }
 
-  private void setNodeView(PNodeView nodeView) {
+  private void setNodeView(INodeView nodeView) {
     this.nodeView = nodeView;
   }
 
@@ -34,7 +35,7 @@ public abstract class BaseNodePainter {
     return themeProperty;
   }
 
-  public PNodeView getNodeView() {
+  public INodeView getNodeView() {
     return nodeView;
   }
 }

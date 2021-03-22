@@ -6,6 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
@@ -51,8 +52,8 @@ public class PNodeView extends StackPane implements INodeView {
     public void setPainter(BaseNodePainter painter) {
         if (painter != null) {
             this.painter = painter;
-            painter.themeProperty().addListener(e -> repaint());
-            repaint();
+            painter.themeProperty().addListener(e -> refresh());
+            refresh();
         }
     }
 
@@ -125,11 +126,6 @@ public class PNodeView extends StackPane implements INodeView {
         return topRightCorner;
     }
 
-    @Override
-    public void repaint() {
-        doPaint(null, null, nodeModel.getType());
-    }
-
     private void doPaint(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
         if (painter != null) {
             painter.paint(nodeType);
@@ -156,12 +152,13 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     @Override
-    public Region getRoot() {
+    public StackPane getRoot() {
         return this;
     }
 
     @Override
-    public void refresh() {
+    public StackPane refresh() {
         doPaint(null, null, nodeModel.getType());
+        return this;
     }
 }

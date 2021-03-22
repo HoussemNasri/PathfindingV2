@@ -4,15 +4,15 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.paint.Color;
 
+import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.theme.ITheme;
-import tech.houssemnasri.impl.node.PNodeView;
 
 import static tech.houssemnasri.api.node.INode.*;
 
 /** This class {@code NodePainter} is responsible for painting {@code PNodeView} according to it's type and the current theme. */
 public class SimpleNodePainter extends BaseNodePainter{
 
-    public SimpleNodePainter(ITheme theme, PNodeView nodeView) {
+    public SimpleNodePainter(ITheme theme, INodeView nodeView) {
         super(nodeView, theme);
         nodeView.showCostProperty().addListener((observable, oldValue, newValue) -> setShowCost(newValue));
     }
@@ -23,13 +23,13 @@ public class SimpleNodePainter extends BaseNodePainter{
         // the presenter to send us the theme, and execute the theming code at {code changeTheme()}
         if(getTheme() == null) return;
         switch (nodeType){
-            case BASIC -> paintBasic(getNodeView());
-            case OPEN -> paintOpen(getNodeView());
-            case CLOSED -> paintClosed(getNodeView());
-            case WALL -> paintWall(getNodeView());
-            case PATH -> paintPath(getNodeView());
-            case SOURCE -> paintSource(getNodeView());
-            case DESTINATION -> paintDestination(getNodeView());
+            case BASIC -> paintBasic();
+            case OPEN -> paintOpen();
+            case CLOSED -> paintClosed();
+            case WALL -> paintWall();
+            case PATH -> paintPath();
+            case SOURCE -> paintSource();
+            case DESTINATION -> paintDestination();
         }
     }
 
@@ -42,43 +42,43 @@ public class SimpleNodePainter extends BaseNodePainter{
         getNodeView().getTopRightCornerText().setVisible(show);
     }
 
-    private void paintDestination(PNodeView nodeView) {
-        setBackgroundColor(nodeView, getTheme().getDestinationNodeColor());
+    private void paintDestination() {
+        setBackgroundColor(getTheme().getDestinationNodeColor());
         setShowCost(false);
     }
 
-    private void paintSource(PNodeView nodeView) {
-        setBackgroundColor(nodeView, getTheme().getSourceNodeColor());
+    private void paintSource() {
+        setBackgroundColor(getTheme().getSourceNodeColor());
         setShowCost(false);
     }
 
-    private void paintBasic(PNodeView nodeView) {
-        setBackgroundColor(nodeView, getTheme().getBasicNodeColor());
+    private void paintBasic() {
+        setBackgroundColor(getTheme().getBasicNodeColor());
         setShowCost(false);
     }
 
-    private void paintOpen(PNodeView nodeView) {
-        setBackgroundColor(nodeView, getTheme().getOpenNodeColor());
+    private void paintOpen() {
+        setBackgroundColor(getTheme().getOpenNodeColor());
         setShowCost(true);
     }
 
-    private void paintClosed(PNodeView nodeView) {
-        setBackgroundColor(nodeView, getTheme().getClosedNodeColor());
+    private void paintClosed() {
+        setBackgroundColor(getTheme().getClosedNodeColor());
         setShowCost(true);
     }
 
-    private void paintWall(PNodeView nodeView) {
-        setBackgroundColor(nodeView, getTheme().getWallNodeColor());
+    private void paintWall() {
+        setBackgroundColor(getTheme().getWallNodeColor());
         setShowCost(false);
     }
 
-    private void paintPath(PNodeView nodeView) {
-        setBackgroundColor(nodeView, getTheme().getPathNodeColor());
+    private void paintPath() {
+        setBackgroundColor(getTheme().getPathNodeColor());
         setShowCost(true);
     }
 
-    private void setBackgroundColor(PNodeView nodeView, Color color) {
+    private void setBackgroundColor(Color color) {
         Background coloredBackground = new Background(new BackgroundFill(color, null, null));
-        nodeView.setBackground(coloredBackground);
+        getNodeView().getRoot().setBackground(coloredBackground);
     }
 }

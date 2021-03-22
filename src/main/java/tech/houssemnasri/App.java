@@ -49,7 +49,7 @@ public class App extends Application {
     IGrid grid = PGrid.getInstance();
     IGridView gridView = PGridView.getInstance();
     IGridPresenter gridPresenter = new PGridPresenter(grid, gridView, theme1);
-    Region realGridView = gridView.getUpdatedRoot();
+    Region realGridView = gridView.refresh();
 
     Group root = new Group(realGridView);
 
