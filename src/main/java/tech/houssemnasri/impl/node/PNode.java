@@ -38,7 +38,7 @@ public final class PNode implements INode {
   }
 
   public PNode(IPosition position, Type type, INode parent) {
-    this(position, type, parent, new PathCost(FXCollections.observableArrayList(0, 0, 0, 0, 0)));
+    this(position, type, parent, new PathCost(FXCollections.observableArrayList(0, 0, 0)));
   }
 
   public PNode(IPosition position, Type type) {
@@ -100,9 +100,8 @@ public final class PNode implements INode {
 
   @Override
   public void clear() {
-    setType(Type.BASIC);
     setParent(null);
-    setPathCost(NO_COST);
+    getPathCost().getCostArguments().setAll(0, 0, 0);
   }
 
   @Override
