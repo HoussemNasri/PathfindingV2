@@ -10,28 +10,28 @@ import tech.houssemnasri.impl.node.painter.BaseNodePainter;
  * listens for changes on the model and update itself accordingly.
  */
 public interface INodeView {
-    /**
-     * Showing cost info on the view.
-     *
-     * @param show If true cost information will be visible.
-     */
-    void setShowCostInfo(boolean show);
+  /**
+   * Showing cost info on the view.
+   *
+   * @param show If true cost information will be visible.
+   */
+  void setShowCostInfo(boolean show);
 
-    boolean isShowCostEnabled();
+  boolean isShowCostEnabled();
 
-    BooleanProperty showCostProperty();
+  BooleanProperty showCostProperty();
 
-    INode getNodeModel();
+  INode getNodeModel();
 
-    void setPainter(BaseNodePainter painter);
+  void setPainter(BaseNodePainter painter);
 
-    BaseNodePainter getPainter();
+  BaseNodePainter getPainter();
 
-    Text getCenterText();
+  Text getCenterText();
 
-    Text getTopLeftCornerText();
+  Text getTopLeftCornerText();
 
-    Text getTopRightCornerText();
+  Text getTopRightCornerText();
 
-    void repaint();
+  void repaint();
 }

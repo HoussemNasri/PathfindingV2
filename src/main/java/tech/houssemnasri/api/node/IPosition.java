@@ -5,7 +5,7 @@ package tech.houssemnasri.api.node;
  * position of a node in {@code IGrid}.
  */
 public interface IPosition extends Cloneable {
-    int getX();
+  int getX();
 
-    int getY();
+  int getY();
 }

@@ -5,52 +5,52 @@ import javafx.beans.property.ObjectProperty;
 import tech.houssemnasri.impl.pathfinder.PathCost;
 
 public interface INode {
-    /** constant for no cost */
-    PathCost NO_COST = null;
+  /** constant for no cost */
+  PathCost NO_COST = null;
 
-    IPosition getPosition();
+  IPosition getPosition();
 
-    /**
-     * Assigning a new type to this node
-     *
-     * @see Type
-     */
-    void setType(Type nodeType);
+  /**
+   * Assigning a new type to this node
+   *
+   * @see Type
+   */
+  void setType(Type nodeType);
 
-    /**
-     * Returns the current type of this node
-     *
-     * @see Type
-     */
-    Type getType();
+  /**
+   * Returns the current type of this node
+   *
+   * @see Type
+   */
+  Type getType();
 
-    ObjectProperty<Type> nodeTypeProperty();
+  ObjectProperty<Type> nodeTypeProperty();
 
-    void setParent(INode parent);
+  void setParent(INode parent);
 
-    INode getParent();
+  INode getParent();
 
-    void setPathCost(PathCost pathCost);
+  void setPathCost(PathCost pathCost);
 
-    PathCost getPathCost();
+  PathCost getPathCost();
 
-    ObjectProperty<PathCost> nodeCostProperty();
+  ObjectProperty<PathCost> nodeCostProperty();
 
-    /** Reset the node to it's initial state as a basic node with no parent and no cost arguments */
-    void clear();
+  /** Reset the node to it's initial state as a basic node with no parent and no cost arguments */
+  void clear();
 
-    /**
-     * The type of node helps the UI module to draw nodes with custom styling, it also beneficial
-     * for the algorithm module to decide which node to explore as that some nodes are not
-     * explorable like {@code Type.WALL}.
-     */
-    enum Type {
-        BASIC,
-        WALL,
-        OPEN,
-        CLOSED,
-        PATH,
-        SOURCE,
-        DESTINATION
-    }
+  /**
+   * The type of node helps the UI module to draw nodes with custom styling, it also beneficial for
+   * the algorithm module to decide which node to explore as that some nodes are not explorable like
+   * {@code Type.WALL}.
+   */
+  enum Type {
+    BASIC,
+    WALL,
+    OPEN,
+    CLOSED,
+    PATH,
+    SOURCE,
+    DESTINATION
+  }
 }

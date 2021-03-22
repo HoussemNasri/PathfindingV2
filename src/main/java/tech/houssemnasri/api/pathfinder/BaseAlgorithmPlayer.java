@@ -5,23 +5,27 @@ package tech.houssemnasri.api.pathfinder;
  * the player actions like (pause, play, forward, back, reset).
  */
 public abstract class BaseAlgorithmPlayer {
-    private BaseAlgorithm thisAlgorithm;
+  private BaseAlgorithm thisAlgorithm;
 
-    public BaseAlgorithmPlayer(BaseAlgorithm thisAlgorithm) {
-        this.thisAlgorithm = thisAlgorithm;
-    }
+  public BaseAlgorithmPlayer(BaseAlgorithm thisAlgorithm) {
+    this.thisAlgorithm = thisAlgorithm;
+  }
 
-    public abstract void forward();
-    public abstract void back();
-    public abstract void play();
-    public abstract void pause();
-    public abstract void reset();
+  public abstract void forward();
 
-    public void setAlgorithm(BaseAlgorithm algorithm) {
-        thisAlgorithm = algorithm;
-    }
+  public abstract void back();
 
-    public BaseAlgorithm getAlgorithm() {
-        return thisAlgorithm;
-    }
+  public abstract void play();
+
+  public abstract void pause();
+
+  public abstract void reset();
+
+  public void setAlgorithm(BaseAlgorithm algorithm) {
+    thisAlgorithm = algorithm;
+  }
+
+  public BaseAlgorithm getAlgorithm() {
+    return thisAlgorithm;
+  }
 }

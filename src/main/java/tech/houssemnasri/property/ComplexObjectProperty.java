@@ -9,25 +9,25 @@ import javafx.beans.value.ChangeListener;
  * waiting for an update
  */
 public class ComplexObjectProperty<T> extends SimpleObjectProperty<T> {
-    // We only want to notify the listener when there is a initial value.
-    private boolean initialized;
+  // We only want to notify the listener when there is a initial value.
+  private boolean initialized;
 
-    public ComplexObjectProperty() {
-        super();
-    }
+  public ComplexObjectProperty() {
+    super();
+  }
 
-    public ComplexObjectProperty(T initialValue) {
-        super(initialValue);
-        // Client used the constructor with initialValue, meaning we have a initial value.
-        initialized = true;
-    }
+  public ComplexObjectProperty(T initialValue) {
+    super(initialValue);
+    // Client used the constructor with initialValue, meaning we have a initial value.
+    initialized = true;
+  }
 
-    @Override
-    public void addListener(ChangeListener<? super T> listener) {
-        super.addListener(listener);
-        if (getValue() != null || initialized) {
-            listener.changed(this, getValue(), getValue());
-            initialized = true;
-        }
+  @Override
+  public void addListener(ChangeListener<? super T> listener) {
+    super.addListener(listener);
+    if (getValue() != null || initialized) {
+      listener.changed(this, getValue(), getValue());
+      initialized = true;
     }
+  }
 }

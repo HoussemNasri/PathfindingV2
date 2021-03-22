@@ -27,7 +27,7 @@ public class TracePathCommand extends AlgorithmCommand {
   @Override
   public void undo() {
     INode tempNode = getNode();
-    while (tempNode != null){
+    while (tempNode != null) {
       tempNode.setType(typeCache.poll());
       tempNode = tempNode.getParent();
     }

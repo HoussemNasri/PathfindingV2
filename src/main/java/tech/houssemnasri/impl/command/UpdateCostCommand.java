@@ -33,7 +33,7 @@ public class UpdateCostCommand implements ICommand {
     pathCost.getCostArguments().set(position, prevValue);
   }
 
-  public PathCost getPathCost(){
+  public PathCost getPathCost() {
     return pathCost;
   }
 }

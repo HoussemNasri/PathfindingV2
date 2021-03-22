@@ -8,33 +8,33 @@ import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.node.PNodeView;
 
 public abstract class BaseNodePainter {
-    private final ObjectProperty<ITheme> themeProperty = new SimpleObjectProperty<>();
-    private PNodeView nodeView;
+  private final ObjectProperty<ITheme> themeProperty = new SimpleObjectProperty<>();
+  private PNodeView nodeView;
 
-    public BaseNodePainter(PNodeView nodeView, ITheme theme) {
-        setNodeView(nodeView);
-        switchTheme(theme);
-    }
+  public BaseNodePainter(PNodeView nodeView, ITheme theme) {
+    setNodeView(nodeView);
+    switchTheme(theme);
+  }
 
-    private void setNodeView(PNodeView nodeView) {
-        this.nodeView = nodeView;
-    }
+  private void setNodeView(PNodeView nodeView) {
+    this.nodeView = nodeView;
+  }
 
-    public abstract void paint(INode.Type nodeType);
+  public abstract void paint(INode.Type nodeType);
 
-    public void switchTheme(ITheme newTheme) {
-        themeProperty.set(newTheme);
-    }
+  public void switchTheme(ITheme newTheme) {
+    themeProperty.set(newTheme);
+  }
 
-    public ITheme getTheme() {
-        return themeProperty.get();
-    }
+  public ITheme getTheme() {
+    return themeProperty.get();
+  }
 
-    public ObjectProperty<ITheme> themeProperty() {
-        return themeProperty;
-    }
+  public ObjectProperty<ITheme> themeProperty() {
+    return themeProperty;
+  }
 
-    public PNodeView getNodeView() {
-        return nodeView;
-    }
+  public PNodeView getNodeView() {
+    return nodeView;
+  }
 }

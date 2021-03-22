@@ -8,6 +8,7 @@ import static tech.houssemnasri.api.node.INode.*;
 
 public class OpenNodeCommand extends AlgorithmCommand {
   private final Type undoType;
+
   public OpenNodeCommand(BaseAlgorithm algorithm, INode node) {
     super(algorithm, node);
     this.undoType = node.getType();
