@@ -18,9 +18,17 @@ public final class PathCost implements Cloneable {
     this.costArguments = costArguments;
   }
 
+  public PathCost() {
+    this(FXCollections.observableArrayList(0, 0, 0));
+  }
+
   /** Returns a list of calculated costs */
   public ObservableList<Integer> getCostArguments() {
     return costArguments;
+  }
+
+  public void clear() {
+    costArguments.setAll(0, 0, 0);
   }
 
   @Override
