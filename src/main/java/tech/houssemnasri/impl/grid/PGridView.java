@@ -90,14 +90,15 @@ public class PGridView implements IGridView {
    * position out of logical bounds.
    */
   private IPosition findIntersectedNodePosition(MouseEvent mouseEvent) {
-    Node intersectedNode = mouseEvent.getPickResult().getIntersectedNode();
-    if (intersectedNode == null) {
-      return Position.ERROR;
-    }
-    Integer eventXPosition = GridPane.getColumnIndex(intersectedNode);
-    Integer eventYPosition = GridPane.getRowIndex(intersectedNode);
-    if (eventXPosition != null && eventYPosition != null) {
-      return Position.of(eventXPosition, eventYPosition);
+    Node intersection = mouseEvent.getPickResult().getIntersectedNode();
+    // The intersected node might not be the NodeView itself but it's child
+    while (intersection != null) {
+      Integer eventXPosition = GridPane.getColumnIndex(intersection);
+      Integer eventYPosition = GridPane.getRowIndex(intersection);
+      if (eventXPosition != null && eventYPosition != null) {
+        return Position.of(eventXPosition, eventYPosition);
+      }
+      intersection = intersection.getParent();
     }
     return Position.ERROR;
   }
