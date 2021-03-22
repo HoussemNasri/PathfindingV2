@@ -1,10 +1,12 @@
 package tech.houssemnasri.api.pathfinder;
 
+import javafx.animation.AnimationTimer;
+
 /**
  * This class {@code BaseAlgorithmPlayer} is responsible for managing the player state and perform
  * the player actions like (pause, play, forward, back, reset).
  */
-public abstract class BaseAlgorithmPlayer {
+public abstract class BaseAlgorithmPlayer extends AnimationTimer {
   private BaseAlgorithm thisAlgorithm;
 
   public BaseAlgorithmPlayer(BaseAlgorithm thisAlgorithm) {
@@ -15,7 +17,9 @@ public abstract class BaseAlgorithmPlayer {
 
   public abstract void back();
 
-  public abstract void play();
+  public void play() {
+    super.start();
+  }
 
   public abstract void pause();
 
@@ -27,5 +31,11 @@ public abstract class BaseAlgorithmPlayer {
 
   public BaseAlgorithm getAlgorithm() {
     return thisAlgorithm;
+  }
+
+  enum Status {
+    RUNNING,
+    PAUSED,
+    STOPPED
   }
 }

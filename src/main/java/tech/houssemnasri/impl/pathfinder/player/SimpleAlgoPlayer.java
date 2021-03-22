@@ -1,14 +1,14 @@
 package tech.houssemnasri.impl.pathfinder.player;
 
-import javafx.animation.AnimationTimer;
-
+import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
 
-public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
+public class SimpleAlgoPlayer extends BaseAlgorithmPlayer implements BooleanExtensions {
   private static final long SPEED_SLOW = 700000000;
   private static final long SPEED_MEDIUM = 70000000;
   private static final long SPEED_FAST = 9000000;
+  private long start = -1;
 
   public SimpleAlgoPlayer(BaseAlgorithm algorithm) {
     super(algorithm);
@@ -16,32 +16,29 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
 
   @Override
   public void forward() {
-    getAlgorithm().forward();
+    if (not(getAlgorithm().isPathFound())) {
+      getAlgorithm().forward();
+    } else {
+      System.out.println("Dude! We found the path.");
+    }
   }
 
   @Override
   public void back() {
-    getAlgorithm().back();
+    if (not(getAlgorithm().getOpenSet().isEmpty())) {
+      getAlgorithm().back();
+    } else {
+      System.out.println("Stop! Motherfucker.");
+    }
   }
 
   @Override
   public void play() {
-    AnimationTimer timer =
-        new AnimationTimer() {
-          private long start = -1;
-          @Override
-          public void handle(long now) {
-            if (start == -1 || now - start >= SPEED_FAST) {
-              start = now;
-              if (getAlgorithm().isPathFound()) {
-                this.stop();
-              } else {
-                getAlgorithm().forward();
-              }
-            }
-          }
-        };
-    timer.start();
+    if (getAlgorithm().isPathFound()) {
+      getAlgorithm().reset();
+      System.out.println("Hello");
+    }
+    super.play();
   }
 
   @Override
@@ -49,4 +46,16 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer {
 
   @Override
   public void reset() {}
+
+  @Override
+  public void handle(long now) {
+    if (start == -1 || now - start >= SPEED_MEDIUM) {
+      start = now;
+      if (getAlgorithm().isPathFound()) {
+        this.stop();
+      } else {
+        forward();
+      }
+    }
+  }
 }
