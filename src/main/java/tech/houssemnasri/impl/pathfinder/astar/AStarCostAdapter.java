@@ -12,21 +12,21 @@ public class AStarCostAdapter implements IAstarCost {
   public AStarCostAdapter(PathCost costInfo, CommandRecord commandRecord) {
     this.costInfo = costInfo;
     this.commandRecord = commandRecord;
-    updateFCost();
+    setF();
   }
 
-  public AStarCostAdapter(PathCost costInfo){
+  public AStarCostAdapter(PathCost costInfo) {
     this(costInfo, new CommandRecord());
   }
 
-  private void updateFCost() {
+  private void setF() {
     commandRecord.push(new UpdateCostCommand(costInfo, 0, fCost()).executeAndReturn());
   }
 
   @Override
   public void setG(int newGCost) {
     commandRecord.push(new UpdateCostCommand(costInfo, 1, newGCost).executeAndReturn());
-    updateFCost();
+    setF();
   }
 
   @Override
@@ -37,7 +37,7 @@ public class AStarCostAdapter implements IAstarCost {
   @Override
   public void setH(int newHCost) {
     commandRecord.push(new UpdateCostCommand(costInfo, 2, newHCost).executeAndReturn());
-    updateFCost();
+    setF();
   }
 
   @Override
@@ -46,10 +46,10 @@ public class AStarCostAdapter implements IAstarCost {
   }
 
   @Override
-  public int compare(IAstarCost o1, IAstarCost o2) {
-    if (o1.fCost() != o2.fCost()) {
-      return Integer.compare(o1.fCost(), o2.fCost());
+  public int compareTo(IAstarCost o) {
+    if (fCost() != o.fCost()) {
+      return Integer.compare(this.fCost(), o.fCost());
     }
-    return Integer.compare(o1.hCost(), o2.hCost());
+    return Integer.compare(this.hCost(), o.hCost());
   }
 }
