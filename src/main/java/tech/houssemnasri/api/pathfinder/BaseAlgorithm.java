@@ -10,7 +10,7 @@ import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.command.CommandRecord;
-import tech.houssemnasri.impl.command.CommandHistory;
+import tech.houssemnasri.impl.pathfinder.AlgorithmHistory;
 import tech.houssemnasri.impl.command.TracePathCommand;
 import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.util.GridChecker;
@@ -23,7 +23,7 @@ import tech.houssemnasri.util.GridChecker;
 public abstract class BaseAlgorithm implements BooleanExtensions {
   protected final IGrid grid;
   protected final boolean isDiagonalAllowed;
-  private final CommandHistory algorithmHistory = new CommandHistory();
+  private final AlgorithmHistory algorithmHistory = new AlgorithmHistory();
   protected INode currentNode;
 
   public BaseAlgorithm(IGrid grid, boolean isDiagonalAllowed) {

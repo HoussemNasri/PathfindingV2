@@ -1,16 +1,18 @@
-package tech.houssemnasri.impl.command;
+package tech.houssemnasri.impl.pathfinder;
 
 import java.util.List;
 import java.util.Stack;
 
-public class CommandHistory {
+import tech.houssemnasri.impl.command.CommandRecord;
+
+public class AlgorithmHistory {
   protected Stack<CommandRecord> commandRecords = new Stack<>();
 
-  public CommandHistory(List<CommandRecord> commandRecords) {
+  public AlgorithmHistory(List<CommandRecord> commandRecords) {
     this.commandRecords.addAll(commandRecords);
   }
 
-  public CommandHistory() {
+  public AlgorithmHistory() {
     this(List.of());
   }
 
