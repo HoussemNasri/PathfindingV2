@@ -33,10 +33,10 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
 
   public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
     setGridModel(gridModel);
-    setGridView(gridView);
     bindColsPropertyToModel();
     bindRowsPropertyToModel();
     setTheme(theme);
+    setGridView(gridView);
   }
 
   private void bindColsPropertyToModel() {

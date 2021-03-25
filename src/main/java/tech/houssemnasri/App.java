@@ -1,15 +1,18 @@
 package tech.houssemnasri;
 
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Control;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Region;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
+import com.sun.javafx.charts.ChartLayoutAnimator;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
@@ -49,13 +52,10 @@ public class App extends Application {
     IGrid grid = PGrid.getInstance();
     IGridView gridView = PGridView.getInstance();
     IGridPresenter gridPresenter = new PGridPresenter(grid, gridView, theme1);
-    Region realGridView = gridView.refresh();
 
-    Group root = new Group(realGridView);
+    //Group root = new Group(gridView.getRoot());
 
-    Scene scene = new Scene(root, 700, 500);
-    realGridView.prefWidthProperty().bind(scene.widthProperty());
-    realGridView.prefHeightProperty().bind(scene.heightProperty());
+    Scene scene = new Scene(gridView.getRoot(), 700, 500);
 
     BaseAlgorithmPlayer algorithmPlayer = new SimpleAlgoPlayer(new AStarAlgorithm(grid, true));
 
@@ -63,19 +63,14 @@ public class App extends Application {
         MouseEvent.MOUSE_CLICKED,
         e -> {
           if (e.getButton() == MouseButton.MIDDLE) {
-            algorithmPlayer.back();
+            gridPresenter.setTheme(themes[++themeCounter % themes.length]);
           } else if (e.getButton() == MouseButton.SECONDARY) {
             algorithmPlayer.play();
           }
         });
-
+    TranslateTransition t;
     primaryStage.setScene(scene);
     primaryStage.show();
-
-    AnimationSuite suite1 = new AnimationSuite.Builder().build();
-    AnimationSuite suite2 = new AnimationSuite.Builder().build();
-    System.out.println(suite1.getOnEnterBasic());
-    System.out.println(suite2.getOnEnterBasic());
   }
 
 

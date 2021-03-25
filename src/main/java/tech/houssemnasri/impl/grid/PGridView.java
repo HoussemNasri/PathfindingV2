@@ -13,21 +13,22 @@ import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.gesturefx.GesturePane;
-import tech.houssemnasri.impl.animation.AnimationSuite;
 import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.node.Position;
-import tech.houssemnasri.impl.node.painter.AnimatedNodePainter;
+import tech.houssemnasri.impl.node.painter.PNodePainter;
 
 public class PGridView implements IGridView {
   private static PGridView INSTANCE = null;
 
   private IGridPresenter presenter = null;
   private final GridPane root = new GridPane();
+  private final GesturePane rootWrapper = new GesturePane(root);
 
   public PGridView(IGridPresenter presenter) {
     // Init
-    setPresenter(presenter);
     initRoot();
+    initRootWrapper();
+    setPresenter(presenter);
 
     // Listen For Mouse Events
     listenForMouseClicks();
@@ -38,6 +39,28 @@ public class PGridView implements IGridView {
 
   private PGridView() {
     this(null);
+  }
+
+  private void initRootWrapper() {
+    rootWrapper.sceneProperty().addListener(this::doHandleSceneChange);
+    rootWrapper.setGestureEnabled(true);
+    rootWrapper.setScrollMode(GesturePane.ScrollMode.ZOOM);
+    rootWrapper.setFitMode(GesturePane.FitMode.COVER);
+    rootWrapper.setFitWidth(true);
+    rootWrapper.setFitHeight(true);
+    rootWrapper.setMinScale(1);
+    rootWrapper.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
+  }
+
+  private void doHandleSceneChange(Observable o) {
+    if (this.rootWrapper.getScene() != null) {
+      this.rootWrapper.prefWidthProperty().bind(rootWrapper.getScene().widthProperty());
+      this.rootWrapper.prefHeightProperty().bind(rootWrapper.getScene().heightProperty());
+    }
+  }
+
+  private GesturePane getRootWrapper() {
+    return this.rootWrapper;
   }
 
   private void listenForMouseRelease() {
@@ -118,7 +141,7 @@ public class PGridView implements IGridView {
   }
 
   @Override
-  public Region refresh() {
+  public void refresh() {
     root.getChildren().clear();
     int cols = presenter.getColumns();
     int rows = presenter.getRows();
@@ -127,32 +150,17 @@ public class PGridView implements IGridView {
       for (int y = 0; y < rows; y++) {
         IPosition position = Position.of(x, y);
         INodeView thisNode = new PNodeView(presenter.getNodeModel(position));
-        thisNode.setPainter(
-            new AnimatedNodePainter(
-                thisNode, getPresenter().getTheme(), new AnimationSuite.Builder().build()));
+        thisNode.setPainter(new PNodePainter(presenter.getTheme(), thisNode));
         GridPane.setColumnIndex(thisNode.getRoot(), x);
         GridPane.setRowIndex(thisNode.getRoot(), y);
         root.add(thisNode.getRoot(), x, y);
       }
     }
-    return root;
   }
 
   @Override
   public Region getRoot() {
-    return createGesturePane();
-  }
-
-  private GesturePane createGesturePane() {
-    GesturePane rootWrapper = new GesturePane(root);
-    rootWrapper.setGestureEnabled(true);
-    rootWrapper.setScrollMode(GesturePane.ScrollMode.ZOOM);
-    rootWrapper.setFitMode(GesturePane.FitMode.COVER);
-    rootWrapper.setFitWidth(true);
-    rootWrapper.setFitHeight(true);
-    rootWrapper.setMinScale(1);
-    rootWrapper.setScrollBarPolicy(GesturePane.ScrollBarPolicy.NEVER);
-    return rootWrapper;
+    return getRootWrapper();
   }
 
   @Override
@@ -175,6 +183,7 @@ public class PGridView implements IGridView {
       return;
     }
     this.presenter = presenter;
+    refresh();
     listenForThemeChange();
   }
 

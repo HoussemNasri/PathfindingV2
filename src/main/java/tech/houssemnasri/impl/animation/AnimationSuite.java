@@ -121,6 +121,10 @@ public class AnimationSuite {
     return onExitPath;
   }
 
+  public static AnimationSuite getDefault() {
+    return new Builder().build();
+  }
+
   public static class Builder {
     AnimationSuite build = new AnimationSuite();
 

@@ -1,5 +1,6 @@
 package tech.houssemnasri.impl.animation;
 
+import javafx.animation.Animation;
 import javafx.animation.Timeline;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -109,5 +110,9 @@ public class AnimationFXProxy {
   /** Stop the animation */
   public void stop() {
     animationFX.stop();
+  }
+
+  public boolean isPlaying(){
+    return getTimeline().getStatus() == Animation.Status.RUNNING;
   }
 }

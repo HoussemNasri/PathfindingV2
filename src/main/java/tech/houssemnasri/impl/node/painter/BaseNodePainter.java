@@ -8,6 +8,10 @@ import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.node.PNodeView;
 
+/**
+ * This class {@code BaseNodePainter} is responsible for painting {@code INodeView} according to
+ * it's type and the current theme.
+ */
 public abstract class BaseNodePainter {
   private final ObjectProperty<ITheme> themeProperty = new SimpleObjectProperty<>();
   private INodeView nodeView;
@@ -38,4 +42,6 @@ public abstract class BaseNodePainter {
   public INodeView getNodeView() {
     return nodeView;
   }
+
+  public abstract BaseNodePainter create(INodeView nodeView);
 }

@@ -1,6 +1,5 @@
 package tech.houssemnasri.api.grid;
 
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Region;
 
 import tech.houssemnasri.api.mvp.PresentableView;

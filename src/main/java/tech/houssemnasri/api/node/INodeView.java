@@ -5,6 +5,7 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import tech.houssemnasri.api.mvp.View;
+import tech.houssemnasri.impl.node.animator.BaseNodeAnimator;
 import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
 /**
@@ -34,4 +35,10 @@ public interface INodeView extends View<StackPane> {
   Text getTopLeftCornerText();
 
   Text getTopRightCornerText();
+
+  void setAnimator(BaseNodeAnimator animator);
+
+  void setIsAnimate(boolean isAnimate);
+
+  boolean isAnimate();
 }

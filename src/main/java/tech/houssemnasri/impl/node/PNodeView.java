@@ -6,12 +6,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 
+import tech.houssemnasri.impl.animation.AnimationSuite;
+import tech.houssemnasri.impl.node.animator.BaseNodeAnimator;
+import tech.houssemnasri.impl.node.animator.PNodeAnimator;
 import tech.houssemnasri.impl.pathfinder.PathCost;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.INodeView;
@@ -22,15 +23,19 @@ public class PNodeView extends StackPane implements INodeView {
     public static final int INITIAL_NODE_SIZE = 25;
     private INode nodeModel;
     private BaseNodePainter painter;
+    private BaseNodeAnimator animator;
+    private boolean isAnimate;
 
     private final Text center = new Text();
     private final Text topLeftCorner = new Text();
     private final Text topRightCorner = new Text();
     private final BooleanProperty showCostProperty = new SimpleBooleanProperty(true);
 
-    public PNodeView(INode nodeModel, BaseNodePainter painter) {
+    public PNodeView(INode nodeModel, boolean isAnimate, BaseNodePainter painter) {
         setNodeModel(nodeModel);
         setPainter(painter);
+        setIsAnimate(isAnimate);
+        setAnimator(new PNodeAnimator(this, AnimationSuite.getDefault()));
         setPrefWidth(INITIAL_NODE_SIZE);
         setPrefHeight(INITIAL_NODE_SIZE);
         listenForTypeChange();
@@ -40,8 +45,12 @@ public class PNodeView extends StackPane implements INodeView {
         setupTopRightCorner();
     }
 
+    public PNodeView(INode nodeModel, boolean animate) {
+        this(nodeModel, animate, null);
+    }
+
     public PNodeView(INode nodeModel) {
-        this(nodeModel, null);
+        this(nodeModel, true);
     }
 
     private void setNodeModel(INode nodeModel) {
@@ -55,6 +64,19 @@ public class PNodeView extends StackPane implements INodeView {
             painter.themeProperty().addListener(e -> refresh());
             refresh();
         }
+    }
+
+    public void setAnimator(BaseNodeAnimator animator) {
+        this.animator = animator;
+    }
+
+    @Override
+    public void setIsAnimate(boolean isAnimate) {
+        this.isAnimate = isAnimate;
+    }
+
+    public boolean isAnimate(){
+        return isAnimate;
     }
 
     @Override
@@ -128,7 +150,12 @@ public class PNodeView extends StackPane implements INodeView {
 
     private void doPaint(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
         if (painter != null) {
-            painter.paint(nodeType);
+            if(isAnimate()){
+                animator.setToType(nodeType);
+                animator.animate();
+            }else {
+                painter.paint(nodeType);
+            }
         }
     }
 
@@ -157,8 +184,7 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     @Override
-    public StackPane refresh() {
+    public void refresh() {
         doPaint(null, null, nodeModel.getType());
-        return this;
     }
 }

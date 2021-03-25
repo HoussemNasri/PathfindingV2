@@ -9,10 +9,9 @@ import tech.houssemnasri.api.theme.ITheme;
 
 import static tech.houssemnasri.api.node.INode.*;
 
-/** This class {@code NodePainter} is responsible for painting {@code PNodeView} according to it's type and the current theme. */
-public class SimpleNodePainter extends BaseNodePainter{
+public class PNodePainter extends BaseNodePainter{
 
-    public SimpleNodePainter(ITheme theme, INodeView nodeView) {
+    public PNodePainter(ITheme theme, INodeView nodeView) {
         super(nodeView, theme);
         nodeView.showCostProperty().addListener((observable, oldValue, newValue) -> setShowCost(newValue));
     }
@@ -80,5 +79,10 @@ public class SimpleNodePainter extends BaseNodePainter{
     private void setBackgroundColor(Color color) {
         Background coloredBackground = new Background(new BackgroundFill(color, null, null));
         getNodeView().getRoot().setBackground(coloredBackground);
+    }
+
+    @Override
+    public BaseNodePainter create(INodeView nodeView) {
+        return new PNodePainter(getTheme(), nodeView);
     }
 }
