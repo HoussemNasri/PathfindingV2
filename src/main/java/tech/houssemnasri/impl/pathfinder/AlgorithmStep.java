@@ -29,6 +29,11 @@ public class AlgorithmStep {
     return commands.pop();
   }
 
+  /** Execute the command and save it. */
+  public void exec(ICommand command) {
+    push(command.executeAndReturn());
+  }
+
   public boolean isEmpty() {
     return commands.isEmpty();
   }

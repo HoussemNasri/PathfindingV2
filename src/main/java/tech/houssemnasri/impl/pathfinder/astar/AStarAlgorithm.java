@@ -14,7 +14,7 @@ import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
 import tech.houssemnasri.impl.command.SetCurrentNodeCommand;
 import tech.houssemnasri.impl.command.SetParentCommand;
-import tech.houssemnasri.impl.pathfinder.distance.ManhattanDistance;
+import tech.houssemnasri.impl.pathfinder.distance.DiagonalDistance;
 import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
 
@@ -44,13 +44,12 @@ public class AStarAlgorithm extends BaseAlgorithm {
     AlgorithmStep algorithmStep = new AlgorithmStep();
     if (openNodes.isEmpty()) {
       IPosition source = grid.getSourcePosition();
-      algorithmStep.push(new OpenNodeCommand(this, grid.getNode(source)).executeAndReturn());
-      computeHCost(grid.getNode(source), algorithmStep);
+      algorithmStep.exec(new OpenNodeCommand(this, grid.getNode(source)));
+      computeHCostFor(grid.getNode(source), algorithmStep);
       new AStarCostAdapter(getGrid().getNode(source).getPathCost(), algorithmStep).setG(0);
     }
-    // setCurrentNode(getLeastCostNode());
-    algorithmStep.push(new SetCurrentNodeCommand(this, getLeastCostNode()).executeAndReturn());
-    algorithmStep.push(new CloseNodeCommand(this, getCurrentNode()).executeAndReturn());
+    algorithmStep.exec(new SetCurrentNodeCommand(this, getLeastCostNode()));
+    algorithmStep.exec(new CloseNodeCommand(this, getCurrentNode()));
 
     if (getGrid().isDestinationNode(getCurrentNode())) {
       recordStep(algorithmStep);
@@ -71,25 +70,23 @@ public class AStarAlgorithm extends BaseAlgorithm {
       int gCostForNeighbor = neighborNodeCost.gCost();
       int gCostForNeighborUpdate =
           gCostForCurrent + (isOnDiagonal(nei) ? DIAGONAL_DISTANCE : HORIZ_VERT_DISTANCE);
-      if (isNodeOpen(nei)) {
-        if (gCostForNeighbor > gCostForNeighborUpdate) {
-          neighborNodeCost.setG(gCostForNeighborUpdate);
-          algorithmStep.push(new SetParentCommand(this, nei, currentNode).executeAndReturn());
-        }
+      if (and(isNodeOpen(nei), gCostForNeighbor > gCostForNeighborUpdate)) {
+        neighborNodeCost.setG(gCostForNeighborUpdate);
+        algorithmStep.exec(new SetParentCommand(this, nei, currentNode));
       } else {
         neighborNodeCost.setG(gCostForNeighborUpdate);
-        algorithmStep.push(new SetParentCommand(this, nei, currentNode).executeAndReturn());
-        computeHCost(nei, algorithmStep);
-        algorithmStep.push(new OpenNodeCommand(this, nei).executeAndReturn());
+        algorithmStep.exec(new SetParentCommand(this, nei, currentNode));
+        computeHCostFor(nei, algorithmStep);
+        algorithmStep.exec(new OpenNodeCommand(this, nei));
       }
     }
     recordStep(algorithmStep);
   }
 
-  private void computeHCost(INode node, AlgorithmStep algorithmStep) {
+  private void computeHCostFor(INode node, AlgorithmStep algorithmStep) {
     IPosition thisPosition = node.getPosition();
     IPosition destPosition = grid.getDestinationPosition();
-    Distance distance = new ManhattanDistance();
+    Distance distance = new DiagonalDistance();
     new AStarCostAdapter(node.getPathCost(), algorithmStep)
         .setH(distance.apply(thisPosition, destPosition));
   }
