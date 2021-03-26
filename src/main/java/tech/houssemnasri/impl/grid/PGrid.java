@@ -48,7 +48,7 @@ public final class PGrid implements IGrid, Serializable, BooleanExtensions {
     createNodes();
   }
 
-  private PGrid(int rows, int cols) {
+  public PGrid(int rows, int cols) {
     this(rows, cols, Position.of(10, 10), Position.of(18, 10));
   }
 

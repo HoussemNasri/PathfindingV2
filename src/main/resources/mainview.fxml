@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<VBox fx:id="arr" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="tech.houssemnasri.impl.mainview.MainView">
+   <children>
+      <StackPane fx:id="toolboxContainer" cacheShape="false" prefHeight="57.0" prefWidth="900.0" style="-fx-background-color: green;" />
+      <StackPane fx:id="gridContainer" prefHeight="516.0" prefWidth="900.0" style="-fx-background-color: gray;" />
+      <StackPane fx:id="infoBarContainer" prefHeight="26.0" prefWidth="900.0" style="-fx-background-color: blue;" />
+   </children>
+</VBox>

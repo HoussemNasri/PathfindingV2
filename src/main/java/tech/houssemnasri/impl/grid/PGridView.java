@@ -37,7 +37,7 @@ public class PGridView implements IGridView {
     listenForMouseRelease();
   }
 
-  private PGridView() {
+  public PGridView() {
     this(null);
   }
 

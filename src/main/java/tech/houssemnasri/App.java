@@ -1,24 +1,18 @@
 package tech.houssemnasri;
 
-import javafx.animation.TranslateTransition;
 import javafx.application.Application;
-import javafx.scene.Group;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Control;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Region;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 
-import com.sun.javafx.charts.ChartLayoutAnimator;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
 import tech.houssemnasri.api.theme.ITheme;
-import tech.houssemnasri.impl.animation.AnimationSuite;
 import tech.houssemnasri.impl.grid.PGrid;
 import tech.houssemnasri.impl.grid.PGridPresenter;
 import tech.houssemnasri.impl.grid.PGridView;
@@ -28,9 +22,9 @@ import tech.houssemnasri.impl.theme.PTheme;
 
 public class App extends Application {
   private static int themeCounter = 0;
+  private ITheme[] themes;
 
-  @Override
-  public void start(Stage primaryStage) throws Exception {
+  private void initThemes() {
     ITheme theme1 = new PTheme.Builder().build();
     ITheme theme2 =
         new PTheme.Builder()
@@ -47,32 +41,45 @@ public class App extends Application {
             .setBasicNodeColor(Color.CORAL)
             .setDestinationNodeColor(Color.DARKORCHID)
             .build();
-    ITheme[] themes = {theme1, theme2, theme3};
+    themes = new ITheme[] {theme1, theme2, theme3};
+  }
 
-    IGrid grid = PGrid.getInstance();
-    IGridView gridView = PGridView.getInstance();
-    IGridPresenter gridPresenter = new PGridPresenter(grid, gridView, theme1);
+  @Override
+  public void start(Stage primaryStage) {
+    initThemes();
+    VBox root = new VBox();
+    Scene scene = new Scene(root, 700, 500);
 
-    //Group root = new Group(gridView.getRoot());
-
-    Scene scene = new Scene(gridView.getRoot(), 700, 500);
+    IGrid grid = new PGrid(40, 60);
+    IGridPresenter gridPresenter = new PGridPresenter();
+    IGridView gridView = new PGridView(gridPresenter);
+    gridPresenter.setGridModel(grid);
+    gridPresenter.setView(gridView);
 
     BaseAlgorithmPlayer algorithmPlayer = new SimpleAlgoPlayer(new AStarAlgorithm(grid, true));
 
-    scene.addEventFilter(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          if (e.getButton() == MouseButton.MIDDLE) {
-            gridPresenter.setTheme(themes[++themeCounter % themes.length]);
-          } else if (e.getButton() == MouseButton.SECONDARY) {
-            algorithmPlayer.play();
-          }
-        });
-    TranslateTransition t;
+    root.getChildren().add(gridView.getRoot());
+    listenForSceneClicks(themes, gridPresenter, algorithmPlayer, scene);
     primaryStage.setScene(scene);
     primaryStage.show();
   }
 
+  private void listenForSceneClicks(
+      ITheme[] themes,
+      IGridPresenter gridPresenter,
+      BaseAlgorithmPlayer algorithmPlayer,
+      Scene scene) {
+    scene.addEventFilter(
+        MouseEvent.MOUSE_CLICKED,
+        e -> {
+          if (e.getButton() == MouseButton.MIDDLE) {
+            gridPresenter.setShowCostInfo(++themeCounter % 2 == 0);
+            //gridPresenter.setTheme(themes[++themeCounter % themes.length]);
+          } else if (e.getButton() == MouseButton.SECONDARY) {
+            algorithmPlayer.play();
+          }
+        });
+  }
 
   public static void main(String[] args) {
     launch(args);

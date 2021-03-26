@@ -10,8 +10,8 @@ import tech.houssemnasri.api.theme.ITheme;
  */
 public class PTheme implements ITheme {
   private Color colorWallNode = Color.valueOf("#222021");
-  private Color colorOpenNode = Color.MEDIUMSEAGREEN;
-  private Color colorClosedNode = Color.INDIANRED;
+  private Color colorOpenNode = Color.MEDIUMTURQUOISE;
+  private Color colorClosedNode = Color.DEEPPINK;
   private Color colorBasicNode = Color.IVORY;
   private Color colorPathNode = Color.GOLD;
   private Color colorSourceNode = Color.INDIGO;
@@ -52,6 +52,10 @@ public class PTheme implements ITheme {
   @Override
   public Color getDestinationNodeColor() {
     return colorDestinationNode;
+  }
+
+  public static ITheme getDefault() {
+    return new PTheme.Builder().build();
   }
 
   public static class Builder {

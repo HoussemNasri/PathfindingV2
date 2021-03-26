@@ -9,10 +9,12 @@ import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
+import tech.houssemnasri.api.mvp.View;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
 import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.node.Position;
+import tech.houssemnasri.impl.theme.PTheme;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 
@@ -33,27 +35,33 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
 
   public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
     setGridModel(gridModel);
-    bindColsPropertyToModel();
-    bindRowsPropertyToModel();
+    setView(gridView);
     setTheme(theme);
-    setGridView(gridView);
+  }
+
+  public PGridPresenter(IGrid gridModel, IGridView gridView) {
+    this(gridModel, gridView, PTheme.getDefault());
+  }
+
+  public PGridPresenter() {
+    this(null, null);
   }
 
   private void bindColsPropertyToModel() {
+    if (gridModel == null) return;
     colsProperty.bind(gridModel.columnsProperty());
   }
 
   private void bindRowsPropertyToModel() {
+    if (gridModel == null) return;
     rowsProperty.bind(gridModel.rowsProperty());
   }
 
-  private void setGridModel(IGrid gridModel) {
+  @Override
+  public void setGridModel(IGrid gridModel) {
     this.gridModel = gridModel;
-  }
-
-  private void setGridView(IGridView gridView) {
-    this.gridView = gridView;
-    this.gridView.setPresenter(this);
+    bindColsPropertyToModel();
+    bindRowsPropertyToModel();
   }
 
   @Override
@@ -187,5 +195,12 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   public void onMouseRelease(MouseEvent mouseEvent, IPosition releaseNodePosition) {
     isDraggingSourceNode = false;
     isDraggingDestinationNode = false;
+  }
+
+  @Override
+  public void setView(IGridView view) {
+    if (view == null) return;
+    this.gridView = view;
+    this.gridView.setPresenter(this);
   }
 }
