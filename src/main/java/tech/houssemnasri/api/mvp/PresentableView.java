@@ -4,7 +4,7 @@ package tech.houssemnasri.api.mvp;
  *
  * @param <P> the presenter type
  */
-public interface PresentableView<P extends Presenter, V> extends View<V> {
+public interface PresentableView<P extends Presenter<?>, V> extends View<V> {
   /** Enforcing the MVP architecture pattern by having a reference to the view presenter. */
   void setPresenter(P presenter);
 }

@@ -13,12 +13,18 @@ import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
 import tech.houssemnasri.api.theme.ITheme;
+import tech.houssemnasri.api.toolbox.IToolbox;
+import tech.houssemnasri.api.toolbox.IToolboxPresenter;
+import tech.houssemnasri.api.toolbox.IToolboxView;
 import tech.houssemnasri.impl.grid.PGrid;
 import tech.houssemnasri.impl.grid.PGridPresenter;
 import tech.houssemnasri.impl.grid.PGridView;
 import tech.houssemnasri.impl.pathfinder.astar.AStarAlgorithm;
 import tech.houssemnasri.impl.pathfinder.player.SimpleAlgoPlayer;
 import tech.houssemnasri.impl.theme.PTheme;
+import tech.houssemnasri.impl.toolbox.Toolbox;
+import tech.houssemnasri.impl.toolbox.ToolboxPresenter;
+import tech.houssemnasri.impl.toolbox.ToolboxView;
 
 public class App extends Application {
   private static int themeCounter = 0;
@@ -50,15 +56,18 @@ public class App extends Application {
     VBox root = new VBox();
     Scene scene = new Scene(root, 700, 500);
 
+    IToolbox toolbox = new Toolbox();
+    IToolboxView toolboxView = new ToolboxView();
+    IToolboxPresenter toolboxPresenter = new ToolboxPresenter(toolbox, toolboxView);
+
     IGrid grid = new PGrid(40, 60);
-    IGridPresenter gridPresenter = new PGridPresenter();
-    IGridView gridView = new PGridView(gridPresenter);
-    gridPresenter.setGridModel(grid);
-    gridPresenter.setView(gridView);
+    IGridView gridView = new PGridView();
+    IGridPresenter gridPresenter = new PGridPresenter(grid, gridView);
+
+    root.getChildren().add(toolboxView.getRoot());
+    root.getChildren().add(gridView.getRoot());
 
     BaseAlgorithmPlayer algorithmPlayer = new SimpleAlgoPlayer(new AStarAlgorithm(grid, true));
-
-    root.getChildren().add(gridView.getRoot());
     listenForSceneClicks(themes, gridPresenter, algorithmPlayer, scene);
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -74,9 +83,9 @@ public class App extends Application {
         e -> {
           if (e.getButton() == MouseButton.MIDDLE) {
             gridPresenter.setShowCostInfo(++themeCounter % 2 == 0);
-            //gridPresenter.setTheme(themes[++themeCounter % themes.length]);
+            // gridPresenter.setTheme(themes[++themeCounter % themes.length]);
           } else if (e.getButton() == MouseButton.SECONDARY) {
-            algorithmPlayer.play();
+            // algorithmPlayer.play();
           }
         });
   }
