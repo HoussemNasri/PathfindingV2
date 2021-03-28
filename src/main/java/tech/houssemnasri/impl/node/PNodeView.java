@@ -61,7 +61,6 @@ public class PNodeView extends StackPane implements INodeView {
     public void setPainter(BaseNodePainter painter) {
         if (painter != null) {
             this.painter = painter;
-            painter.themeProperty().addListener(e -> painter.paint(getNodeModel().getType()));
             refresh();
         }
     }

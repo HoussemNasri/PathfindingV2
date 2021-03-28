@@ -49,7 +49,7 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer implements BooleanExte
 
   @Override
   public void handle(long now) {
-    if (start == -1 || now - start >= SPEED_MEDIUM) {
+    if (start == -1 || now - start >= SPEED_FAST) {
       start = now;
       if (getAlgorithm().isPathFound()) {
         this.stop();

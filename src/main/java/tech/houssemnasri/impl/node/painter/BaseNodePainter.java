@@ -13,12 +13,11 @@ import tech.houssemnasri.impl.node.PNodeView;
  * it's type and the current theme.
  */
 public abstract class BaseNodePainter {
-  private final ObjectProperty<ITheme> themeProperty = new SimpleObjectProperty<>();
   private INodeView nodeView;
 
-  public BaseNodePainter(INodeView nodeView, ITheme theme) {
+  public BaseNodePainter(INodeView nodeView) {
     setNodeView(nodeView);
-    switchTheme(theme);
+    switchTheme();
   }
 
   private void setNodeView(INodeView nodeView) {
@@ -27,16 +26,8 @@ public abstract class BaseNodePainter {
 
   public abstract void paint(INode.Type nodeType);
 
-  public void switchTheme(ITheme newTheme) {
-    themeProperty.set(newTheme);
-  }
+  public void switchTheme() {
 
-  public ITheme getTheme() {
-    return themeProperty.get();
-  }
-
-  public ObjectProperty<ITheme> themeProperty() {
-    return themeProperty;
   }
 
   public INodeView getNodeView() {

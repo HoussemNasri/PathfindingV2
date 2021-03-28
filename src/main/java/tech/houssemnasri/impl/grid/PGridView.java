@@ -1,5 +1,6 @@
 package tech.houssemnasri.impl.grid;
 
+import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
 import javafx.geometry.Insets;
@@ -35,6 +36,12 @@ public class PGridView implements IGridView {
     listenForMouseDrags();
     listenForMousePress();
     listenForMouseRelease();
+    listenForGapChange();
+  }
+
+  private void listenForGapChange() {
+    root.hgapProperty()
+        .addListener(e -> computeGridSize(root.getColumnCount(), root.getRowCount()));
   }
 
   public PGridView() {
@@ -90,7 +97,7 @@ public class PGridView implements IGridView {
       for (int y = 0; y < rows; y++) {
         INodeView thisNodeView = getNodeAtPosition(Position.of(x, y));
         if (thisNodeView != null) {
-          thisNodeView.getPainter().switchTheme(presenter.getTheme());
+          thisNodeView.getPainter().switchTheme();
         }
       }
     }
@@ -127,16 +134,13 @@ public class PGridView implements IGridView {
   }
 
   private void initRoot() {
-    root.setHgap(1.5);
-    root.setVgap(1.5);
-    root.setSnapToPixel(false);
-    root.setStyle("-fx-background-color: gray");
-    root.setPadding(new Insets(1.5));
+    root.getStyleClass().add("grid");
   }
 
   private void computeGridSize(int cols, int rows) {
-    double gridWidth = cols * PNodeView.INITIAL_NODE_SIZE + (cols + 1) * root.getHgap();
-    double gridHeight = rows * PNodeView.INITIAL_NODE_SIZE + (rows + 1) * root.getVgap();
+    double gap = root.getHgap();
+    double gridWidth = cols * PNodeView.INITIAL_NODE_SIZE + (cols + 1) * gap;
+    double gridHeight = rows * PNodeView.INITIAL_NODE_SIZE + (rows + 1) * gap;
     root.setMinSize(gridWidth, gridHeight);
   }
 
@@ -145,12 +149,11 @@ public class PGridView implements IGridView {
     root.getChildren().clear();
     int cols = presenter.getColumns();
     int rows = presenter.getRows();
-    computeGridSize(cols, rows);
     for (int x = 0; x < cols; x++) {
       for (int y = 0; y < rows; y++) {
         IPosition position = Position.of(x, y);
         INodeView thisNode = new PNodeView(presenter.getNodeModel(position));
-        thisNode.setPainter(new PNodePainter(presenter.getTheme(), thisNode));
+        thisNode.setPainter(new PNodePainter(thisNode));
         GridPane.setColumnIndex(thisNode.getRoot(), x);
         GridPane.setRowIndex(thisNode.getRoot(), y);
         root.add(thisNode.getRoot(), x, y);
