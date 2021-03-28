@@ -5,18 +5,18 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
-import tech.houssemnasri.api.pathfinder.Distance;
-import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
-import tech.houssemnasri.impl.command.SetCurrentNodeCommand;
-import tech.houssemnasri.impl.command.SetParentCommand;
-import tech.houssemnasri.impl.pathfinder.distance.DiagonalDistance;
+import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
+import tech.houssemnasri.api.pathfinder.Distance;
+import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
+import tech.houssemnasri.impl.command.SetCurrentNodeCommand;
+import tech.houssemnasri.impl.command.SetParentCommand;
+import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
+import tech.houssemnasri.impl.pathfinder.distance.ManhattanDistance;
 
 /** A* implementation */
 public class AStarAlgorithm extends BaseAlgorithm {
@@ -70,9 +70,11 @@ public class AStarAlgorithm extends BaseAlgorithm {
       int gCostForNeighbor = neighborNodeCost.gCost();
       int gCostForNeighborUpdate =
           gCostForCurrent + (isOnDiagonal(nei) ? DIAGONAL_DISTANCE : HORIZ_VERT_DISTANCE);
-      if (and(isNodeOpen(nei), gCostForNeighbor > gCostForNeighborUpdate)) {
-        neighborNodeCost.setG(gCostForNeighborUpdate);
-        algorithmStep.exec(new SetParentCommand(this, nei, currentNode));
+      if (isNodeOpen(nei)) {
+        if (gCostForNeighbor > gCostForNeighborUpdate) {
+          neighborNodeCost.setG(gCostForNeighborUpdate);
+          algorithmStep.exec(new SetParentCommand(this, nei, currentNode));
+        }
       } else {
         neighborNodeCost.setG(gCostForNeighborUpdate);
         algorithmStep.exec(new SetParentCommand(this, nei, currentNode));
@@ -86,7 +88,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
   private void computeHCostFor(INode node, AlgorithmStep algorithmStep) {
     IPosition thisPosition = node.getPosition();
     IPosition destPosition = grid.getDestinationPosition();
-    Distance distance = new DiagonalDistance();
+    Distance distance = new ManhattanDistance();
     new AStarCostAdapter(node.getPathCost(), algorithmStep)
         .setH(distance.apply(thisPosition, destPosition));
   }
