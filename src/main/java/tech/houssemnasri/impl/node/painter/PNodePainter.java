@@ -1,16 +1,7 @@
 package tech.houssemnasri.impl.node.painter;
 
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.paint.Color;
-
 import tech.houssemnasri.api.node.INodeView;
-import tech.houssemnasri.api.theme.ITheme;
 
 import static tech.houssemnasri.api.node.INode.*;
 

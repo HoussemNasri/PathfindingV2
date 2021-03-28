@@ -9,21 +9,16 @@ import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
-import tech.houssemnasri.api.mvp.View;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.api.theme.ITheme;
 import tech.houssemnasri.impl.node.Position;
-import tech.houssemnasri.impl.theme.PTheme;
 import tech.houssemnasri.property.ComplexIntegerProperty;
-import tech.houssemnasri.property.ComplexObjectProperty;
 
 /** The P in MVP */
 public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   private boolean isDraggingSourceNode = false;
   private boolean isDraggingDestinationNode = false;
 
-  private final ObjectProperty<ITheme> themeProperty = new ComplexObjectProperty<>();
   private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
   private final IntegerProperty colsProperty = new ComplexIntegerProperty();
 
@@ -33,14 +28,9 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   /** The V in MVP */
   private IGridView gridView;
 
-  public PGridPresenter(IGrid gridModel, IGridView gridView, ITheme theme) {
+  public PGridPresenter(IGrid gridModel, IGridView gridView) {
     setGridModel(gridModel);
     setView(gridView);
-    setTheme(theme);
-  }
-
-  public PGridPresenter(IGrid gridModel, IGridView gridView) {
-    this(gridModel, gridView, PTheme.getDefault());
   }
 
   public PGridPresenter() {
@@ -62,22 +52,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     this.gridModel = gridModel;
     bindColsPropertyToModel();
     bindRowsPropertyToModel();
-  }
-
-  @Override
-  public void setTheme(ITheme newTheme) {
-    if (newTheme == null) return;
-    themeProperty.set(newTheme);
-  }
-
-  @Override
-  public ITheme getTheme() {
-    return themeProperty.get();
-  }
-
-  @Override
-  public ObjectProperty<ITheme> themeObjectProperty() {
-    return themeProperty;
   }
 
   @Override

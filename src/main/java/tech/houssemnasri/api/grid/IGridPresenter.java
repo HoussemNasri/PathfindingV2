@@ -7,17 +7,8 @@ import javafx.scene.input.MouseEvent;
 import tech.houssemnasri.api.mvp.Presenter;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.api.theme.ITheme;
 
 public interface IGridPresenter extends Presenter<IGridView> {
-  /** Setting and updating the current theme. */
-  void setTheme(ITheme newTheme);
-
-  /** Returns the currently used theme. */
-  ITheme getTheme();
-
-  ObjectProperty<ITheme> themeObjectProperty();
-
   int getRows();
 
   IntegerProperty rowsProperty();

@@ -1,0 +1,38 @@
+* {
+    -grid-gap: 0.25px;
+}
+
+.source-node {
+    -fx-background-color: #FF9480;
+}
+
+.destination-node {
+    -fx-background-color: #3246ff;
+}
+
+.basic-node {
+    -fx-background-color: #f2f2fa;
+}
+
+.wall-node {
+    -fx-background-color: #3e2c9f;
+}
+
+.open-node {
+    -fx-background-color: #923cab;
+}
+
+.closed-node {
+    -fx-background-color: #563c3c;
+}
+
+.path-node {
+    -fx-background-color: #fff14f;
+}
+
+.grid {
+    -fx-background-color: #252645;
+    -fx-hgap: -grid-gap;
+    -fx-vgap: -grid-gap;
+    -fx-snap-to-pixel: false;
+}

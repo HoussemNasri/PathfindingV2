@@ -1,9 +1,7 @@
 package tech.houssemnasri.impl.grid;
 
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.collections.ObservableList;
-import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -84,23 +82,6 @@ public class PGridView implements IGridView {
 
   private void listenForMousePress() {
     root.setOnMousePressed(e -> presenter.onNodePressed(e, findIntersectedNodePosition(e)));
-  }
-
-  private void listenForThemeChange() {
-    presenter.themeObjectProperty().addListener(this::onThemeChanged);
-  }
-
-  private void onThemeChanged(Observable observable) {
-    int cols = presenter.getColumns();
-    int rows = presenter.getRows();
-    for (int x = 0; x < cols; x++) {
-      for (int y = 0; y < rows; y++) {
-        INodeView thisNodeView = getNodeAtPosition(Position.of(x, y));
-        if (thisNodeView != null) {
-          thisNodeView.getPainter().switchTheme();
-        }
-      }
-    }
   }
 
   public INodeView getNodeAtPosition(IPosition position) {
@@ -187,7 +168,6 @@ public class PGridView implements IGridView {
     }
     this.presenter = presenter;
     refresh();
-    listenForThemeChange();
   }
 
   public IGridPresenter getPresenter() {

@@ -57,8 +57,7 @@ public class App extends Application {
         MouseEvent.MOUSE_CLICKED,
         e -> {
           if (e.getButton() == MouseButton.MIDDLE) {
-            System.out.println();
-            gridPresenter.setShowCostInfo(++themeCounter % 2 == 0);
+            scene.getStylesheets().add(getClass().getResource("/lighter.css").toString());
           } else if (e.getButton() == MouseButton.SECONDARY) {
             algorithmPlayer.play();
           }
