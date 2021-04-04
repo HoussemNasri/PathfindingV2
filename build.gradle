@@ -25,6 +25,8 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
     implementation 'io.github.typhon0:AnimateFX:1.2.2'
+    implementation 'org.kordamp.ikonli:ikonli-javafx:12.2.0'
+    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.2.0'
 }
 
 mainClassName = "${group}.App"
