@@ -36,23 +36,28 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer implements BooleanExte
   public void play() {
     if (getAlgorithm().isPathFound()) {
       getAlgorithm().reset();
-      System.out.println("Hello");
     }
     super.play();
   }
 
   @Override
-  public void pause() {}
+  public void pause() {
+    super.pause();
+  }
 
   @Override
-  public void reset() {}
+  public void reset() {
+    super.reset();
+    getAlgorithm().reset();
+  }
 
   @Override
   public void handle(long now) {
     if (start == -1 || now - start >= SPEED_FAST) {
       start = now;
       if (getAlgorithm().isPathFound()) {
-        this.stop();
+        super.reset();
+        notifyAllOnFinishedListeners();
       } else {
         forward();
       }

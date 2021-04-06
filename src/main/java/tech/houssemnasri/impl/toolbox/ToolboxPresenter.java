@@ -1,11 +1,12 @@
 package tech.houssemnasri.impl.toolbox;
 
 import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
+import tech.houssemnasri.api.pathfinder.OnPlayerFinishedListener;
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.api.toolbox.IToolboxPresenter;
 import tech.houssemnasri.api.toolbox.IToolboxView;
 
-public class ToolboxPresenter implements IToolboxPresenter {
+public class ToolboxPresenter implements IToolboxPresenter, OnPlayerFinishedListener {
   private IToolboxView toolboxView;
   private IToolbox toolbox;
   private BaseAlgorithmPlayer algorithmPlayer;
@@ -42,10 +43,22 @@ public class ToolboxPresenter implements IToolboxPresenter {
   public void setAlgorithmPlayer(BaseAlgorithmPlayer algorithmPlayer) {
     if (algorithmPlayer == null) return;
     this.algorithmPlayer = algorithmPlayer;
+    algorithmPlayer.registerOnFinishedListener(this);
   }
 
   @Override
-  public void onPlayClicked() {}
+  public void onPlayClicked() {
+    if (isPlaying()) {
+      algorithmPlayer.pause();
+    } else {
+      algorithmPlayer.play();
+    }
+    toolboxView.updatePlayButtonIcon(isPlaying());
+  }
+
+  private boolean isPlaying() {
+    return algorithmPlayer.getStatus() == BaseAlgorithmPlayer.Status.RUNNING;
+  }
 
   @Override
   public void onForwardClicked() {}
@@ -54,5 +67,19 @@ public class ToolboxPresenter implements IToolboxPresenter {
   public void onBackClicked() {}
 
   @Override
-  public void onSelectAlgorithm(int algorithmIndex) {}
+  public void onAlgorithmSelected(int algorithmIndex) {}
+
+  @Override
+  public void onThemeSelected(int themeIndex) {}
+
+  @Override
+  public void onResetPlayerClicked() {
+    algorithmPlayer.reset();
+    toolboxView.updatePlayButtonIcon(isPlaying());
+  }
+
+  @Override
+  public void onFinished() {
+    toolboxView.updatePlayButtonIcon(isPlaying());
+  }
 }

@@ -1,5 +1,6 @@
 package tech.houssemnasri;
 
+import javafx.animation.TranslateTransition;
 import javafx.application.Application;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -45,10 +46,11 @@ public class App extends Application {
     IGridView gridView = new PGridView();
     IGridPresenter gridPresenter = new PGridPresenter(grid, gridView);
 
-      root.getChildren().add(toolboxView.getRoot());
+    root.getChildren().add(toolboxView.getRoot());
     root.getChildren().add(gridView.getRoot());
 
     BaseAlgorithmPlayer algorithmPlayer = new SimpleAlgoPlayer(new AStarAlgorithm(grid, true));
+    toolboxPresenter.setAlgorithmPlayer(algorithmPlayer);
     listenForSceneClicks(gridPresenter, algorithmPlayer, scene);
     primaryStage.setScene(scene);
     primaryStage.show();
@@ -56,15 +58,7 @@ public class App extends Application {
 
   private void listenForSceneClicks(
       IGridPresenter gridPresenter, BaseAlgorithmPlayer algorithmPlayer, Scene scene) {
-    scene.addEventFilter(
-        MouseEvent.MOUSE_CLICKED,
-        e -> {
-          if (e.getButton() == MouseButton.MIDDLE) {
-            //scene.getStylesheets().add(getClass().getResource("/lighter.css").toString());
-          } else if (e.getButton() == MouseButton.SECONDARY) {
-            algorithmPlayer.play();
-          }
-        });
+    scene.addEventFilter(MouseEvent.MOUSE_CLICKED, e -> {});
   }
 
   public static void main(String[] args) {

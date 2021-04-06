@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox maxHeight="150.0" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="900.0" styleClass="toolbox" stylesheets="@dracula.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="150.0" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="900.0" styleClass="toolbox" stylesheets="@dracula.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <AnchorPane fx:id="toolPane" prefHeight="108.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <HBox prefWidth="200.0" spacing="25.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="19.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -21,7 +21,7 @@
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin></ComboBox>
-            <ComboBox prefWidth="150.0" promptText="Theme" styleClass="toolbox-tool-combobox">
+            <ComboBox fx:id="themeComboBox" prefWidth="150.0" promptText="Theme" styleClass="toolbox-tool-combobox">
                <HBox.margin>
                   <Insets top="10.0" />
                </HBox.margin></ComboBox>
@@ -79,22 +79,22 @@
       </HBox>
       <HBox alignment="CENTER" layoutY="131.0" prefHeight="26.0" prefWidth="900.0" spacing="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
          <children>
-            <Button mnemonicParsing="false" styleClass="toolbox-player-button" text="reset">
+            <Button fx:id="resetButton" mnemonicParsing="false" styleClass="toolbox-player-button" text="reset">
                <graphic>
                   <FontIcon iconLiteral="fas-undo-alt" iconSize="12" styleClass="toolbox-player-icon" />
                </graphic></Button>
-            <Button id="play-button" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbox-player-button" text="play">
+            <Button id="play-button" fx:id="playButton" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbox-player-button" text="play">
                <graphic>
-                  <FontIcon iconLiteral="fas-play" iconSize="12" styleClass="toolbox-player-icon" />
+                  <FontIcon fx:id="playButtonIcon" iconLiteral="fas-play" iconSize="12" styleClass="toolbox-player-icon" />
                </graphic>
                <font>
                   <Font name="Montserrat SemiBold" size="12.0" />
                </font></Button>
-            <Button mnemonicParsing="false" styleClass="toolbox-player-button" text="back">
+            <Button fx:id="backButton" mnemonicParsing="false" styleClass="toolbox-player-button" text="back">
                <graphic>
                   <FontIcon iconLiteral="fas-chevron-left" iconSize="12" styleClass="toolbox-player-icon" />
                </graphic></Button>
-            <Button mnemonicParsing="false" styleClass="toolbox-player-button" text="forward">
+            <Button fx:id="forwardButton" mnemonicParsing="false" styleClass="toolbox-player-button" text="forward">
                <graphic>
                   <FontIcon iconLiteral="fas-chevron-right" styleClass="toolbox-player-icon" />
                </graphic></Button>

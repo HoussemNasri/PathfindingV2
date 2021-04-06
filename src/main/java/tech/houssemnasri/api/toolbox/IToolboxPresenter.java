@@ -14,7 +14,9 @@ public interface IToolboxPresenter extends Presenter<IToolboxView> {
 
   void onBackClicked();
 
-  void onSelectAlgorithm(int algorithmIndex);
+  void onResetPlayerClicked();
 
+  void onAlgorithmSelected(int algorithmIndex);
 
+  void onThemeSelected(int themeIndex);
 }
