@@ -1,25 +1,74 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.RadioButton?>
+<?import javafx.scene.control.Slider?>
+<?import javafx.scene.control.ToggleGroup?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
+<?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox prefHeight="150.0" prefWidth="900.0" style="-fx-background-color: #1d3557;" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
-   <AnchorPane fx:id="titlePane" VBox.vgrow="SOMETIMES">
-      <Text fill="WHITE" strokeType="OUTSIDE" strokeWidth="0.0" text="Pathfinding™" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="12.0" AnchorPane.topAnchor="8.0">
-         <font>
-            <Font name="Raleway ExtraBold" size="25.0" />
-         </font>
-      </Text>
-   </AnchorPane>
+<VBox maxHeight="150.0" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="900.0" styleClass="toolbox" stylesheets="@dracula.css" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <AnchorPane fx:id="toolPane" prefHeight="108.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
-      <HBox alignment="CENTER_LEFT" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="19.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="35.0">
+      <HBox prefWidth="200.0" spacing="25.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="19.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
-            <ComboBox fx:id="algorithmComboBox" prefWidth="150.0" promptText="Algorithms" />
+            <ComboBox fx:id="algorithmComboBox" prefWidth="150.0" promptText="Algorithms" styleClass="toolbox-tool-combobox" HBox.hgrow="NEVER">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></ComboBox>
+            <ComboBox prefWidth="150.0" promptText="Theme" styleClass="toolbox-tool-combobox">
+               <HBox.margin>
+                  <Insets top="10.0" />
+               </HBox.margin></ComboBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0">
+               <children>
+                  <Label styleClass="toolbox-label" text="Wall Editor" textFill="#dadada">
+                     <font>
+                        <Font name="Raleway Medium" size="14.0" />
+                     </font>
+                  </Label>
+                  <VBox spacing="4.0">
+                     <children>
+                        <RadioButton mnemonicParsing="false" text="Draw" textFill="#cacaca">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="wallEditorGroup" />
+                           </toggleGroup>
+                        </RadioButton>
+                        <RadioButton mnemonicParsing="false" selected="true" text="Erase" textFill="#d7d7d7" toggleGroup="$wallEditorGroup" />
+                     </children>
+                  </VBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" spacing="8.0">
+               <children>
+                  <Label styleClass="toolbox-label" text="Grid Editor" textFill="#f8f8f2">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                  </Label>
+                  <HBox minWidth="150.0" spacing="10.0">
+                     <children>
+                        <Button mnemonicParsing="false" styleClass="toolbox-tool-button" text="Clear Grid" />
+                        <Button mnemonicParsing="false" styleClass="toolbox-tool-button" text="Clear Path" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="200.0" prefWidth="100.0" spacing="8.0">
+               <children>
+                  <Label styleClass="toolbox-label" text="Speed" textFill="#f8f8f2">
+                     <font>
+                        <Font name="Roboto Medium" size="14.0" />
+                     </font>
+                  </Label>
+                  <Slider VBox.vgrow="NEVER" />
+               </children>
+            </VBox>
          </children>
          <opaqueInsets>
             <Insets />
@@ -27,6 +76,29 @@
          <padding>
             <Insets bottom="15.0" />
          </padding>
+      </HBox>
+      <HBox alignment="CENTER" layoutY="131.0" prefHeight="26.0" prefWidth="900.0" spacing="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
+         <children>
+            <Button mnemonicParsing="false" styleClass="toolbox-player-button" text="reset">
+               <graphic>
+                  <FontIcon iconLiteral="fas-undo-alt" iconSize="12" styleClass="toolbox-player-icon" />
+               </graphic></Button>
+            <Button id="play-button" contentDisplay="TOP" mnemonicParsing="false" styleClass="toolbox-player-button" text="play">
+               <graphic>
+                  <FontIcon iconLiteral="fas-play" iconSize="12" styleClass="toolbox-player-icon" />
+               </graphic>
+               <font>
+                  <Font name="Montserrat SemiBold" size="12.0" />
+               </font></Button>
+            <Button mnemonicParsing="false" styleClass="toolbox-player-button" text="back">
+               <graphic>
+                  <FontIcon iconLiteral="fas-chevron-left" iconSize="12" styleClass="toolbox-player-icon" />
+               </graphic></Button>
+            <Button mnemonicParsing="false" styleClass="toolbox-player-button" text="forward">
+               <graphic>
+                  <FontIcon iconLiteral="fas-chevron-right" styleClass="toolbox-player-icon" />
+               </graphic></Button>
+         </children>
       </HBox>
    </AnchorPane>
 </VBox>

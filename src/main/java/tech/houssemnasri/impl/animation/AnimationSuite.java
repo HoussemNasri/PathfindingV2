@@ -3,6 +3,9 @@ package tech.houssemnasri.impl.animation;
 import javafx.util.Duration;
 
 import animatefx.animation.BounceIn;
+import animatefx.animation.BounceInUp;
+import animatefx.animation.FadeIn;
+import animatefx.animation.FadeInUp;
 import animatefx.animation.RotateIn;
 import animatefx.animation.ZoomIn;
 import animatefx.animation.ZoomOut;
@@ -55,10 +58,10 @@ public class AnimationSuite {
     onEnterDestination.setSpeed(2.0);
     onExitDestination = new AnimationFXProxy(new ZoomOut());
 
-    onEnterOpen = new AnimationFXProxy(new RotateIn());
+    onEnterOpen = new AnimationFXProxy(new BounceIn());
     onExitOpen = new AnimationFXProxy(new ZoomOut());
 
-    onEnterClosed = new AnimationFXProxy(new RotateIn());
+    onEnterClosed = new AnimationFXProxy(new BounceIn());
     onExitClosed = new AnimationFXProxy(new ZoomOut());
 
     onEnterPath = new AnimationFXProxy(new BounceIn());

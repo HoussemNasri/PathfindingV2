@@ -1,10 +1,13 @@
 package tech.houssemnasri;
 
 import javafx.application.Application;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Priority;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -30,7 +33,8 @@ public class App extends Application {
   @Override
   public void start(Stage primaryStage) {
     VBox root = new VBox();
-    Scene scene = new Scene(root, 700, 500);
+    Scene scene = new Scene(root, 900, 650);
+
     scene.getStylesheets().add(getClass().getResource("/dracula.css").toString());
 
     IToolbox toolbox = new Toolbox();
@@ -41,9 +45,8 @@ public class App extends Application {
     IGridView gridView = new PGridView();
     IGridPresenter gridPresenter = new PGridPresenter(grid, gridView);
 
-    root.getChildren().add(toolboxView.getRoot());
+      root.getChildren().add(toolboxView.getRoot());
     root.getChildren().add(gridView.getRoot());
-    VBox.setVgrow(gridView.getRoot(), Priority.NEVER);
 
     BaseAlgorithmPlayer algorithmPlayer = new SimpleAlgoPlayer(new AStarAlgorithm(grid, true));
     listenForSceneClicks(gridPresenter, algorithmPlayer, scene);
@@ -57,7 +60,7 @@ public class App extends Application {
         MouseEvent.MOUSE_CLICKED,
         e -> {
           if (e.getButton() == MouseButton.MIDDLE) {
-            scene.getStylesheets().add(getClass().getResource("/lighter.css").toString());
+            //scene.getStylesheets().add(getClass().getResource("/lighter.css").toString());
           } else if (e.getButton() == MouseButton.SECONDARY) {
             algorithmPlayer.play();
           }

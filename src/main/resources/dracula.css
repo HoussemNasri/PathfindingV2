@@ -1,38 +1,125 @@
-* {
+
+.root {
     -grid-gap: 0.25px;
+    -fx-background: #282a36;
+    -fx-toolbox-background: derive(-fx-background, -8%);
+    -fx-current-line: #44475a;
+    -fx-foreground: #f8f8f2;
+    -fx-cyan: #8be9fd;
+    -fx-green: #50fa7b;
+    -fx-orange: #ffb86c;
+    -fx-pink: #ff79c6;
+    -fx-purple: #bd93f9;
+    -fx-red: #ff5555;
+    -fx-yellow: #f1fa8c;
+    -fx-font-smoothing-type: gray;
 }
 
 .source-node {
-    -fx-background-color: #FF9480;
+    -fx-background-color: -fx-yellow;
 }
 
 .destination-node {
-    -fx-background-color: #FFFF80;
+    -fx-background-color: -fx-cyan;
 }
 
 .basic-node {
-    -fx-background-color: #282a36;
+    -fx-background-color: -fx-background;
 }
 
 .wall-node {
-    -fx-background-color: #9580FF;
+    -fx-background-color: -fx-purple;
 }
 
 .open-node {
-    -fx-background-color: #50fa7b;
+    -fx-background-color: -fx-green;
 }
 
 .closed-node {
-    -fx-background-color: #ff5555;
+    -fx-background-color: -fx-red;
 }
 
 .path-node {
-    -fx-background-color: #ffb86c;
+    -fx-background-color: -fx-orange;
 }
 
 .grid {
-    -fx-background-color: #44475a;
+    -fx-shadow-color: derive(-fx-background, -25%);
+    -fx-effect: innershadow(three-pass-box, -fx-shadow-color, 15, 0, 2, 5);
+    -fx-background-color: -fx-current-line;
     -fx-hgap: -grid-gap;
     -fx-vgap: -grid-gap;
     -fx-snap-to-pixel: false;
+    -fx-padding: 0.25;
+}
+
+.toolbox {
+    -fx-background-color: -fx-toolbox-background;
+    -fx-effect: dropshadow(gaussian, black, 10, 1.0, 100, 100);
+}
+
+
+.toolbox-label {
+    -fx-font-family: "Raleway Medium";
+    -fx-font-size: 14px;
+    -fx-text-fill: #f8f8f2;
+}
+
+.toolbox-player-button {
+    -fx-text-fill: -fx-foreground;
+    -fx-padding: 10 10 5 10;
+    -fx-content-display: top;
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 13px;
+    -fx-background-color: #00000000;
+}
+
+.toolbox-player-button:hover {
+    -fx-background-color: derive(-fx-toolbox-background, 8%);
+}
+
+.toolbox-player-button:pressed {
+    -fx-background-color: derive(-fx-toolbox-background, 12%);
+}
+
+
+.toolbox-player-icon {
+    -fx-icon-color: #f8f8f2;
+    -fx-icon-size: 12px;
+}
+
+.toolbox-tool-button {
+    -fx-background-color: derive(-fx-background, 15%);
+    -fx-border-color: derive(-fx-background, 50%);
+    -fx-border-radius: 2px;
+    -fx-text-fill: rgba(248, 248, 242, 0.90);
+    -fx-min-width: 100px;
+    -fx-font-family: "Fira Code Medium";
+}
+
+.toolbox-tool-button:hover {
+    -fx-background-color: derive(-fx-background, 30%);
+}
+
+.toolbox-tool-button:pressed {
+    -fx-background-color: derive(-fx-background, 50%);
+}
+
+.toolbox-tool-combobox {
+    -fx-background-color: derive(-fx-background, 15%);
+    -fx-border-color: derive(-fx-background, 50%);
+    -fx-border-radius: 2px;
+}
+
+.toolbox-tool-combobox:hover {
+    -fx-background-color: derive(-fx-background, 30%);
+    -fx-border-radius: 2px;
+}
+
+.toolbox-tool-combobox .arrow {
+    -fx-background-color: -fx-foreground;
+}
+
+.toolbox-tool-combobox .list-cell:selected {
+    -fx-text-fill: -fx-foreground;
 }
