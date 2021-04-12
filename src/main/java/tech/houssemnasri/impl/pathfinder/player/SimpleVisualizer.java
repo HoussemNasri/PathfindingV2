@@ -2,15 +2,15 @@ package tech.houssemnasri.impl.pathfinder.player;
 
 import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
-import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
+import tech.houssemnasri.api.pathfinder.Visualizer;
 
-public class SimpleAlgoPlayer extends BaseAlgorithmPlayer implements BooleanExtensions {
+public class SimpleVisualizer extends Visualizer implements BooleanExtensions {
   private static final long SPEED_SLOW = 700000000;
   private static final long SPEED_MEDIUM = 70000000;
   private static final long SPEED_FAST = 9000000;
   private long start = -1;
 
-  public SimpleAlgoPlayer(BaseAlgorithm algorithm) {
+  public SimpleVisualizer(BaseAlgorithm algorithm) {
     super(algorithm);
   }
 
@@ -33,11 +33,11 @@ public class SimpleAlgoPlayer extends BaseAlgorithmPlayer implements BooleanExte
   }
 
   @Override
-  public void play() {
+  public void visualize() {
     if (getAlgorithm().isPathFound()) {
       getAlgorithm().reset();
     }
-    super.play();
+    super.visualize();
   }
 
   @Override

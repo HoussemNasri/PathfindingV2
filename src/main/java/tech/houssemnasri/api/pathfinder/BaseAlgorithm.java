@@ -16,7 +16,7 @@ import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.util.GridChecker;
 
 /**
- * This class {@code BaseAlgorithm} should provide an api for the {@code BaseAlgorithmPlayer} to
+ * This class {@code BaseAlgorithm} should provide an api for the {@code Visualizer} to
  * explore the grid for {@code destinationNode} using {@code this} algorithm logic, also for going
  * back to the previous algorithm state.
  */

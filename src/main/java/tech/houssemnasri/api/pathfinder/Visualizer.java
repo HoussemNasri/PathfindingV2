@@ -6,15 +6,15 @@ import java.util.List;
 import javafx.animation.AnimationTimer;
 
 /**
- * This class {@code BaseAlgorithmPlayer} is responsible for managing the player state and perform
+ * This class {@code Visualizer} is responsible for managing the player state and perform
  * the player actions like (pause, play, forward, back, reset).
  */
-public abstract class BaseAlgorithmPlayer extends AnimationTimer {
+public abstract class Visualizer extends AnimationTimer {
   private BaseAlgorithm thisAlgorithm;
   protected Status playerStatus = Status.IDLE;
   private final List<OnPlayerFinishedListener> finishedListeners = new ArrayList<>();
 
-  public BaseAlgorithmPlayer(BaseAlgorithm thisAlgorithm) {
+  public Visualizer(BaseAlgorithm thisAlgorithm) {
     this.thisAlgorithm = thisAlgorithm;
   }
 
@@ -22,7 +22,7 @@ public abstract class BaseAlgorithmPlayer extends AnimationTimer {
 
   public abstract void back();
 
-  public void play() {
+  public void visualize() {
     super.start();
     playerStatus = Status.RUNNING;
   }
@@ -56,7 +56,6 @@ public abstract class BaseAlgorithmPlayer extends AnimationTimer {
   public void unregisterOnFinishedListener(OnPlayerFinishedListener onFinishedListener) {
     finishedListeners.remove(onFinishedListener);
   }
-
 
   protected void notifyAllOnFinishedListeners() {
     finishedListeners.forEach(OnPlayerFinishedListener::onFinished);

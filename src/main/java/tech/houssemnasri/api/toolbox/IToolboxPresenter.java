@@ -1,12 +1,12 @@
 package tech.houssemnasri.api.toolbox;
 
 import tech.houssemnasri.api.mvp.Presenter;
-import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
+import tech.houssemnasri.api.pathfinder.Visualizer;
 
 public interface IToolboxPresenter extends Presenter<IToolboxView> {
   void setToolbox(IToolbox toolbox);
 
-  void setAlgorithmPlayer(BaseAlgorithmPlayer algorithmPlayer);
+  void setAlgorithmPlayer(Visualizer algorithmPlayer);
 
   void onPlayClicked();
 

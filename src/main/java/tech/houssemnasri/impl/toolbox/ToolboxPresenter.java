@@ -1,6 +1,6 @@
 package tech.houssemnasri.impl.toolbox;
 
-import tech.houssemnasri.api.pathfinder.BaseAlgorithmPlayer;
+import tech.houssemnasri.api.pathfinder.Visualizer;
 import tech.houssemnasri.api.pathfinder.OnPlayerFinishedListener;
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.api.toolbox.IToolboxPresenter;
@@ -9,10 +9,10 @@ import tech.houssemnasri.api.toolbox.IToolboxView;
 public class ToolboxPresenter implements IToolboxPresenter, OnPlayerFinishedListener {
   private IToolboxView toolboxView;
   private IToolbox toolbox;
-  private BaseAlgorithmPlayer algorithmPlayer;
+  private Visualizer algorithmPlayer;
 
   public ToolboxPresenter(
-      IToolbox toolbox, IToolboxView toolboxView, BaseAlgorithmPlayer algorithmPlayer) {
+      IToolbox toolbox, IToolboxView toolboxView, Visualizer algorithmPlayer) {
     setToolbox(toolbox);
     setView(toolboxView);
     setAlgorithmPlayer(algorithmPlayer);
@@ -40,7 +40,7 @@ public class ToolboxPresenter implements IToolboxPresenter, OnPlayerFinishedList
   }
 
   @Override
-  public void setAlgorithmPlayer(BaseAlgorithmPlayer algorithmPlayer) {
+  public void setAlgorithmPlayer(Visualizer algorithmPlayer) {
     if (algorithmPlayer == null) return;
     this.algorithmPlayer = algorithmPlayer;
     algorithmPlayer.registerOnFinishedListener(this);
@@ -51,13 +51,13 @@ public class ToolboxPresenter implements IToolboxPresenter, OnPlayerFinishedList
     if (isPlaying()) {
       algorithmPlayer.pause();
     } else {
-      algorithmPlayer.play();
+      algorithmPlayer.visualize();
     }
     toolboxView.updatePlayButtonIcon(isPlaying());
   }
 
   private boolean isPlaying() {
-    return algorithmPlayer.getStatus() == BaseAlgorithmPlayer.Status.RUNNING;
+    return algorithmPlayer.getStatus() == Visualizer.Status.RUNNING;
   }
 
   @Override
