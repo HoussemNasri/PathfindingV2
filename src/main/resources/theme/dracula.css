@@ -1,5 +1,5 @@
 
-.root {
+*{
     -grid-gap: 0.25px;
     -fx-background: #282a36;
     -fx-toolbox-background: derive(-fx-background, -8%);

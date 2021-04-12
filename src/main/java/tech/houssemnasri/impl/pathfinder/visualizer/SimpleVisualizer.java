@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl.pathfinder.player;
+package tech.houssemnasri.impl.pathfinder.visualizer;
 
 import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
@@ -16,13 +16,14 @@ public class SimpleVisualizer extends Visualizer implements BooleanExtensions {
     if (not(getAlgorithm().isPathFound())) {
       getAlgorithm().forward();
     } else {
+      getAlgorithm().tracePath();
       System.out.println("Dude! We found the path.");
     }
   }
 
   @Override
   public void back() {
-    if (not(getAlgorithm().getOpenSet().isEmpty())) {
+    if (not(getAlgorithm().getClosedSet().isEmpty())) {
       getAlgorithm().back();
     } else {
       System.out.println("Stop! Motherfucker.");

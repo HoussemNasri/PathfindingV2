@@ -4,7 +4,7 @@ import tech.houssemnasri.api.command.AlgorithmCommandContext;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.command.AlgorithmCommand;
 import tech.houssemnasri.api.node.INode;
-import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
+import tech.houssemnasri.api.pathfinder.AlgorithmStep;
 
 import static tech.houssemnasri.api.node.INode.*;
 

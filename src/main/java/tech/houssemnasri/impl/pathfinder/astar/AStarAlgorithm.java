@@ -16,7 +16,7 @@ import tech.houssemnasri.impl.command.CloseNodeCommand;
 import tech.houssemnasri.impl.command.OpenNodeCommand;
 import tech.houssemnasri.impl.command.SetCurrentNodeCommand;
 import tech.houssemnasri.impl.command.SetParentCommand;
-import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
+import tech.houssemnasri.api.pathfinder.AlgorithmStep;
 import tech.houssemnasri.impl.pathfinder.distance.ManhattanDistance;
 
 /** A* implementation */
@@ -37,9 +37,15 @@ public class AStarAlgorithm extends BaseAlgorithm {
     AlgorithmStep step = new AlgorithmStep();
     if (openNodes.isEmpty()) {
       IPosition source = grid.getSourcePosition();
-      new OpenNodeCommand(this, step, grid.getNode(source)).execute();
-      estimateDistanceToDestination(grid.getNode(source), step);
-      new AStarCostAdapter(getGrid().getNode(source).getPathCost(), step).setG(0);
+      if (not(closedNodes.contains(grid.getNode(source)))) {
+        new OpenNodeCommand(this, step, grid.getNode(source)).execute();
+        estimateDistanceToDestination(grid.getNode(source), step);
+        new AStarCostAdapter(getGrid().getNode(source).getPathCost(), step).setG(0);
+      } else {
+        // We are stuck.
+        System.out.println("We are stuck!");
+        return step;
+      }
     }
     new SetCurrentNodeCommand(this, step, getLeastCostNode()).execute();
     new CloseNodeCommand(this, step, getCurrentNode()).execute();
@@ -80,8 +86,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
     IPosition thisPosition = node.getPosition();
     IPosition destPosition = grid.getDestinationPosition();
     Distance distance = new ManhattanDistance();
-    new AStarCostAdapter(node.getPathCost(), step)
-        .setH(distance.apply(thisPosition, destPosition));
+    new AStarCostAdapter(node.getPathCost(), step).setH(distance.apply(thisPosition, destPosition));
   }
 
   private INode getLeastCostNode() {

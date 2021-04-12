@@ -1,6 +1,6 @@
 package tech.houssemnasri.impl.pathfinder.astar;
 
-import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
+import tech.houssemnasri.api.pathfinder.AlgorithmStep;
 import tech.houssemnasri.impl.command.UpdateCostCommand;
 import tech.houssemnasri.impl.pathfinder.PathCost;
 import tech.houssemnasri.api.pathfinder.cost.IAStarCost;

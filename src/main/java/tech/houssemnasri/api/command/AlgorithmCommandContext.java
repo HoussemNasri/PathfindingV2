@@ -2,7 +2,7 @@ package tech.houssemnasri.api.command;
 
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
-import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
+import tech.houssemnasri.api.pathfinder.AlgorithmStep;
 
 public class AlgorithmCommandContext {
   private final BaseAlgorithm algorithm;

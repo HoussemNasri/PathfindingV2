@@ -4,7 +4,7 @@ import tech.houssemnasri.api.command.AlgorithmCommand;
 import tech.houssemnasri.api.command.AlgorithmCommandContext;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
-import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
+import tech.houssemnasri.api.pathfinder.AlgorithmStep;
 
 public class SetCurrentNodeCommand extends AlgorithmCommand {
   private final INode prevCurrentNode;

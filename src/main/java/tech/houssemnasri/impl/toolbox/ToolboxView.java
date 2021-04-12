@@ -2,8 +2,12 @@ package tech.houssemnasri.impl.toolbox;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.List;
 import java.util.ResourceBundle;
+import java.util.stream.Collectors;
 
+import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,12 +20,14 @@ import org.kordamp.ikonli.fontawesome5.FontAwesomeSolid;
 import org.kordamp.ikonli.javafx.FontIcon;
 import tech.houssemnasri.api.toolbox.IToolboxPresenter;
 import tech.houssemnasri.api.toolbox.IToolboxView;
+import tech.houssemnasri.impl.AlgorithmDescriptor;
+import tech.houssemnasri.impl.ThemeDescriptor;
 
 public class ToolboxView implements IToolboxView, Initializable {
   private FXMLLoader loader;
-  @FXML private ComboBox<?> algorithmComboBox;
+  @FXML private ComboBox<String> algorithmComboBox;
 
-  @FXML private ComboBox<?> themeComboBox;
+  @FXML private ComboBox<String> themeComboBox;
 
   @FXML private ToggleGroup wallEditorGroup;
 
@@ -70,19 +76,54 @@ public class ToolboxView implements IToolboxView, Initializable {
 
   @FXML
   public void initialize(URL location, ResourceBundle resources) {
-    System.out.println("ToolboxView.initialize()");
     playButton.setOnMouseClicked(e -> presenter.onPlayClicked());
     resetButton.setOnMouseClicked(e -> presenter.onResetPlayerClicked());
     forwardButton.setOnMouseClicked(e -> presenter.onForwardClicked());
     backButton.setOnMouseClicked(e -> presenter.onBackClicked());
+    listenForAlgorithmSelection();
+    listenForThemeSelection();
+  }
+
+  private void listenForAlgorithmSelection() {
+    algorithmComboBox
+        .getSelectionModel()
+        .selectedIndexProperty()
+        .addListener(
+            (obs, old, index) -> {
+              presenter.onAlgorithmSelected(index.intValue());
+            });
+  }
+
+  private void listenForThemeSelection() {
+    themeComboBox
+        .getSelectionModel()
+        .selectedIndexProperty()
+        .addListener(
+            (obs, old, index) -> {
+              presenter.onThemeSelected(index.intValue());
+            });
   }
 
   @Override
   public void updatePlayButtonIcon(boolean isPlaying) {
     if (isPlaying) {
-        playButtonIcon.setIconCode(FontAwesomeSolid.PAUSE);
+      playButtonIcon.setIconCode(FontAwesomeSolid.PAUSE);
     } else {
-        playButtonIcon.setIconCode(FontAwesomeSolid.PLAY);
+      playButtonIcon.setIconCode(FontAwesomeSolid.PLAY);
     }
+  }
+
+  @Override
+  public void putAlgorithms(AlgorithmDescriptor[] algorithms) {
+    List<String> names =
+        Arrays.stream(algorithms).map(AlgorithmDescriptor::getName).collect(Collectors.toList());
+    algorithmComboBox.setItems(FXCollections.observableList(names));
+  }
+
+  @Override
+  public void putThemes(ThemeDescriptor[] themes) {
+    List<String> names =
+        Arrays.stream(themes).map(ThemeDescriptor::getName).collect(Collectors.toList());
+    themeComboBox.setItems(FXCollections.observableList(names));
   }
 }

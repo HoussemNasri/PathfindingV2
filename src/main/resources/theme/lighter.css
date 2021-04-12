@@ -1,0 +1,180 @@
+
+* {
+    -grid-gap: 0.25px;
+    -pf-background: #FAFAFA;
+    -pf-text: #94A7B0;
+    -fx-toolbox-background: derive(-fx-background, -8%);
+    -fx-current-line: #d3e1e8;
+    -fx-foreground: #546E7A;
+    -fx-cyan: #39adb5;
+    -fx-green: #91b859;
+    -fx-orange: #ffb86c;
+    -fx-pink: #ff79c6;
+    -fx-purple: #bd93f9;
+    -fx-red: #e53935;
+    -fx-yellow: #f6a434;
+    -pf-gray: #AABFC9;
+    -fx-font-smoothing-type: gray;
+
+    Background: #282A36;
+
+    Foreground: #F8F8F2;
+
+    Text: #6272A4;
+
+    Selection_Background: #44475A;
+
+    Selection_Foreground: #8BE9FD;
+
+    Buttons: #393C4B;
+
+    Second_Background: #282A36;
+
+    Disabled: #6272A4;
+
+    Contrast: #191A21;
+
+    Active: #44475A;
+
+    Border: #21222C;
+
+    Highlight: #6272A4;
+
+    Tree: #44475A50;
+
+    Notifications: #1D2228;
+
+    Accent_Color: #FF79C5;
+
+    Excluded_Files_Color: #313341;
+
+    Green_Color: #8aff80;
+
+    Yellow_Color: #feff80;
+
+    Blue_Color: #79cbdc;
+
+    Red_Color: #f780bf;
+
+    Purple_Color: #9580ff;
+
+    Orange_Color: #f89580;
+
+    Cyan_Color: #80ffea;
+
+    Gray_Color: #6272A4;
+
+    White_Black_Color: #F8F8F2;
+
+    Error_Color: #ff5555;
+
+}
+
+.source-node {
+    -fx-background-color: -fx-yellow;
+}
+
+.destination-node {
+    -fx-background-color: -fx-cyan;
+}
+
+.basic-node {
+    -fx-background-color: -fx-background;
+}
+
+.wall-node {
+    -fx-background-color: -fx-purple;
+}
+
+.open-node {
+    -fx-background-color: -fx-green;
+}
+
+.closed-node {
+    -fx-background-color: -fx-red;
+}
+
+.path-node {
+    -fx-background-color: -fx-orange;
+}
+
+.grid {
+    -fx-shadow-color: derive(-fx-background, -25%);
+    -fx-effect: innershadow(three-pass-box, -fx-shadow-color, 15, 0, 2, 5);
+    -fx-background-color: -fx-current-line;
+    -fx-hgap: -grid-gap;
+    -fx-vgap: -grid-gap;
+    -fx-snap-to-pixel: false;
+    -fx-padding: 0.25;
+}
+
+.toolbox {
+    -fx-background-color: -fx-toolbox-background;
+    -fx-effect: dropshadow(gaussian, black, 10, 1.0, 100, 100);
+}
+
+
+.toolbox-label {
+    -fx-font-family: "Raleway Medium";
+    -fx-font-size: 14px;
+    -fx-text-fill: #f8f8f2;
+}
+
+.toolbox-player-button {
+    -fx-text-fill: -pf-text;
+    -fx-padding: 10 10 5 10;
+    -fx-content-display: top;
+    -fx-font-family: "Montserrat";
+    -fx-font-size: 13px;
+    -fx-background-color: #00000000;
+}
+
+.toolbox-player-button:hover {
+    -fx-background-color: derive(-fx-toolbox-background, 8%);
+}
+
+.toolbox-player-button:pressed {
+    -fx-background-color: derive(-fx-toolbox-background, 12%);
+}
+
+
+.toolbox-player-icon {
+    -fx-icon-color: -fx-foreground;
+    -fx-icon-size: 12px;
+}
+
+.toolbox-tool-button {
+    -fx-background-color: derive(-fx-background, 15%);
+    -fx-border-color: derive(-fx-background, 50%);
+    -fx-border-radius: 2px;
+    -fx-text-fill: -pf-text;
+    -fx-min-width: 100px;
+    -fx-font-family: "Fira Code Medium";
+}
+
+.toolbox-tool-button:hover {
+    -fx-background-color: derive(-fx-background, 30%);
+}
+
+.toolbox-tool-button:pressed {
+    -fx-background-color: derive(-fx-background, 50%);
+}
+
+.toolbox-tool-combobox {
+    -fx-background-color: derive(-fx-background, 15%);
+    -fx-border-color: derive(-fx-background, 50%);
+    -fx-border-radius: 2px;
+}
+
+.toolbox-tool-combobox:hover {
+    -fx-background-color: derive(-fx-background, 30%);
+    -fx-border-radius: 2px;
+}
+
+.toolbox-tool-combobox .arrow {
+    -fx-background-color: -pf-text;
+}
+
+.toolbox-tool-combobox .list-cell:selected {
+    -fx-text-fill: -fx-foreground;
+}

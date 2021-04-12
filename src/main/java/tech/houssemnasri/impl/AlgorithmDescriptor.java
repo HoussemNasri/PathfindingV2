@@ -1,12 +1,14 @@
 package tech.houssemnasri.impl;
 
-import java.util.Objects;
+public enum AlgorithmDescriptor {
+  A_STAR(
+      "A* search algorithm",
+      "find the shortest path in a weighted graph using an heuristic to guide the process.");
 
-public class AlgorithmDescriptor {
   private final String name;
   private final String description;
 
-  public AlgorithmDescriptor(String name, String description) {
+  AlgorithmDescriptor(String name, String description) {
     this.name = name;
     this.description = description;
   }
@@ -22,19 +24,5 @@ public class AlgorithmDescriptor {
   @Override
   public String toString() {
     return String.format("Algorithm{%s}", name);
-  }
-
-  @Override
-  public boolean equals(Object o) {
-    if (this == o) return true;
-    if (o == null || getClass() != o.getClass()) return false;
-    AlgorithmDescriptor that = (AlgorithmDescriptor) o;
-    return Objects.equals(getName(), that.getName())
-        && Objects.equals(getDescription(), that.getDescription());
-  }
-
-  @Override
-  public int hashCode() {
-    return Objects.hash(getName(), getDescription());
   }
 }

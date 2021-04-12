@@ -3,6 +3,8 @@ package tech.houssemnasri.impl.pathfinder;
 import java.util.List;
 import java.util.Stack;
 
+import tech.houssemnasri.api.pathfinder.AlgorithmStep;
+
 public class AlgorithmHistory {
   protected Stack<AlgorithmStep> stepStack = new Stack<>();
 

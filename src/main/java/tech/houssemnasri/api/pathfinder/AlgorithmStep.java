@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl.pathfinder;
+package tech.houssemnasri.api.pathfinder;
 
 import java.util.Arrays;
 import java.util.Collections;
@@ -49,5 +49,9 @@ public class AlgorithmStep {
 
   public void markAsFinal() {
     this.isFinal = true;
+  }
+
+  public ICommand peek() {
+    return commandStack.peek();
   }
 }

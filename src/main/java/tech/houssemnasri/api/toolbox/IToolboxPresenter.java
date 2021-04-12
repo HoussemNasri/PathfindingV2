@@ -1,12 +1,16 @@
 package tech.houssemnasri.api.toolbox;
 
+import javafx.scene.Scene;
+
 import tech.houssemnasri.api.mvp.Presenter;
 import tech.houssemnasri.api.pathfinder.Visualizer;
 
 public interface IToolboxPresenter extends Presenter<IToolboxView> {
   void setToolboxModel(IToolbox toolboxModel);
 
-  void setAlgorithmPlayer(Visualizer algorithmPlayer);
+  void setVisualizer(Visualizer visualizer);
+
+  void setScene(Scene scene);
 
   void onPlayClicked();
 

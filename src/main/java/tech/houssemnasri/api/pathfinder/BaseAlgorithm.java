@@ -8,7 +8,6 @@ import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
 import tech.houssemnasri.impl.pathfinder.AlgorithmHistory;
 import tech.houssemnasri.impl.command.TracePathCommand;
 import tech.houssemnasri.impl.node.Position;
@@ -46,7 +45,9 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   /** Step in the algorithm and record the step */
   public final void forward() {
     AlgorithmStep step = advance();
-    addToHistory(step);
+    if (not(step.isEmpty())) {
+      addToHistory(step);
+    }
   }
 
   /** Undo the most recent algorithm step. */
@@ -111,6 +112,10 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   }
 
   public void tracePath() {
+    // Don't trace path twice.
+    if (history.peek().peek() instanceof TracePathCommand) {
+      return;
+    }
     INode destination = grid.getNode(grid.getDestinationPosition());
     AlgorithmStep tracePathStep = new AlgorithmStep();
     tracePathStep.markAsFinal();
