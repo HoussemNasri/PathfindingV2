@@ -25,8 +25,6 @@ import static tech.houssemnasri.api.node.INode.*;
  * than one.
  */
 public final class PGrid implements IGrid, Serializable, BooleanExtensions {
-  private static PGrid INSTANCE = null;
-
   private final PNode[][] nodes;
   /** This is the number of rows specified for the grid. */
   private final IntegerProperty rowsProperty = new ComplexIntegerProperty();
@@ -49,7 +47,11 @@ public final class PGrid implements IGrid, Serializable, BooleanExtensions {
   }
 
   public PGrid(int rows, int cols) {
-    this(rows, cols, Position.of(10, 10), Position.of(18, 10));
+    this(
+        rows,
+        cols,
+        Position.of(DEFAULT_SOURCE_X, DEFAULT_SOURCE_Y),
+        Position.of(DEFAULT_DESTINATION_X, DEFAULT_DESTINATION_Y));
   }
 
   /** create and initialize the nodes based on the current state */
@@ -229,12 +231,5 @@ public final class PGrid implements IGrid, Serializable, BooleanExtensions {
         }
       }
     }
-  }
-
-  public static PGrid getInstance() {
-    if (INSTANCE == null) {
-      INSTANCE = new PGrid(35, 60);
-    }
-    return INSTANCE;
   }
 }

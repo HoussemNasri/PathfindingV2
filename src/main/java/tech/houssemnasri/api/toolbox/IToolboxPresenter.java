@@ -4,7 +4,7 @@ import tech.houssemnasri.api.mvp.Presenter;
 import tech.houssemnasri.api.pathfinder.Visualizer;
 
 public interface IToolboxPresenter extends Presenter<IToolboxView> {
-  void setToolbox(IToolbox toolbox);
+  void setToolboxModel(IToolbox toolboxModel);
 
   void setAlgorithmPlayer(Visualizer algorithmPlayer);
 

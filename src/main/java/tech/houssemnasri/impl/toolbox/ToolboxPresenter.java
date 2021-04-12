@@ -1,25 +1,23 @@
 package tech.houssemnasri.impl.toolbox;
 
 import tech.houssemnasri.api.pathfinder.Visualizer;
-import tech.houssemnasri.api.pathfinder.OnPlayerFinishedListener;
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.api.toolbox.IToolboxPresenter;
 import tech.houssemnasri.api.toolbox.IToolboxView;
 
-public class ToolboxPresenter implements IToolboxPresenter, OnPlayerFinishedListener {
+public class ToolboxPresenter implements IToolboxPresenter, Visualizer.OnFinishListener {
   private IToolboxView toolboxView;
-  private IToolbox toolbox;
+  private IToolbox toolboxModel;
   private Visualizer algorithmPlayer;
 
-  public ToolboxPresenter(
-      IToolbox toolbox, IToolboxView toolboxView, Visualizer algorithmPlayer) {
-    setToolbox(toolbox);
+  public ToolboxPresenter(IToolbox toolboxModel, IToolboxView toolboxView, Visualizer algorithmPlayer) {
+    setToolboxModel(toolboxModel);
     setView(toolboxView);
     setAlgorithmPlayer(algorithmPlayer);
   }
 
-  public ToolboxPresenter(IToolbox toolbox, IToolboxView toolboxView) {
-    this(toolbox, toolboxView, null);
+  public ToolboxPresenter(IToolbox toolboxModel, IToolboxView toolboxView) {
+    this(toolboxModel, toolboxView, null);
   }
 
   public ToolboxPresenter() {
@@ -34,16 +32,16 @@ public class ToolboxPresenter implements IToolboxPresenter, OnPlayerFinishedList
   }
 
   @Override
-  public void setToolbox(IToolbox toolbox) {
-    if (toolbox == null) return;
-    this.toolbox = toolbox;
+  public void setToolboxModel(IToolbox toolboxModel) {
+    if (toolboxModel == null) return;
+    this.toolboxModel = toolboxModel;
   }
 
   @Override
   public void setAlgorithmPlayer(Visualizer algorithmPlayer) {
     if (algorithmPlayer == null) return;
     this.algorithmPlayer = algorithmPlayer;
-    algorithmPlayer.registerOnFinishedListener(this);
+    algorithmPlayer.registerFinishListener(this);
   }
 
   @Override
@@ -79,7 +77,7 @@ public class ToolboxPresenter implements IToolboxPresenter, OnPlayerFinishedList
   }
 
   @Override
-  public void onFinished() {
+  public void onFinish() {
     toolboxView.updatePlayButtonIcon(isPlaying());
   }
 }

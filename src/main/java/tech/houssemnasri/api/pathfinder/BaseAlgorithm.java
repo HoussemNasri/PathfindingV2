@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Set;
 
 import tech.houssemnasri.BooleanExtensions;
-import tech.houssemnasri.api.command.ICommand;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
@@ -16,39 +15,44 @@ import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.util.GridChecker;
 
 /**
- * This class {@code BaseAlgorithm} should provide an api for the {@code Visualizer} to
- * explore the grid for {@code destinationNode} using {@code this} algorithm logic, also for going
- * back to the previous algorithm state.
+ * This class {@code BaseAlgorithm} should provide an api for the {@code Visualizer} to explore the
+ * grid for {@code destinationNode} using {@code this} algorithm logic, also for going back to the
+ * previous algorithm state.
  */
 public abstract class BaseAlgorithm implements BooleanExtensions {
+  protected static final int HORIZ_VERT_DISTANCE = 10;
+  protected static final int DIAGONAL_DISTANCE = 14;
+
   protected final IGrid grid;
   protected final boolean isDiagonalAllowed;
-  private final AlgorithmHistory algorithmHistory = new AlgorithmHistory();
+  private final AlgorithmHistory history = new AlgorithmHistory();
   protected INode currentNode;
-  private boolean pathFound = false;
 
   public BaseAlgorithm(IGrid grid, boolean isDiagonalAllowed) {
     this.grid = grid;
     this.isDiagonalAllowed = isDiagonalAllowed;
-    initialize();
   }
 
   public BaseAlgorithm(IGrid grid) {
     this(grid, false);
   }
 
-  protected abstract void initialize();
-
   /**
    * move forward and explore the grid looking for the path from {@code source} to {@code
    * destination}
    */
-  public abstract void forward();
-  /** go back to previous grid state and remove recent algorithm changes. */
+  protected abstract AlgorithmStep advance();
+
+  /** Step in the algorithm and record the step */
+  public final void forward() {
+    AlgorithmStep step = advance();
+    addToHistory(step);
+  }
+
+  /** Undo the most recent algorithm step. */
   public final void back() {
-    AlgorithmStep stepRecord = algorithmHistory.pop();
-    while (not(stepRecord.isEmpty())) {
-      stepRecord.pop().undo();
+    if (not(history.isEmpty())) {
+      history.pop().cancel();
     }
   }
 
@@ -63,13 +67,12 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     return currentNode;
   }
 
-  /** @return True if {@code currentNode} is the {@code destinationNode}, False otherwise. */
+  /** @return True if the last step is the final step. */
   public boolean isPathFound() {
-    return pathFound;
-  }
-
-  public void setPathFound(boolean pathFound) {
-    this.pathFound = pathFound;
+    if (history.isEmpty()) {
+      return false;
+    }
+    return history.peek().isFinalStep();
   }
 
   public IGrid getGrid() {
@@ -107,8 +110,12 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     return getOpenSet().contains(node);
   }
 
-  public void doTraceBackPath() {
-    recordStep(new TracePathCommand(this, getCurrentNode()).executeAndReturn());
+  public void tracePath() {
+    INode destination = grid.getNode(grid.getDestinationPosition());
+    AlgorithmStep tracePathStep = new AlgorithmStep();
+    tracePathStep.markAsFinal();
+    tracePathStep.pushAndExecute(new TracePathCommand(destination));
+    addToHistory(tracePathStep);
   }
 
   protected boolean isOnDiagonal(INode node) {
@@ -143,20 +150,15 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     return result;
   }
 
-  protected void recordStep(AlgorithmStep algorithmStep) {
-    algorithmHistory.push(algorithmStep);
-  }
-
-  protected void recordStep(ICommand command) {
-    recordStep(new AlgorithmStep(command));
+  protected void addToHistory(AlgorithmStep algorithmStep) {
+    history.push(algorithmStep);
   }
 
   public void reset() {
     getClosedSet().clear();
     getOpenSet().clear();
-    algorithmHistory.clear();
+    history.clear();
     getGrid().clearPath();
     setCurrentNode(null);
-    setPathFound(false);
   }
 }

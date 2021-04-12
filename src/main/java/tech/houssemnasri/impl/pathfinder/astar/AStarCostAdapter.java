@@ -20,12 +20,12 @@ public class AStarCostAdapter implements IAStarCost {
   }
 
   private void setF() {
-    algorithmStep.exec(new UpdateCostCommand(costInfo, 0, fCost()));
+    algorithmStep.pushAndExecute(new UpdateCostCommand(costInfo, 0, fCost()));
   }
 
   @Override
   public void setG(int newGCost) {
-    algorithmStep.exec(new UpdateCostCommand(costInfo, 1, newGCost));
+    algorithmStep.pushAndExecute(new UpdateCostCommand(costInfo, 1, newGCost));
     setF();
   }
 
@@ -36,7 +36,7 @@ public class AStarCostAdapter implements IAStarCost {
 
   @Override
   public void setH(int newHCost) {
-    algorithmStep.exec(new UpdateCostCommand(costInfo, 2, newHCost));
+    algorithmStep.pushAndExecute(new UpdateCostCommand(costInfo, 2, newHCost));
     setF();
   }
 

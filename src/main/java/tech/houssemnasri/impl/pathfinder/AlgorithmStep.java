@@ -1,40 +1,53 @@
 package tech.houssemnasri.impl.pathfinder;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Stack;
 
 import tech.houssemnasri.api.command.ICommand;
 
 public class AlgorithmStep {
-  protected Stack<ICommand> commands = new Stack<>();
+  protected Stack<ICommand> commandStack = new Stack<>();
+  private boolean isFinal;
 
-  public AlgorithmStep(List<ICommand> commands) {
-    this.commands.addAll(commands);
+  public AlgorithmStep(List<ICommand> allCommands) {
+    this.commandStack.addAll(allCommands);
   }
 
-  public AlgorithmStep(ICommand... commands) {
-    this(Arrays.asList(commands));
+  public AlgorithmStep(ICommand... allCommands) {
+    this(Arrays.asList(allCommands));
   }
 
   public AlgorithmStep() {
-    this(List.of());
+    this(Collections.emptyList());
   }
 
   public void push(ICommand command) {
-    commands.push(command);
-  }
-
-  public ICommand pop() {
-    return commands.pop();
+    commandStack.push(command);
   }
 
   /** Execute the command and save it. */
-  public void exec(ICommand command) {
+  public void pushAndExecute(ICommand command) {
     push(command.executeAndReturn());
   }
 
+  /** Undo all commands belonging to {@code this} step. */
+  public void cancel() {
+    while (!isEmpty()) {
+      commandStack.pop().undo();
+    }
+  }
+
   public boolean isEmpty() {
-    return commands.isEmpty();
+    return commandStack.isEmpty();
+  }
+
+  public boolean isFinalStep() {
+    return isFinal;
+  }
+
+  public void markAsFinal() {
+    this.isFinal = true;
   }
 }

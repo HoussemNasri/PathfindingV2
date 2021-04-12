@@ -1,36 +1,42 @@
 package tech.houssemnasri.impl.command;
 
-import tech.houssemnasri.api.grid.IGrid;
-import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.command.AlgorithmCommand;
+import tech.houssemnasri.api.command.AlgorithmCommandContext;
 import tech.houssemnasri.api.node.INode;
-import static tech.houssemnasri.api.node.INode.*;
+import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
+import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
+
+import static tech.houssemnasri.api.node.INode.Type;
 
 public class OpenNodeCommand extends AlgorithmCommand {
   private final Type undoType;
 
-  public OpenNodeCommand(BaseAlgorithm algorithm, INode node) {
-    super(algorithm, node);
-    this.undoType = node.getType();
+  public OpenNodeCommand(AlgorithmCommandContext commandContext) {
+    super(commandContext);
+    this.undoType = getNode().getType();
+  }
+
+  public OpenNodeCommand(BaseAlgorithm algorithm, AlgorithmStep step, INode node) {
+    this(AlgorithmCommandContext.create(algorithm, step, node));
   }
 
   @Override
-  public void execute() {
+  protected void justExecute() {
     if (isNodeOpen()) {
       return;
     }
-    algorithm.getOpenSet().add(node);
-    algorithm.getClosedSet().remove(node);
-    node.setType(Type.OPEN);
+    getAlgorithm().getOpenSet().add(getNode());
+    getAlgorithm().getClosedSet().remove(getNode());
+    getNode().setType(Type.OPEN);
   }
 
   private boolean isNodeOpen() {
-    return algorithm.getOpenSet().contains(node);
+    return getAlgorithm().getOpenSet().contains(getNode());
   }
 
   @Override
   public void undo() {
-    algorithm.getOpenSet().remove(node);
-    node.setType(undoType);
+    getAlgorithm().getOpenSet().remove(getNode());
+    getNode().setType(undoType);
   }
 }

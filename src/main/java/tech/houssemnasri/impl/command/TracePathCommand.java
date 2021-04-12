@@ -3,20 +3,20 @@ package tech.houssemnasri.impl.command;
 import java.util.LinkedList;
 import java.util.Queue;
 
-import tech.houssemnasri.api.command.AlgorithmCommand;
+import tech.houssemnasri.api.command.ICommand;
 import tech.houssemnasri.api.node.INode;
-import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 
-public class TracePathCommand extends AlgorithmCommand {
+public class TracePathCommand implements ICommand {
   private final Queue<INode.Type> typeCache = new LinkedList<>();
+  private final INode destinationNode;
 
-  public TracePathCommand(BaseAlgorithm algorithm, INode destinationNode) {
-    super(algorithm, destinationNode);
+  public TracePathCommand(INode destinationNode) {
+    this.destinationNode = destinationNode;
   }
 
   @Override
   public void execute() {
-    INode tempNode = getNode();
+    INode tempNode = destinationNode;
     while (tempNode != null) {
       typeCache.offer(tempNode.getType());
       tempNode.setType(INode.Type.PATH);
@@ -26,7 +26,7 @@ public class TracePathCommand extends AlgorithmCommand {
 
   @Override
   public void undo() {
-    INode tempNode = getNode();
+    INode tempNode = destinationNode;
     while (tempNode != null) {
       tempNode.setType(typeCache.poll());
       tempNode = tempNode.getParent();

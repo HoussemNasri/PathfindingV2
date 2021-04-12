@@ -2,27 +2,44 @@ package tech.houssemnasri.api.command;
 
 import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.impl.pathfinder.AlgorithmStep;
 
 /**
  * This class {@code AlgoCommand} responsible for generalizing common actions performed by
  * pathfinding algorithms like opening a node or closing it.
  */
 public abstract class AlgorithmCommand implements ICommand {
-  protected BaseAlgorithm algorithm;
-  /** The node to perform this action on. */
-  protected INode node;
+  private final AlgorithmCommandContext commandContext;
 
-  public AlgorithmCommand(BaseAlgorithm algorithm, INode node) {
-    this.algorithm = algorithm;
-    this.node = node;
+  public AlgorithmCommand(AlgorithmCommandContext commandContext) {
+    this.commandContext = commandContext;
   }
 
-  /** Returns the algorithm object using this command. */
+  public AlgorithmCommand(BaseAlgorithm algorithm, AlgorithmStep step, INode node) {
+    this(AlgorithmCommandContext.create(algorithm, step, node));
+  }
+
+  protected abstract void justExecute();
+
+  @Override
+  public final void execute() {
+    justExecute();
+    commandContext.getStep().push(this);
+  }
+
+  public AlgorithmCommandContext getCommandContext() {
+    return commandContext;
+  }
+
   public BaseAlgorithm getAlgorithm() {
-    return algorithm;
+    return commandContext.getAlgorithm();
+  }
+
+  public AlgorithmStep getStep() {
+    return commandContext.getStep();
   }
 
   public INode getNode() {
-    return node;
+    return commandContext.getNode();
   }
 }

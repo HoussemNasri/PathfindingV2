@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
+import tech.houssemnasri.api.command.AlgorithmCommandContext;
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
@@ -20,9 +21,6 @@ import tech.houssemnasri.impl.pathfinder.distance.ManhattanDistance;
 
 /** A* implementation */
 public class AStarAlgorithm extends BaseAlgorithm {
-  private static final int HORIZ_VERT_DISTANCE = 10;
-  private static final int DIAGONAL_DISTANCE = 14;
-
   private final Set<INode> openNodes = new HashSet<>();
   private final Set<INode> closedNodes = new HashSet<>();
 
@@ -35,37 +33,30 @@ public class AStarAlgorithm extends BaseAlgorithm {
   }
 
   @Override
-  protected void initialize() {
-    // Initialize.
-  }
-
-  @Override
-  public void forward() {
-    AlgorithmStep algorithmStep = new AlgorithmStep();
+  public AlgorithmStep advance() {
+    AlgorithmStep step = new AlgorithmStep();
     if (openNodes.isEmpty()) {
       IPosition source = grid.getSourcePosition();
-      algorithmStep.exec(new OpenNodeCommand(this, grid.getNode(source)));
-      computeHCostFor(grid.getNode(source), algorithmStep);
-      new AStarCostAdapter(getGrid().getNode(source).getPathCost(), algorithmStep).setG(0);
+      new OpenNodeCommand(this, step, grid.getNode(source)).execute();
+      estimateDistanceToDestination(grid.getNode(source), step);
+      new AStarCostAdapter(getGrid().getNode(source).getPathCost(), step).setG(0);
     }
-    algorithmStep.exec(new SetCurrentNodeCommand(this, getLeastCostNode()));
-    algorithmStep.exec(new CloseNodeCommand(this, getCurrentNode()));
+    new SetCurrentNodeCommand(this, step, getLeastCostNode()).execute();
+    new CloseNodeCommand(this, step, getCurrentNode()).execute();
 
     if (getGrid().isDestinationNode(getCurrentNode())) {
-      recordStep(algorithmStep);
-      doTraceBackPath();
-      setPathFound(true);
-      return;
+      step.markAsFinal();
+      return step;
     }
 
     List<INode> neighbors = getCurrentNodeNeighbors();
-    IAStarCost currentNodeCost =
-        new AStarCostAdapter(getCurrentNode().getPathCost(), algorithmStep);
+    IAStarCost currentNodeCost = new AStarCostAdapter(getCurrentNode().getPathCost(), step);
     for (INode nei : neighbors) {
       if (isNodeClosed(nei)) {
         continue;
       }
-      IAStarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), algorithmStep);
+      IAStarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), step);
+      AlgorithmCommandContext neighborsContext = AlgorithmCommandContext.create(this, step, nei);
       int gCostForCurrent = currentNodeCost.gCost();
       int gCostForNeighbor = neighborNodeCost.gCost();
       int gCostForNeighborUpdate =
@@ -73,23 +64,23 @@ public class AStarAlgorithm extends BaseAlgorithm {
       if (isNodeOpen(nei)) {
         if (gCostForNeighbor > gCostForNeighborUpdate) {
           neighborNodeCost.setG(gCostForNeighborUpdate);
-          algorithmStep.exec(new SetParentCommand(this, nei, currentNode));
+          new SetParentCommand(neighborsContext, currentNode).execute();
         }
       } else {
         neighborNodeCost.setG(gCostForNeighborUpdate);
-        algorithmStep.exec(new SetParentCommand(this, nei, currentNode));
-        computeHCostFor(nei, algorithmStep);
-        algorithmStep.exec(new OpenNodeCommand(this, nei));
+        new SetParentCommand(neighborsContext, currentNode).execute();
+        estimateDistanceToDestination(nei, step);
+        new OpenNodeCommand(neighborsContext).execute();
       }
     }
-    recordStep(algorithmStep);
+    return step;
   }
 
-  private void computeHCostFor(INode node, AlgorithmStep algorithmStep) {
+  private void estimateDistanceToDestination(INode node, AlgorithmStep step) {
     IPosition thisPosition = node.getPosition();
     IPosition destPosition = grid.getDestinationPosition();
     Distance distance = new ManhattanDistance();
-    new AStarCostAdapter(node.getPathCost(), algorithmStep)
+    new AStarCostAdapter(node.getPathCost(), step)
         .setH(distance.apply(thisPosition, destPosition));
   }
 
@@ -97,11 +88,6 @@ public class AStarAlgorithm extends BaseAlgorithm {
     PriorityQueue<INode> priorityQueue = new PriorityQueue<>(new AStarNodeComparator());
     priorityQueue.addAll(openNodes);
     return priorityQueue.poll();
-  }
-
-  @Override
-  public INode getCurrentNode() {
-    return currentNode;
   }
 
   @Override

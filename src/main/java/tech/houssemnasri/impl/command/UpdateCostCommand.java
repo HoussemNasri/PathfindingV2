@@ -32,8 +32,4 @@ public class UpdateCostCommand implements ICommand {
   public void undo() {
     pathCost.getCostArguments().set(position, prevValue);
   }
-
-  public PathCost getPathCost() {
-    return pathCost;
-  }
 }

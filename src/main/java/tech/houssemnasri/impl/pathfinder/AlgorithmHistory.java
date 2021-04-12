@@ -4,29 +4,33 @@ import java.util.List;
 import java.util.Stack;
 
 public class AlgorithmHistory {
-  protected Stack<AlgorithmStep> algorithmSteps = new Stack<>();
+  protected Stack<AlgorithmStep> stepStack = new Stack<>();
 
-  public AlgorithmHistory(List<AlgorithmStep> algorithmSteps) {
-    this.algorithmSteps.addAll(algorithmSteps);
+  public AlgorithmHistory(List<AlgorithmStep> steps) {
+    stepStack.addAll(steps);
   }
 
   public AlgorithmHistory() {
     this(List.of());
   }
 
-  public void push(AlgorithmStep algorithmStep) {
-    algorithmSteps.push(algorithmStep);
+  public void push(AlgorithmStep steps) {
+    stepStack.push(steps);
   }
 
   public AlgorithmStep pop() {
-    return algorithmSteps.pop();
+    return stepStack.pop();
+  }
+
+  public AlgorithmStep peek() {
+    return stepStack.peek();
   }
 
   public boolean isEmpty() {
-    return algorithmSteps.isEmpty();
+    return stepStack.isEmpty();
   }
 
   public void clear() {
-    algorithmSteps.clear();
+    stepStack.clear();
   }
 }

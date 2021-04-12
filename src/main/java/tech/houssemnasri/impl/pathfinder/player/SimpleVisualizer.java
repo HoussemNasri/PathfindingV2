@@ -5,9 +5,6 @@ import tech.houssemnasri.api.pathfinder.BaseAlgorithm;
 import tech.houssemnasri.api.pathfinder.Visualizer;
 
 public class SimpleVisualizer extends Visualizer implements BooleanExtensions {
-  private static final long SPEED_SLOW = 700000000;
-  private static final long SPEED_MEDIUM = 70000000;
-  private static final long SPEED_FAST = 9000000;
   private long start = -1;
 
   public SimpleVisualizer(BaseAlgorithm algorithm) {
@@ -33,31 +30,11 @@ public class SimpleVisualizer extends Visualizer implements BooleanExtensions {
   }
 
   @Override
-  public void visualize() {
-    if (getAlgorithm().isPathFound()) {
-      getAlgorithm().reset();
-    }
-    super.visualize();
-  }
-
-  @Override
-  public void pause() {
-    super.pause();
-  }
-
-  @Override
-  public void reset() {
-    super.reset();
-    getAlgorithm().reset();
-  }
-
-  @Override
   public void handle(long now) {
-    if (start == -1 || now - start >= SPEED_FAST) {
+    if (start == -1 || now - start >= getDelay()) {
       start = now;
       if (getAlgorithm().isPathFound()) {
-        super.reset();
-        notifyAllOnFinishedListeners();
+        finishVisualization();
       } else {
         forward();
       }

@@ -14,6 +14,11 @@ import tech.houssemnasri.impl.node.PNode;
  * behaviour but different implementation.
  */
 public interface IGrid {
+  int DEFAULT_SOURCE_X = 10;
+  int DEFAULT_SOURCE_Y = 10;
+  int DEFAULT_DESTINATION_X = 18;
+  int DEFAULT_DESTINATION_Y = 10;
+
   /** Returns the number of rows */
   int getRows();
   /** Specify the number of rows for the grid. */
