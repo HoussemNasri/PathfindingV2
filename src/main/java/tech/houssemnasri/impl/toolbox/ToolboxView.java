@@ -82,6 +82,17 @@ public class ToolboxView implements IToolboxView, Initializable {
     backButton.setOnMouseClicked(e -> presenter.onBackClicked());
     listenForAlgorithmSelection();
     listenForThemeSelection();
+    listenForWallDrawModeSelection();
+  }
+
+  private void listenForWallDrawModeSelection() {
+    wallEditorGroup
+        .selectedToggleProperty()
+        .addListener(
+            (observable, oldValue, newValue) -> {
+              int selected = wallEditorGroup.getToggles().indexOf(newValue);
+              presenter.onWallDrawModeSelected(selected);
+            });
   }
 
   private void listenForAlgorithmSelection() {

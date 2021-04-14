@@ -23,4 +23,6 @@ public interface IToolboxPresenter extends Presenter<IToolboxView> {
   void onAlgorithmSelected(int algorithmIndex);
 
   void onThemeSelected(int themeIndex);
+
+  void onWallDrawModeSelected(int selected);
 }

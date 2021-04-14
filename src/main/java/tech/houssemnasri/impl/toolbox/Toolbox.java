@@ -1,8 +1,6 @@
 package tech.houssemnasri.impl.toolbox;
 
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleObjectProperty;
-
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.impl.AlgorithmDescriptor;
 import tech.houssemnasri.impl.ThemeDescriptor;
@@ -13,6 +11,8 @@ public class Toolbox implements IToolbox {
       new ComplexObjectProperty<>();
   private final ObjectProperty<ThemeDescriptor> selectedThemeProperty =
       new ComplexObjectProperty<>();
+  private final ObjectProperty<WallDrawMode> wallDrawModeProperty =
+      new ComplexObjectProperty<>(WallDrawMode.DRAW);
 
   public Toolbox(AlgorithmDescriptor selectAlgorithm, ThemeDescriptor selectTheme) {
     selectAlgorithm(selectAlgorithm);
@@ -51,5 +51,20 @@ public class Toolbox implements IToolbox {
   @Override
   public ObjectProperty<ThemeDescriptor> selectedThemeProperty() {
     return selectedThemeProperty;
+  }
+
+  @Override
+  public void setWallDrawMode(WallDrawMode mode) {
+    wallDrawModeProperty.set(mode);
+  }
+
+  @Override
+  public WallDrawMode getWallDrawMode() {
+    return wallDrawModeProperty.get();
+  }
+
+  @Override
+  public ObjectProperty<WallDrawMode> wallDrawModeProperty() {
+    return wallDrawModeProperty;
   }
 }

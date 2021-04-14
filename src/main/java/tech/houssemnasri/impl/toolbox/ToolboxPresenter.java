@@ -110,6 +110,12 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.OnFinishL
   }
 
   @Override
+  public void onWallDrawModeSelected(int selected) {
+    toolboxModel.setWallDrawMode(
+        selected == 0 ? IToolbox.WallDrawMode.DRAW : IToolbox.WallDrawMode.ERASE);
+  }
+
+  @Override
   public void onResetPlayerClicked() {
     visualizer.reset();
     toolboxView.updatePlayButtonIcon(isPlaying());

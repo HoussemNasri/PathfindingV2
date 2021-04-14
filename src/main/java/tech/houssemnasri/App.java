@@ -43,7 +43,7 @@ public class App extends Application {
 
     IGrid grid = new PGrid(45, 65);
     IGridView gridView = new PGridView();
-    IGridPresenter gridPresenter = new PGridPresenter(grid, gridView);
+    IGridPresenter gridPresenter = new PGridPresenter(grid, gridView, toolbox);
 
     mainView.getChildren().add(toolboxView.getRoot());
     mainView.getChildren().add(gridView.getRoot());

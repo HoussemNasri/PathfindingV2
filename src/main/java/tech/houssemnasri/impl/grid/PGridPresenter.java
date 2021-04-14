@@ -11,7 +11,9 @@ import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.impl.node.Position;
+import tech.houssemnasri.impl.toolbox.Toolbox;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 
 /** The P in MVP */
@@ -28,13 +30,16 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   /** The V in MVP */
   private IGridView gridView;
 
-  public PGridPresenter(IGrid gridModel, IGridView gridView) {
+  private IToolbox toolboxModel;
+
+  public PGridPresenter(IGrid gridModel, IGridView gridView, IToolbox toolboxModel) {
     setGridModel(gridModel);
     setView(gridView);
+    setToolboxModel(toolboxModel);
   }
 
   public PGridPresenter() {
-    this(null, null);
+    this(null, null, new Toolbox());
   }
 
   private void bindColsPropertyToModel() {
@@ -52,6 +57,12 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     this.gridModel = gridModel;
     bindColsPropertyToModel();
     bindRowsPropertyToModel();
+  }
+
+  @Override
+  public void setToolboxModel(IToolbox toolbox) {
+    if (toolbox == null) return;
+    this.toolboxModel = toolbox;
   }
 
   @Override
@@ -107,15 +118,21 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   @Override
   public void onNodeClicked(MouseEvent mouseEvent, IPosition clickedNodePosition) {
     if (mouseEvent.getButton() == MouseButton.PRIMARY) {
-      doDrawWall(clickedNodePosition);
+      doEditWall(clickedNodePosition);
     }
   }
 
-  private void doDrawWall(IPosition clickedNodePosition) {
+  private void doEditWall(IPosition clickedNodePosition) {
     if (not(clickedNodePosition.equals(Position.ERROR))) {
       INode clickedNode = gridModel.getNode(clickedNodePosition);
-      if (clickedNode.getType() == INode.Type.BASIC) {
-        clickedNode.setType(INode.Type.WALL);
+      if (toolboxModel.getWallDrawMode() == IToolbox.WallDrawMode.DRAW) {
+        if (clickedNode.getType() == INode.Type.BASIC) {
+          clickedNode.setType(INode.Type.WALL);
+        }
+      } else {
+        if (clickedNode.getType() == INode.Type.WALL) {
+          clickedNode.setType(INode.Type.BASIC);
+        }
       }
     }
   }
@@ -128,7 +145,7 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
       } else if (isDraggingDestinationNode) {
         doRelocateDestinationTo(intersection);
       } else {
-        doDrawWall(intersection);
+        doEditWall(intersection);
       }
     }
   }

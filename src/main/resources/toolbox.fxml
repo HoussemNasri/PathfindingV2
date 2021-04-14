@@ -34,12 +34,12 @@
                   </Label>
                   <VBox spacing="4.0">
                      <children>
-                        <RadioButton mnemonicParsing="false" text="Draw" textFill="#cacaca">
+                        <RadioButton mnemonicParsing="false" selected="true" text="Draw" textFill="#cacaca">
                            <toggleGroup>
                               <ToggleGroup fx:id="wallEditorGroup" />
                            </toggleGroup>
                         </RadioButton>
-                        <RadioButton mnemonicParsing="false" selected="true" text="Erase" textFill="#d7d7d7" toggleGroup="$wallEditorGroup" />
+                        <RadioButton mnemonicParsing="false" text="Erase" textFill="#d7d7d7" toggleGroup="$wallEditorGroup" />
                      </children>
                   </VBox>
                </children>

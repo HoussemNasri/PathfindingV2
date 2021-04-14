@@ -7,6 +7,7 @@ import javafx.scene.input.MouseEvent;
 import tech.houssemnasri.api.mvp.Presenter;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.api.toolbox.IToolbox;
 
 public interface IGridPresenter extends Presenter<IGridView> {
   int getRows();
@@ -26,6 +27,8 @@ public interface IGridPresenter extends Presenter<IGridView> {
   ObjectProperty<IPosition> destinationPositionProperty();
 
   void setGridModel(IGrid gridModel);
+
+  void setToolboxModel(IToolbox toolbox);
 
   void setShowCostInfo(boolean showCostInfo);
 
