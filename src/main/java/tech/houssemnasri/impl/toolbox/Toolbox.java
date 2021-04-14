@@ -1,6 +1,9 @@
 package tech.houssemnasri.impl.toolbox;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.impl.AlgorithmDescriptor;
 import tech.houssemnasri.impl.ThemeDescriptor;
@@ -13,6 +16,7 @@ public class Toolbox implements IToolbox {
       new ComplexObjectProperty<>();
   private final ObjectProperty<WallDrawMode> wallDrawModeProperty =
       new ComplexObjectProperty<>(WallDrawMode.DRAW);
+  private final BooleanProperty isDraggingNodesLockedProperty = new SimpleBooleanProperty(false);
 
   public Toolbox(AlgorithmDescriptor selectAlgorithm, ThemeDescriptor selectTheme) {
     selectAlgorithm(selectAlgorithm);
@@ -66,5 +70,25 @@ public class Toolbox implements IToolbox {
   @Override
   public ObjectProperty<WallDrawMode> wallDrawModeProperty() {
     return wallDrawModeProperty;
+  }
+
+  @Override
+  public void lockDraggingNodes() {
+    isDraggingNodesLockedProperty.set(true);
+  }
+
+  @Override
+  public void unlockDraggingNodes() {
+    isDraggingNodesLockedProperty.set(false);
+  }
+
+  @Override
+  public boolean isDraggingNodesLocked() {
+    return isDraggingNodesLockedProperty.get();
+  }
+
+  @Override
+  public BooleanProperty isLockedDraggingNodesProperty() {
+    return isDraggingNodesLockedProperty;
   }
 }

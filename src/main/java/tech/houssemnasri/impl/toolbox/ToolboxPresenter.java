@@ -11,7 +11,7 @@ import tech.houssemnasri.api.toolbox.IToolboxView;
 import tech.houssemnasri.impl.AlgorithmDescriptor;
 import tech.houssemnasri.impl.ThemeDescriptor;
 
-public class ToolboxPresenter implements IToolboxPresenter, Visualizer.OnFinishListener {
+public class ToolboxPresenter implements IToolboxPresenter, Visualizer.VisualizerListener {
   private Scene scene;
   private IToolboxView toolboxView;
   private IToolbox toolboxModel;
@@ -82,6 +82,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.OnFinishL
     } else {
       visualizer.visualize();
     }
+    toolboxModel.lockDraggingNodes();
     toolboxView.updatePlayButtonIcon(isPlaying());
   }
 
@@ -91,6 +92,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.OnFinishL
 
   @Override
   public void onForwardClicked() {
+    toolboxModel.lockDraggingNodes();
     visualizer.forward();
   }
 
@@ -124,6 +126,12 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.OnFinishL
   @Override
   public void onFinish() {
     toolboxView.updatePlayButtonIcon(isPlaying());
-    System.out.println("Finish");
+    System.out.println("onFinish()");
+  }
+
+  @Override
+  public void onReset() {
+    toolboxModel.unlockDraggingNodes();
+      System.out.println("onReset()");
   }
 }

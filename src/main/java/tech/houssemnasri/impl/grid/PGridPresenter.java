@@ -154,7 +154,8 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     if (and(
         not(intersection.equals(Position.ERROR)),
         gridModel.isWalkable(intersection),
-        not(gridModel.isSourceNode(gridModel.getNode(intersection))))) {
+        not(gridModel.isSourceNode(gridModel.getNode(intersection))),
+        not(toolboxModel.isDraggingNodesLocked()))) {
       gridModel.relocateDestination(intersection);
     }
   }
@@ -163,7 +164,8 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
     if (and(
         not(intersection.equals(Position.ERROR)),
         gridModel.isWalkable(intersection),
-        not(gridModel.isDestinationNode(gridModel.getNode(intersection))))) {
+        not(gridModel.isDestinationNode(gridModel.getNode(intersection))),
+        not(toolboxModel.isDraggingNodesLocked()))) {
       gridModel.relocateSource(intersection);
     }
   }

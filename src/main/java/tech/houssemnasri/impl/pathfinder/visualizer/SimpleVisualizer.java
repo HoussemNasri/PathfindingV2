@@ -25,6 +25,10 @@ public class SimpleVisualizer extends Visualizer implements BooleanExtensions {
   public void back() {
     if (not(getAlgorithm().getClosedSet().isEmpty())) {
       getAlgorithm().back();
+      if (getAlgorithm().getClosedSet().isEmpty()) {
+        // We do this to unlock the start and destination nodes to be able to drag them.
+        reset();
+      }
     } else {
       System.out.println("Stop! Motherfucker.");
     }

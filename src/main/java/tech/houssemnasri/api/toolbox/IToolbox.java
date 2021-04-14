@@ -31,12 +31,11 @@ public interface IToolbox {
   WallDrawMode getWallDrawMode();
 
   ObjectProperty<WallDrawMode> wallDrawModeProperty();
-/*
   void lockDraggingNodes();
 
   void unlockDraggingNodes();
 
   boolean isDraggingNodesLocked();
 
-  BooleanProperty isLockedDraggingNodesProperty();*/
+  BooleanProperty isLockedDraggingNodesProperty();
 }

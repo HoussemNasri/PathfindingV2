@@ -21,7 +21,7 @@ public abstract class Visualizer extends AnimationTimer {
 
   private BaseAlgorithm currentAlgorithm;
   protected Status playerStatus = Status.IDLE;
-  private final List<OnFinishListener> finishListeners = new ArrayList<>();
+  private final List<VisualizerListener> listeners = new ArrayList<>();
   private final ReadOnlyIntegerWrapper speedProperty = new ReadOnlyIntegerWrapper(10);
 
   public Visualizer(BaseAlgorithm currentAlgorithm) {
@@ -42,6 +42,7 @@ public abstract class Visualizer extends AnimationTimer {
   public void reset() {
     stopPlayer();
     currentAlgorithm.reset();
+    notifyResetListeners();
   }
 
   public abstract void forward();
@@ -83,21 +84,25 @@ public abstract class Visualizer extends AnimationTimer {
     return MAX_DELAY - chunkSize * (getSpeed() - 1);
   }
 
-  public void registerFinishListener(OnFinishListener listener) {
-    finishListeners.add(listener);
+  public void registerFinishListener(VisualizerListener listener) {
+    listeners.add(listener);
   }
 
-  public void unregisterFinishListener(OnFinishListener listener) {
-    finishListeners.remove(listener);
+  public void unregisterFinishListener(VisualizerListener listener) {
+    listeners.remove(listener);
   }
 
-  protected void notifyFinishListener() {
-    finishListeners.forEach(OnFinishListener::onFinish);
+  protected void notifyFinishListeners() {
+    listeners.forEach(VisualizerListener::onFinish);
+  }
+
+  protected void notifyResetListeners() {
+    listeners.forEach(VisualizerListener::onReset);
   }
 
   protected void finishVisualization() {
     stopPlayer();
-    notifyFinishListener();
+    notifyFinishListeners();
     getAlgorithm().tracePath();
   }
 
@@ -122,7 +127,9 @@ public abstract class Visualizer extends AnimationTimer {
     PAUSED
   }
 
-  public interface OnFinishListener {
+  public interface VisualizerListener {
     void onFinish();
+
+    void onReset();
   }
 }
