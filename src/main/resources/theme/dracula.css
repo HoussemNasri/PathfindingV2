@@ -1,52 +1,68 @@
 
-*{
+.root {
     -grid-gap: 0.25px;
-    -fx-background: #282a36;
-    -fx-toolbox-background: derive(-fx-background, -8%);
-    -fx-current-line: #44475a;
-    -fx-foreground: #f8f8f2;
-    -fx-cyan: #8be9fd;
-    -fx-green: #50fa7b;
-    -fx-orange: #ffb86c;
-    -fx-pink: #ff79c6;
-    -fx-purple: #bd93f9;
-    -fx-red: #ff5555;
-    -fx-yellow: #f1fa8c;
     -fx-font-smoothing-type: gray;
+
+    -theme-background: #282A36;
+    -theme-foreground: #F8F8F2;
+    -theme-text: #6272A4;
+    -theme-selection-background: #44475A;
+    -theme-selection-foreground: #8BE9FD;
+    -theme-buttons: #393C4B;
+    -theme-second-background: #282A36;
+    -theme-disabled: #6272A4;
+    -theme-contrast: #191A21;
+    -theme-active: #44475A;
+    -theme-border: #21222C;
+    -theme-highlight: #6272A4;
+    -theme-tree: #44475A50;
+    -theme-notifications: #1D2228;
+    -theme-accent-color: #FF79C5;
+    -theme-excluded-files-color: #313341;
+    -theme-green-color: #8aff80;
+    -theme-yellow-color: #feff80;
+    -theme-blue-color: #79cbdc;
+    -theme-red-color: #f780bf;
+    -theme-purple-color: #9580ff;
+    -theme-orange-color: #f89580;
+    -theme-cyan-color: #80ffea;
+    -theme-gray-color: #6272A4;
+    -theme-white-black-color: #F8F8F2;
+    -theme-error-color: #ff5555;
 }
 
 .source-node {
-    -fx-background-color: -fx-yellow;
+    -fx-background-color: -theme-yellow-color;
 }
 
 .destination-node {
-    -fx-background-color: -fx-cyan;
+    -fx-background-color: -theme-cyan-color;
 }
 
 .basic-node {
-    -fx-background-color: -fx-background;
+    -fx-background-color: -theme-background;
 }
 
 .wall-node {
-    -fx-background-color: -fx-purple;
+    -fx-background-color: -theme-purple-color;
 }
 
 .open-node {
-    -fx-background-color: -fx-green;
+    -fx-background-color: -theme-green-color;
 }
 
 .closed-node {
-    -fx-background-color: -fx-red;
+    -fx-background-color: -theme-error-color;
 }
 
 .path-node {
-    -fx-background-color: -fx-orange;
+    -fx-background-color: -theme-orange-color;
 }
 
 .grid {
-    -fx-shadow-color: derive(-fx-background, -25%);
+    -fx-shadow-color: derive(-theme-background, -25%);
     -fx-effect: innershadow(three-pass-box, -fx-shadow-color, 15, 0, 2, 5);
-    -fx-background-color: -fx-current-line;
+    -fx-background-color: -theme-selection-background;
     -fx-hgap: -grid-gap;
     -fx-vgap: -grid-gap;
     -fx-snap-to-pixel: false;
@@ -54,8 +70,7 @@
 }
 
 .toolbox {
-    -fx-background-color: -fx-toolbox-background;
-    -fx-effect: dropshadow(gaussian, black, 10, 1.0, 100, 100);
+    -fx-background-color: -theme-border;
 }
 
 
@@ -66,7 +81,7 @@
 }
 
 .toolbox-player-button {
-    -fx-text-fill: -fx-foreground;
+    -fx-text-fill: -theme-foreground;
     -fx-padding: 10 10 5 10;
     -fx-content-display: top;
     -fx-font-family: "Montserrat";
@@ -75,11 +90,11 @@
 }
 
 .toolbox-player-button:hover {
-    -fx-background-color: derive(-fx-toolbox-background, 8%);
+    -fx-background-color: derive(-theme-border, 8%);
 }
 
 .toolbox-player-button:pressed {
-    -fx-background-color: derive(-fx-toolbox-background, 12%);
+    -fx-background-color: derive(-theme-border, 12%);
 }
 
 
@@ -89,37 +104,40 @@
 }
 
 .toolbox-tool-button {
-    -fx-background-color: derive(-fx-background, 15%);
-    -fx-border-color: derive(-fx-background, 50%);
+    -fx-background-color: -theme-buttons;
+    -fx-border-color: -theme-active;
     -fx-border-radius: 2px;
-    -fx-text-fill: rgba(248, 248, 242, 0.90);
+    -fx-text-fill: -theme-foreground;
     -fx-min-width: 100px;
     -fx-font-family: "Fira Code Medium";
 }
 
 .toolbox-tool-button:hover {
-    -fx-background-color: derive(-fx-background, 30%);
+    -fx-background-color: -theme-active;
 }
 
 .toolbox-tool-button:pressed {
-    -fx-background-color: derive(-fx-background, 50%);
+    -fx-background-color: derive(-theme-active, 15%);
 }
 
 .toolbox-tool-combobox {
-    -fx-background-color: derive(-fx-background, 15%);
-    -fx-border-color: derive(-fx-background, 50%);
+    -fx-background-color: -theme-buttons;
+    -fx-border-color: -theme-active;
     -fx-border-radius: 2px;
 }
 
 .toolbox-tool-combobox:hover {
-    -fx-background-color: derive(-fx-background, 30%);
-    -fx-border-radius: 2px;
+    -fx-background-color: -theme-active;
+}
+
+.toolbox-tool-combobox:pressed {
+    -fx-background-color: derive(-theme-active, 15%);
 }
 
 .toolbox-tool-combobox .arrow {
-    -fx-background-color: -fx-foreground;
+    -fx-background-color: -theme-foreground;
 }
 
 .toolbox-tool-combobox .list-cell:selected {
-    -fx-text-fill: -fx-foreground;
+    -fx-text-fill: -theme-foreground;
 }
