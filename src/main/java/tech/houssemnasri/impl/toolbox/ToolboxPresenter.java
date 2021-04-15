@@ -83,7 +83,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
       visualizer.visualize();
     }
     toolboxModel.lockDraggingNodes();
-    toolboxView.updatePlayButtonIcon(isPlaying());
+    toolboxView.updatePlayPauseButton(isPlaying());
   }
 
   private boolean isPlaying() {
@@ -120,12 +120,12 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
   @Override
   public void onResetPlayerClicked() {
     visualizer.reset();
-    toolboxView.updatePlayButtonIcon(isPlaying());
+    toolboxView.updatePlayPauseButton(isPlaying());
   }
 
   @Override
   public void onFinish() {
-    toolboxView.updatePlayButtonIcon(isPlaying());
+    toolboxView.updatePlayPauseButton(isPlaying());
     System.out.println("onFinish()");
   }
 

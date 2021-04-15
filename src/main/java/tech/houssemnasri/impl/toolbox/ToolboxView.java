@@ -24,6 +24,9 @@ import tech.houssemnasri.impl.AlgorithmDescriptor;
 import tech.houssemnasri.impl.ThemeDescriptor;
 
 public class ToolboxView implements IToolboxView, Initializable {
+  private static final String PLAY_LABEL_TEXT = "Play";
+  private static final String PAUSE_LABEL_TEXT = "Pause";
+
   private FXMLLoader loader;
   @FXML private ComboBox<String> algorithmComboBox;
 
@@ -33,7 +36,7 @@ public class ToolboxView implements IToolboxView, Initializable {
 
   @FXML private Button resetButton;
 
-  @FXML private Button playButton;
+  @FXML private Button playPauseButton;
 
   @FXML private FontIcon playButtonIcon;
 
@@ -76,7 +79,7 @@ public class ToolboxView implements IToolboxView, Initializable {
 
   @FXML
   public void initialize(URL location, ResourceBundle resources) {
-    playButton.setOnMouseClicked(e -> presenter.onPlayClicked());
+    playPauseButton.setOnMouseClicked(e -> presenter.onPlayClicked());
     resetButton.setOnMouseClicked(e -> presenter.onResetPlayerClicked());
     forwardButton.setOnMouseClicked(e -> presenter.onForwardClicked());
     backButton.setOnMouseClicked(e -> presenter.onBackClicked());
@@ -116,11 +119,13 @@ public class ToolboxView implements IToolboxView, Initializable {
   }
 
   @Override
-  public void updatePlayButtonIcon(boolean isPlaying) {
+  public void updatePlayPauseButton(boolean isPlaying) {
     if (isPlaying) {
       playButtonIcon.setIconCode(FontAwesomeSolid.PAUSE);
+      playPauseButton.setText(PAUSE_LABEL_TEXT);
     } else {
       playButtonIcon.setIconCode(FontAwesomeSolid.PLAY);
+      playPauseButton.setText(PLAY_LABEL_TEXT);
     }
   }
 
