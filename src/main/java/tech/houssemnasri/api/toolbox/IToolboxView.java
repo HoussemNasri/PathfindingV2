@@ -1,5 +1,6 @@
 package tech.houssemnasri.api.toolbox;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.scene.layout.Pane;
 
 import org.kordamp.ikonli.javafx.FontIcon;

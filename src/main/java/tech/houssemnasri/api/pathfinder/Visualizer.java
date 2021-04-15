@@ -6,8 +6,6 @@ import java.util.List;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
-import javafx.beans.property.ReadOnlyIntegerProperty;
-import javafx.beans.property.ReadOnlyIntegerWrapper;
 
 import tech.houssemnasri.math.Clamp;
 
@@ -17,14 +15,14 @@ import tech.houssemnasri.math.Clamp;
  */
 public abstract class Visualizer extends AnimationTimer {
   private static final Long MIN_DELAY = 65000L;
-  private static final Long MAX_DELAY = 65000000L;
+  private static final Long MAX_DELAY = 88000000L;
   private static final Double MIN_SPEED = 1d;
   private static final Double MAX_SPEED = 10d;
 
   private BaseAlgorithm currentAlgorithm;
   protected Status playerStatus = Status.IDLE;
   private final List<VisualizerListener> listeners = new ArrayList<>();
-  private final ReadOnlyDoubleWrapper speedProperty = new ReadOnlyDoubleWrapper(10d);
+  private final ReadOnlyDoubleWrapper speedProperty = new ReadOnlyDoubleWrapper(5d);
 
   public Visualizer(BaseAlgorithm currentAlgorithm) {
     setAlgorithm(currentAlgorithm);

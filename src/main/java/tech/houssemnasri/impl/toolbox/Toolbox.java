@@ -1,8 +1,10 @@
 package tech.houssemnasri.impl.toolbox;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleDoubleProperty;
 
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.impl.AlgorithmDescriptor;
@@ -17,6 +19,7 @@ public class Toolbox implements IToolbox {
   private final ObjectProperty<WallDrawMode> wallDrawModeProperty =
       new ComplexObjectProperty<>(WallDrawMode.DRAW);
   private final BooleanProperty isDraggingNodesLockedProperty = new SimpleBooleanProperty(false);
+  private final DoubleProperty visualizationSpeedProperty = new SimpleDoubleProperty(5d);
 
   public Toolbox(AlgorithmDescriptor selectAlgorithm, ThemeDescriptor selectTheme) {
     selectAlgorithm(selectAlgorithm);
@@ -90,5 +93,20 @@ public class Toolbox implements IToolbox {
   @Override
   public BooleanProperty isLockedDraggingNodesProperty() {
     return isDraggingNodesLockedProperty;
+  }
+
+  @Override
+  public void setVisualizationSpeed(double speed) {
+    visualizationSpeedProperty.set(speed);
+  }
+
+  @Override
+  public double getVisualizationSpeed() {
+    return visualizationSpeedProperty.get();
+  }
+
+  @Override
+  public DoubleProperty visualizationSpeedProperty() {
+    return visualizationSpeedProperty;
   }
 }

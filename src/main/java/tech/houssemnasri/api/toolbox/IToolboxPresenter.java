@@ -1,5 +1,6 @@
 package tech.houssemnasri.api.toolbox;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 
 import tech.houssemnasri.api.mvp.Presenter;
@@ -25,4 +26,6 @@ public interface IToolboxPresenter extends Presenter<IToolboxView> {
   void onThemeSelected(int themeIndex);
 
   void onWallDrawModeSelected(int selected);
+
+  void onSpeedSliderValueChanged(double newValue);
 }

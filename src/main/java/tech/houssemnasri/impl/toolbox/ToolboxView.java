@@ -7,12 +7,14 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
+import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Slider;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.Pane;
 
@@ -43,6 +45,8 @@ public class ToolboxView implements IToolboxView, Initializable {
   @FXML private Button backButton;
 
   @FXML private Button forwardButton;
+
+  @FXML private Slider speedSlider;
 
   private IToolboxPresenter presenter;
 
@@ -86,6 +90,13 @@ public class ToolboxView implements IToolboxView, Initializable {
     listenForAlgorithmSelection();
     listenForThemeSelection();
     listenForWallDrawModeSelection();
+    listenForSpeedSliderValueChange();
+  }
+
+  private void listenForSpeedSliderValueChange() {
+    speedSlider
+        .valueProperty()
+        .addListener((obs, old, value) -> presenter.onSpeedSliderValueChanged(value.doubleValue()));
   }
 
   private void listenForWallDrawModeSelection() {

@@ -66,7 +66,7 @@
                         <Font name="Roboto Medium" size="14.0" />
                      </font>
                   </Label>
-                  <Slider fx:id="speedSlider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minWidth="180.0" minorTickCount="1" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="1.0" VBox.vgrow="ALWAYS" />
+                  <Slider fx:id="speedSlider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minWidth="180.0" minorTickCount="1" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="5.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

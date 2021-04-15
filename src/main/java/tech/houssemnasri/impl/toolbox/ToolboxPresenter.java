@@ -2,6 +2,7 @@ package tech.houssemnasri.impl.toolbox;
 
 import java.util.Arrays;
 
+import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 
 import tech.houssemnasri.api.pathfinder.Visualizer;
@@ -54,6 +55,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
     if (visualizer == null) return;
     this.visualizer = visualizer;
     visualizer.registerFinishListener(this);
+    toolboxModel.visualizationSpeedProperty().bind(visualizer.speedProperty());
   }
 
   @Override
@@ -118,6 +120,11 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
   }
 
   @Override
+  public void onSpeedSliderValueChanged(double newValue) {
+    visualizer.setSpeed(newValue);
+  }
+
+  @Override
   public void onResetPlayerClicked() {
     visualizer.reset();
     toolboxView.updatePlayPauseButton(isPlaying());
@@ -132,6 +139,6 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
   @Override
   public void onReset() {
     toolboxModel.unlockDraggingNodes();
-      System.out.println("onReset()");
+    System.out.println("onReset()");
   }
 }

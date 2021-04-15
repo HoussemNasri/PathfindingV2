@@ -3,6 +3,7 @@ package tech.houssemnasri.api.toolbox;
 import java.util.List;
 
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.DoubleProperty;
 import javafx.beans.property.ObjectProperty;
 
 import tech.houssemnasri.impl.AlgorithmDescriptor;
@@ -31,6 +32,7 @@ public interface IToolbox {
   WallDrawMode getWallDrawMode();
 
   ObjectProperty<WallDrawMode> wallDrawModeProperty();
+
   void lockDraggingNodes();
 
   void unlockDraggingNodes();
@@ -38,4 +40,10 @@ public interface IToolbox {
   boolean isDraggingNodesLocked();
 
   BooleanProperty isLockedDraggingNodesProperty();
+
+  void setVisualizationSpeed(double speed);
+
+  double getVisualizationSpeed();
+
+  DoubleProperty visualizationSpeedProperty();
 }
