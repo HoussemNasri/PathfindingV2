@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.ReadOnlyDoubleProperty;
+import javafx.beans.property.ReadOnlyDoubleWrapper;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerWrapper;
 
@@ -16,13 +18,13 @@ import tech.houssemnasri.math.Clamp;
 public abstract class Visualizer extends AnimationTimer {
   private static final Long MIN_DELAY = 65000L;
   private static final Long MAX_DELAY = 65000000L;
-  private static final Integer MIN_SPEED = 1;
-  private static final Integer MAX_SPEED = 10;
+  private static final Double MIN_SPEED = 1d;
+  private static final Double MAX_SPEED = 10d;
 
   private BaseAlgorithm currentAlgorithm;
   protected Status playerStatus = Status.IDLE;
   private final List<VisualizerListener> listeners = new ArrayList<>();
-  private final ReadOnlyIntegerWrapper speedProperty = new ReadOnlyIntegerWrapper(10);
+  private final ReadOnlyDoubleWrapper speedProperty = new ReadOnlyDoubleWrapper(10d);
 
   public Visualizer(BaseAlgorithm currentAlgorithm) {
     setAlgorithm(currentAlgorithm);
@@ -62,26 +64,25 @@ public abstract class Visualizer extends AnimationTimer {
   }
 
   /**
-   * Speed has to be a value between {@code 1} and {@code 10}, one being the slowest and ten being
-   * the fastest.
+   * Speed has to be a value between {@code 1.0d} and {@code 10.0d}, one being the slowest and ten
+   * being the fastest.
    */
-  public void setSpeed(int speed) {
-    speedProperty.set(
-        new Clamp(speed).apply(MIN_SPEED.doubleValue(), MAX_SPEED.doubleValue()).intValue());
+  public void setSpeed(double speed) {
+    speedProperty.set(new Clamp(speed).apply(MIN_SPEED, MAX_SPEED));
   }
 
-  public int getSpeed() {
+  public double getSpeed() {
     return speedProperty.get();
   }
 
-  public ReadOnlyIntegerProperty speedProperty() {
+  public ReadOnlyDoubleProperty speedProperty() {
     return speedProperty.getReadOnlyProperty();
   }
 
   protected long getDelay() {
     long delayDiff = MAX_DELAY - MIN_DELAY;
-    long chunkSize = delayDiff / (MAX_SPEED - MIN_SPEED);
-    return MAX_DELAY - chunkSize * (getSpeed() - 1);
+    long chunkSize = (long) (delayDiff / (MAX_SPEED - MIN_SPEED));
+    return (long) (MAX_DELAY - chunkSize * (getSpeed() - 1d));
   }
 
   public void registerFinishListener(VisualizerListener listener) {
