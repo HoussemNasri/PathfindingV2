@@ -158,6 +158,6 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
     toolboxModel.unlockDraggingNodes();
     toolboxView.enableForwardButton();
     toolboxView.enableBackButton();
-      toolboxView.enableAlgorithmComboBox();
+    toolboxView.enableAlgorithmComboBox();
   }
 }
