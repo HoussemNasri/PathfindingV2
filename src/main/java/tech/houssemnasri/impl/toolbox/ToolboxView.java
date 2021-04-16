@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.util.stream.Collectors;
 
-import javafx.beans.property.BooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -154,5 +153,25 @@ public class ToolboxView implements IToolboxView, Initializable {
         Arrays.stream(themes).map(ThemeDescriptor::getName).collect(Collectors.toList());
     themeComboBox.setItems(FXCollections.observableList(names));
     themeComboBox.getSelectionModel().selectFirst();
+  }
+
+  @Override
+  public void disableForwardButton() {
+    forwardButton.setDisable(true);
+  }
+
+  @Override
+  public void disableBackButton() {
+    backButton.setDisable(true);
+  }
+
+  @Override
+  public void enableForwardButton() {
+    forwardButton.setDisable(false);
+  }
+
+  @Override
+  public void enableBackButton() {
+    backButton.setDisable(false);
   }
 }

@@ -33,10 +33,12 @@ public abstract class Visualizer extends AnimationTimer {
       currentAlgorithm.reset();
     }
     startPlayer();
+    notifyStartListeners();
   }
 
   public void pause() {
     pausePlayer();
+    notifyPauseListeners();
   }
 
   public void reset() {
@@ -83,21 +85,29 @@ public abstract class Visualizer extends AnimationTimer {
     return (long) (MAX_DELAY - chunkSize * (getSpeed() - 1d));
   }
 
-  public void registerFinishListener(VisualizerListener listener) {
+  public void registerListener(VisualizerListener listener) {
     listeners.add(listener);
   }
 
-  public void unregisterFinishListener(VisualizerListener listener) {
+  public void unregisterListener(VisualizerListener listener) {
     listeners.remove(listener);
   }
 
   protected void notifyFinishListeners() {
-    listeners.forEach(VisualizerListener::onFinish);
+    listeners.forEach(VisualizerListener::onVisualizationFinished);
   }
 
   protected void notifyResetListeners() {
-    listeners.forEach(VisualizerListener::onReset);
+    listeners.forEach(VisualizerListener::onVisualizationReset);
   }
+
+  private void notifyStartListeners() {
+    listeners.forEach(VisualizerListener::onVisualizationStarted);
+  }
+
+    private void notifyPauseListeners() {
+        listeners.forEach(VisualizerListener::onVisualizationPaused);
+    }
 
   protected void finishVisualization() {
     stopPlayer();
@@ -127,8 +137,12 @@ public abstract class Visualizer extends AnimationTimer {
   }
 
   public interface VisualizerListener {
-    void onFinish();
+    void onVisualizationStarted();
 
-    void onReset();
+    void onVisualizationPaused();
+
+    void onVisualizationFinished();
+
+    void onVisualizationReset();
   }
 }

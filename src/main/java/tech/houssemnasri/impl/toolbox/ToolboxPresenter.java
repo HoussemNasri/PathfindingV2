@@ -53,7 +53,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
   public void setVisualizer(Visualizer visualizer) {
     if (visualizer == null) return;
     this.visualizer = visualizer;
-    visualizer.registerFinishListener(this);
+    visualizer.registerListener(this);
     toolboxModel.visualizationSpeedProperty().bind(visualizer.speedProperty());
   }
 
@@ -130,14 +130,32 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
   }
 
   @Override
-  public void onFinish() {
-    toolboxView.updatePlayPauseButton(isPlaying());
-    System.out.println("onFinish()");
+  public void onVisualizationStarted() {
+    System.out.println("onStarted()");
+    toolboxView.disableForwardButton();
+    toolboxView.disableBackButton();
   }
 
   @Override
-  public void onReset() {
-    toolboxModel.unlockDraggingNodes();
+  public void onVisualizationPaused() {
+    System.out.println("onPaused()");
+    toolboxView.enableForwardButton();
+    toolboxView.enableBackButton();
+  }
+
+  @Override
+  public void onVisualizationFinished() {
+    System.out.println("onFinished()");
+    toolboxView.updatePlayPauseButton(isPlaying());
+    toolboxView.enableForwardButton();
+    toolboxView.enableBackButton();
+  }
+
+  @Override
+  public void onVisualizationReset() {
     System.out.println("onReset()");
+    toolboxModel.unlockDraggingNodes();
+    toolboxView.enableForwardButton();
+    toolboxView.enableBackButton();
   }
 }

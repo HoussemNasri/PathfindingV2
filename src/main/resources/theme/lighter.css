@@ -19,7 +19,7 @@
     -theme-button-color: #F3F4F5;
     -theme-button-color_hover: derive(-theme-button-color, -4%);
     -theme-button-color_pressed: derive(-theme-button-color, -8%);
-    -theme-button-border-color: #E7E7E8;
+    -theme-button-border-color: #ddd9d9;
     -theme-slider-track-color: #546E7A;
     -theme-slider-thumb-color: #F8F8F2;
     -theme-slider-thumb-color_hover: derive(-theme-slider-thumb-color, -4%);

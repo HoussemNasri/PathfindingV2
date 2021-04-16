@@ -10,6 +10,16 @@ import tech.houssemnasri.impl.ThemeDescriptor;
 
 public interface IToolboxView extends PresentableView<IToolboxPresenter, Pane> {
   void updatePlayPauseButton(boolean isPlaying);
+
   void putAlgorithms(AlgorithmDescriptor[] algorithms);
+
   void putThemes(ThemeDescriptor[] themes);
+
+  void disableForwardButton();
+
+  void disableBackButton();
+
+  void enableForwardButton();
+
+  void enableBackButton();
 }
