@@ -5,17 +5,17 @@ import tech.houssemnasri.impl.command.UpdateCostCommand;
 import tech.houssemnasri.impl.pathfinder.PathCost;
 import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 
-public class AStarCostAdapter implements IAStarCost {
+public class AStarPathCostAdapter implements IAStarCost {
   private final PathCost costInfo;
   private final AlgorithmStep algorithmStep;
 
-  public AStarCostAdapter(PathCost costInfo, AlgorithmStep algorithmStep) {
+  public AStarPathCostAdapter(PathCost costInfo, AlgorithmStep algorithmStep) {
     this.costInfo = costInfo;
     this.algorithmStep = algorithmStep;
     setF();
   }
 
-  public AStarCostAdapter(PathCost costInfo) {
+  public AStarPathCostAdapter(PathCost costInfo) {
     this(costInfo, new AlgorithmStep());
   }
 

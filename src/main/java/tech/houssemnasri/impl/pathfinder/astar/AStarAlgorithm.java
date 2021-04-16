@@ -40,7 +40,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
       if (not(closedNodes.contains(grid.getNode(source)))) {
         new OpenNodeCommand(this, step, grid.getNode(source)).execute();
         estimateDistanceToDestination(grid.getNode(source), step);
-        new AStarCostAdapter(getGrid().getNode(source).getPathCost(), step).setG(0);
+        new AStarPathCostAdapter(getGrid().getNode(source).getPathCost(), step).setG(0);
       } else {
         // We are stuck.
         System.out.println("We are stuck!");
@@ -56,12 +56,12 @@ public class AStarAlgorithm extends BaseAlgorithm {
     }
 
     List<INode> neighbors = getCurrentNodeNeighbors();
-    IAStarCost currentNodeCost = new AStarCostAdapter(getCurrentNode().getPathCost(), step);
+    IAStarCost currentNodeCost = new AStarPathCostAdapter(getCurrentNode().getPathCost(), step);
     for (INode nei : neighbors) {
       if (isNodeClosed(nei)) {
         continue;
       }
-      IAStarCost neighborNodeCost = new AStarCostAdapter(nei.getPathCost(), step);
+      IAStarCost neighborNodeCost = new AStarPathCostAdapter(nei.getPathCost(), step);
       AlgorithmCommandContext neighborsContext = AlgorithmCommandContext.create(this, step, nei);
       int gCostForCurrent = currentNodeCost.gCost();
       int gCostForNeighbor = neighborNodeCost.gCost();
@@ -86,7 +86,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
     IPosition thisPosition = node.getPosition();
     IPosition destPosition = grid.getDestinationPosition();
     Distance distance = new ManhattanDistance();
-    new AStarCostAdapter(node.getPathCost(), step).setH(distance.apply(thisPosition, destPosition));
+    new AStarPathCostAdapter(node.getPathCost(), step).setH(distance.apply(thisPosition, destPosition));
   }
 
   private INode getLeastCostNode() {
