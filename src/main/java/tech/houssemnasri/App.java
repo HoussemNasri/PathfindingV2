@@ -22,7 +22,7 @@ import tech.houssemnasri.impl.toolbox.ToolboxPresenter;
 import tech.houssemnasri.impl.toolbox.ToolboxView;
 
 public class App extends Application {
-  private static final double SCENE_WIDTH = 900d;
+  private static final double SCENE_WIDTH = 950d;
   private static final double SCENE_HEIGHT = 650d;
 
   @Override

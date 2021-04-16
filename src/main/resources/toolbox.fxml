@@ -82,24 +82,24 @@
       </HBox>
       <HBox alignment="CENTER" layoutY="131.0" prefHeight="26.0" prefWidth="900.0" spacing="8.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="110.0">
          <children>
-            <Button fx:id="resetButton" mnemonicParsing="false" styleClass="toolbox-player-button" text="reset">
+            <Button fx:id="resetButton" mnemonicParsing="false" styleClass="icon-button" text="reset">
                <graphic>
-                  <FontIcon iconLiteral="fas-undo-alt" iconSize="12" styleClass="toolbox-player-icon" />
+                  <FontIcon iconLiteral="fas-undo-alt" iconSize="12" styleClass="icon" />
                </graphic></Button>
-            <Button id="play-button" fx:id="playPauseButton" contentDisplay="TOP" minWidth="-Infinity" mnemonicParsing="false" prefWidth="68.0" styleClass="toolbox-player-button" text="play">
+            <Button id="play-button" fx:id="playPauseButton" contentDisplay="TOP" minWidth="-Infinity" mnemonicParsing="false" prefWidth="68.0" styleClass="icon-button" text="play">
                <graphic>
-                  <FontIcon fx:id="playButtonIcon" iconLiteral="fas-play" iconSize="12" styleClass="toolbox-player-icon" />
+                  <FontIcon fx:id="playButtonIcon" iconLiteral="fas-play" iconSize="12" styleClass="icon" />
                </graphic>
                <font>
                   <Font name="Montserrat SemiBold" size="12.0" />
                </font></Button>
-            <Button fx:id="backButton" mnemonicParsing="false" styleClass="toolbox-player-button" text="back">
+            <Button fx:id="backButton" mnemonicParsing="false" styleClass="icon-button" text="back">
                <graphic>
-                  <FontIcon iconLiteral="fas-chevron-left" iconSize="12" styleClass="toolbox-player-icon" />
+                  <FontIcon iconLiteral="fas-chevron-left" iconSize="12" styleClass="icon" />
                </graphic></Button>
-            <Button fx:id="forwardButton" mnemonicParsing="false" styleClass="toolbox-player-button" text="forward">
+            <Button fx:id="forwardButton" mnemonicParsing="false" styleClass="icon-button" text="forward">
                <graphic>
-                  <FontIcon iconLiteral="fas-chevron-right" styleClass="toolbox-player-icon" />
+                  <FontIcon iconLiteral="fas-chevron-right" styleClass="icon" />
                </graphic></Button>
          </children>
       </HBox>
