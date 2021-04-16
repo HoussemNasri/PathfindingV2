@@ -22,4 +22,8 @@ public interface IToolboxView extends PresentableView<IToolboxPresenter, Pane> {
   void enableForwardButton();
 
   void enableBackButton();
+
+  void disableAlgorithmComboBox();
+
+  void enableAlgorithmComboBox();
 }

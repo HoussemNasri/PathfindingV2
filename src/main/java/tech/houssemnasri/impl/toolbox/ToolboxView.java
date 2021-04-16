@@ -174,4 +174,14 @@ public class ToolboxView implements IToolboxView, Initializable {
   public void enableBackButton() {
     backButton.setDisable(false);
   }
+
+  @Override
+  public void disableAlgorithmComboBox() {
+    algorithmComboBox.setDisable(true);
+  }
+
+  @Override
+  public void enableAlgorithmComboBox() {
+    algorithmComboBox.setDisable(false);
+  }
 }

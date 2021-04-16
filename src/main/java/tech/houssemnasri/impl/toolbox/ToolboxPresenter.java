@@ -134,6 +134,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
     System.out.println("onStarted()");
     toolboxView.disableForwardButton();
     toolboxView.disableBackButton();
+    toolboxView.disableAlgorithmComboBox();
   }
 
   @Override
@@ -157,5 +158,6 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
     toolboxModel.unlockDraggingNodes();
     toolboxView.enableForwardButton();
     toolboxView.enableBackButton();
+      toolboxView.enableAlgorithmComboBox();
   }
 }
