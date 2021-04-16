@@ -1,0 +1,74 @@
+/*******************************************************************************
+ *                                                                             *
+ * Slider                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+.slider {
+    -fx-skin: "tech.houssemnasri.jmetro.SliderSkin";
+}
+
+.slider {
+    -show-value-on-interaction: true;
+}
+
+.slider .thumb {
+    -fx-background-insets: 0;
+    -fx-background-radius: 100%; /* 6 */
+    -fx-padding: 0.666em 0.666em 0.666em 0.666em; /* 12 4 12 4 */
+    -fx-effect: null;
+}
+
+
+.slider .track {
+    -fx-background-insets: 0;
+    -fx-background-radius: 0;
+    -fx-padding: 0.12em 0em 0.12em 0em;
+
+}
+
+.slider .fill {
+    -fx-padding: 0.083333em; /* 1 */
+}
+
+/* disabled */
+.slider:disabled {
+    -fx-opacity: 0.2;
+}
+
+/* Slider popup showing its value */
+.slider-popup .label {
+    -fx-padding: 0.5em 0.75em 0.5em 0.75em; /* 6 9 6 9 */
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Radio Button                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+.radio-button > .radio,
+.radio-button:focused > .radio {
+    -fx-background-radius: 100%; /* large value to make sure this remains circular */
+}
+
+.radio-button:selected > .radio .dot {
+    -fx-background-insets: 1.5;
+}
+
+.radio-button .radio {
+    -fx-border-radius: 100%;
+    -fx-pref-width: 20;
+    -fx-pref-height: 20;
+}
+
+.radio-button .radio .dot {
+    -fx-background-radius: 100%;
+    -fx-background-insets: 100;
+    -fx-max-height: 100;
+    -fx-max-width: 100;
+    -fx-min-width: 3;
+    -fx-min-height: 3;
+    -fx-pref-height: 3;
+    -fx-pref-width: 3;
+    -fx-padding: -20;
+}

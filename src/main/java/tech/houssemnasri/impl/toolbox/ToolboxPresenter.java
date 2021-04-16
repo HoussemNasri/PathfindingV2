@@ -2,7 +2,6 @@ package tech.houssemnasri.impl.toolbox;
 
 import java.util.Arrays;
 
-import javafx.beans.property.DoubleProperty;
 import javafx.scene.Scene;
 
 import tech.houssemnasri.api.pathfinder.Visualizer;

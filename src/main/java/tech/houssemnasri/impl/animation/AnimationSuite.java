@@ -6,8 +6,11 @@ import animatefx.animation.BounceIn;
 import animatefx.animation.BounceInUp;
 import animatefx.animation.FadeIn;
 import animatefx.animation.FadeInUp;
+import animatefx.animation.Flash;
+import animatefx.animation.Pulse;
 import animatefx.animation.RotateIn;
 import animatefx.animation.ZoomIn;
+import animatefx.animation.ZoomInRight;
 import animatefx.animation.ZoomOut;
 
 public class AnimationSuite {
@@ -59,9 +62,11 @@ public class AnimationSuite {
     onExitDestination = new AnimationFXProxy(new ZoomOut());
 
     onEnterOpen = new AnimationFXProxy(new BounceIn());
+    onEnterOpen.setSpeed(2);
     onExitOpen = new AnimationFXProxy(new ZoomOut());
 
     onEnterClosed = new AnimationFXProxy(new BounceIn());
+    onEnterClosed.setSpeed(2);
     onExitClosed = new AnimationFXProxy(new ZoomOut());
 
     onEnterPath = new AnimationFXProxy(new BounceIn());

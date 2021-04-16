@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import org.kordamp.ikonli.javafx.FontIcon?>
 
-<VBox maxHeight="150.0" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="900.0" styleClass="toolbox" stylesheets="@theme/dracula.css" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
+<VBox maxHeight="150.0" maxWidth="1.7976931348623157E308" prefHeight="150.0" prefWidth="900.0" styleClass="toolbox" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1">
    <AnchorPane fx:id="toolPane" prefHeight="108.0" prefWidth="900.0" VBox.vgrow="ALWAYS">
       <HBox prefWidth="200.0" spacing="25.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="19.5" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="20.0">
          <children>
@@ -65,8 +65,11 @@
                      <font>
                         <Font name="Roboto Medium" size="14.0" />
                      </font>
+                     <VBox.margin>
+                        <Insets left="8.0" />
+                     </VBox.margin>
                   </Label>
-                  <Slider fx:id="speedSlider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minWidth="180.0" minorTickCount="1" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="5.0" VBox.vgrow="ALWAYS" />
+                  <Slider fx:id="speedSlider" blockIncrement="1.0" majorTickUnit="1.0" max="10.0" min="1.0" minWidth="180.0" minorTickCount="1" pickOnBounds="false" prefHeight="24.0" prefWidth="200.0" snapToTicks="true" value="5.0" VBox.vgrow="ALWAYS" />
                </children>
             </VBox>
          </children>

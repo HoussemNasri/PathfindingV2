@@ -1,3 +1,4 @@
+@import "base.css";
 
 .root {
     -grid-gap: 0.25px;
@@ -29,6 +30,8 @@
     -theme-gray-color: #6272A4;
     -theme-white-black-color: #F8F8F2;
     -theme-error-color: #ff5555;
+
+    accent_color: #0078d7;
 }
 
 .source-node {
@@ -77,7 +80,7 @@
 .toolbox-label {
     -fx-font-family: "Raleway Medium";
     -fx-font-size: 14px;
-    -fx-text-fill: #f8f8f2;
+    -fx-text-fill: -theme-foreground;
 }
 
 .toolbox-player-button {
@@ -86,7 +89,7 @@
     -fx-content-display: top;
     -fx-font-family: "Montserrat";
     -fx-font-size: 13px;
-    -fx-background-color: #00000000;
+    -fx-background-color: transparent;
 }
 
 .toolbox-player-button:hover {
@@ -99,7 +102,7 @@
 
 
 .toolbox-player-icon {
-    -fx-icon-color: #f8f8f2;
+    -fx-icon-color: -theme-foreground;
     -fx-icon-size: 12px;
 }
 
@@ -140,4 +143,60 @@
 
 .toolbox-tool-combobox .list-cell:selected {
     -fx-text-fill: -theme-foreground;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Radio Button                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+.radio-button {
+    -fx-text-fill: -theme-foreground;
+}
+
+.radio-button:selected > .radio .dot {
+    -fx-background-color: -theme-border;
+}
+
+.radio-button:selected > .radio {
+    -fx-background-color: -theme-accent-color;
+    -fx-border-color: transparent;
+
+}
+
+.radio-button .radio {
+    -fx-background-color: -theme-border;
+    -fx-border-color: -theme-foreground;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Slider                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+.slider .thumb {
+    -fx-background-color: -theme-accent-color;
+}
+
+
+.slider .track {
+    -fx-background-color: derive(-theme-background, 10%);
+
+}
+
+.slider .fill {
+    -fx-background-color: -theme-accent-color;
+}
+
+/* pressed */
+.slider .thumb:pressed {
+    -fx-background-color: derive(-theme-foreground, -10%);
+}
+
+/* Slider popup showing its value */
+.slider-popup .label {
+    -fx-background-color: #f2f2f2;
+    -fx-border-color: #cccccc;
+    -fx-text-fill: #111;
 }
