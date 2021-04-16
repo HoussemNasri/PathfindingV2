@@ -145,6 +145,7 @@ public class ToolboxView implements IToolboxView, Initializable {
     List<String> names =
         Arrays.stream(algorithms).map(AlgorithmDescriptor::getName).collect(Collectors.toList());
     algorithmComboBox.setItems(FXCollections.observableList(names));
+    algorithmComboBox.getSelectionModel().selectFirst();
   }
 
   @Override
@@ -152,5 +153,6 @@ public class ToolboxView implements IToolboxView, Initializable {
     List<String> names =
         Arrays.stream(themes).map(ThemeDescriptor::getName).collect(Collectors.toList());
     themeComboBox.setItems(FXCollections.observableList(names));
+    themeComboBox.getSelectionModel().selectFirst();
   }
 }
