@@ -25,18 +25,18 @@ public class OpenNodeCommand extends AlgorithmCommand {
     if (isNodeOpen()) {
       return;
     }
-    getAlgorithm().getOpenSet().add(getNode());
-    getAlgorithm().getClosedSet().remove(getNode());
+    getAlgorithm().getUnvisitedNodes().add(getNode());
+    getAlgorithm().getVisitedNodes().remove(getNode());
     getNode().setType(Type.OPEN);
   }
 
   private boolean isNodeOpen() {
-    return getAlgorithm().getOpenSet().contains(getNode());
+    return getAlgorithm().getUnvisitedNodes().contains(getNode());
   }
 
   @Override
   public void undo() {
-    getAlgorithm().getOpenSet().remove(getNode());
+    getAlgorithm().getUnvisitedNodes().remove(getNode());
     getNode().setType(undoType);
   }
 }

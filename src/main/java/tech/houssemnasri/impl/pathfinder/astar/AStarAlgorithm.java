@@ -96,12 +96,12 @@ public class AStarAlgorithm extends BaseAlgorithm {
   }
 
   @Override
-  public Set<INode> getOpenSet() {
+  public Set<INode> getUnvisitedNodes() {
     return openNodes;
   }
 
   @Override
-  public Set<INode> getClosedSet() {
+  public Set<INode> getVisitedNodes() {
     return closedNodes;
   }
 }

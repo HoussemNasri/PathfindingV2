@@ -89,11 +89,11 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     return isDiagonalAllowed;
   }
 
-  /** Returns list of unique {@code INode} which this algorithm can explore. */
-  public abstract Set<INode> getOpenSet();
+  /** Returns list of all unique {@code INode} which the algorithm didn't visit. */
+  public abstract Set<INode> getUnvisitedNodes();
 
-  /** Returns list of unique {@code INode} which this algorithm already explored. */
-  public abstract Set<INode> getClosedSet();
+  /** Returns list of unique {@code INode} which the algorithm already visited. */
+  public abstract Set<INode> getVisitedNodes();
 
   protected final boolean isPositionValid(IPosition position) {
     return GridChecker.checkPosition(position, grid.getRows(), grid.getColumns());
@@ -104,11 +104,11 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   }
 
   protected final boolean isNodeClosed(INode node) {
-    return getClosedSet().contains(node);
+    return getVisitedNodes().contains(node);
   }
 
   protected final boolean isNodeOpen(INode node) {
-    return getOpenSet().contains(node);
+    return getUnvisitedNodes().contains(node);
   }
 
   public void tracePath() {
@@ -160,8 +160,8 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   }
 
   public void reset() {
-    getClosedSet().clear();
-    getOpenSet().clear();
+    getVisitedNodes().clear();
+    getUnvisitedNodes().clear();
     history.clear();
     getGrid().clearPath();
     setCurrentNode(null);

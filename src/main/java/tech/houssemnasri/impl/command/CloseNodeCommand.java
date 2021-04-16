@@ -25,19 +25,19 @@ public class CloseNodeCommand extends AlgorithmCommand {
     if (isNodeClosed()) {
       return;
     }
-    getAlgorithm().getOpenSet().remove(getNode());
-    getAlgorithm().getClosedSet().add(getNode());
+    getAlgorithm().getUnvisitedNodes().remove(getNode());
+    getAlgorithm().getVisitedNodes().add(getNode());
     getNode().setType(Type.CLOSED);
   }
 
   private boolean isNodeClosed() {
-    return getAlgorithm().getClosedSet().contains(getNode());
+    return getAlgorithm().getVisitedNodes().contains(getNode());
   }
 
   @Override
   public void undo() {
-    getAlgorithm().getOpenSet().add(getNode());
-    getAlgorithm().getClosedSet().remove(getNode());
+    getAlgorithm().getUnvisitedNodes().add(getNode());
+    getAlgorithm().getVisitedNodes().remove(getNode());
     getNode().setType(undoType);
   }
 }
