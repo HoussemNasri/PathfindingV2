@@ -162,6 +162,20 @@ public class PGridView implements IGridView {
   }
 
   @Override
+  public void clearAllCostJunk() {
+    int cols = presenter.getColumns();
+    int rows = presenter.getRows();
+    for (int x = 0; x < cols; x++) {
+      for (int y = 0; y < rows; y++) {
+        INodeView thisNodeView = getNodeAtPosition(Position.of(x, y));
+        if (thisNodeView != null) {
+          thisNodeView.clearCostJunk();
+        }
+      }
+    }
+  }
+
+  @Override
   public void setPresenter(IGridPresenter presenter) {
     if (presenter == null) {
       return;
@@ -172,12 +186,5 @@ public class PGridView implements IGridView {
 
   public IGridPresenter getPresenter() {
     return presenter;
-  }
-
-  public static PGridView getInstance() {
-    if (INSTANCE == null) {
-      INSTANCE = new PGridView();
-    }
-    return INSTANCE;
   }
 }

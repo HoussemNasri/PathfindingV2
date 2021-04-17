@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 
 import tech.houssemnasri.api.mvp.Presenter;
 import tech.houssemnasri.api.pathfinder.Visualizer;
+import tech.houssemnasri.impl.pathfinder.factory.AlgorithmFactory;
 
 public interface IToolboxPresenter extends Presenter<IToolboxView> {
   void setToolboxModel(IToolbox toolboxModel);
@@ -12,6 +13,8 @@ public interface IToolboxPresenter extends Presenter<IToolboxView> {
   void setVisualizer(Visualizer visualizer);
 
   void setScene(Scene scene);
+
+  void setAlgorithmFactory(AlgorithmFactory algorithmFactory);
 
   void onPlayClicked();
 

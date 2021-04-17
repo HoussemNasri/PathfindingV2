@@ -1,5 +1,6 @@
 package tech.houssemnasri.impl.pathfinder.dijkstra;
 
+import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.pathfinder.AlgorithmStep;
 import tech.houssemnasri.api.pathfinder.cost.IDijkstraPathCost;
 import tech.houssemnasri.impl.command.UpdateCostCommand;

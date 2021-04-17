@@ -79,6 +79,13 @@ public class PNodeView extends StackPane implements INodeView {
     }
 
     @Override
+    public void clearCostJunk() {
+        center.setText("");
+        topLeftCorner.setText("");
+        topRightCorner.setText("");
+    }
+
+    @Override
     public INode getNodeModel() {
         return nodeModel;
     }

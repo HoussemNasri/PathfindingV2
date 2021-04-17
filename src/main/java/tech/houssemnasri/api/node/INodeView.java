@@ -41,4 +41,10 @@ public interface INodeView extends View<StackPane> {
   void setIsAnimate(boolean isAnimate);
 
   boolean isAnimate();
+
+  /**
+   * After running an algorithm, the {@code INodeView} might have the cost values still displayed,
+   * we run this method to clear the view from these junk values.
+   */
+  void clearCostJunk();
 }

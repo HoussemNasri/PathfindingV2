@@ -1,5 +1,6 @@
 package tech.houssemnasri.impl.grid;
 
+import javafx.application.Platform;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.scene.input.MouseButton;
@@ -63,6 +64,9 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   public void setToolboxModel(IToolbox toolbox) {
     if (toolbox == null) return;
     this.toolboxModel = toolbox;
+    toolboxModel
+        .selectedAlgorithmProperty()
+        .addListener(e -> Platform.runLater(gridView::clearAllCostJunk));
   }
 
   @Override

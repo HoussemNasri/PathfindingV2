@@ -13,4 +13,10 @@ public interface IGridView extends PresentableView<IGridPresenter, Region> {
    * @param show If true cost information will be visible.
    */
   void setShowCostInfo(boolean show);
+
+  /**
+   * After running an algorithm, the views might have the cost information on them, we run this
+   * method to clear the views.
+   */
+  void clearAllCostJunk();
 }

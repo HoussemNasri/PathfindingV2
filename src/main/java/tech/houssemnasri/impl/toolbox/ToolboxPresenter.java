@@ -10,27 +10,34 @@ import tech.houssemnasri.api.toolbox.IToolboxPresenter;
 import tech.houssemnasri.api.toolbox.IToolboxView;
 import tech.houssemnasri.impl.AlgorithmDescriptor;
 import tech.houssemnasri.impl.ThemeDescriptor;
+import tech.houssemnasri.impl.pathfinder.factory.AlgorithmFactory;
 
 public class ToolboxPresenter implements IToolboxPresenter, Visualizer.VisualizerListener {
   private Scene scene;
   private IToolboxView toolboxView;
   private IToolbox toolboxModel;
   private Visualizer visualizer;
+  private AlgorithmFactory algorithmFactory;
 
   public ToolboxPresenter(
-      Scene scene, IToolbox toolboxModel, IToolboxView toolboxView, Visualizer visualizer) {
+      Scene scene,
+      IToolbox toolboxModel,
+      IToolboxView toolboxView,
+      AlgorithmFactory algorithmFactory,
+      Visualizer visualizer) {
     setScene(scene);
     setToolboxModel(toolboxModel);
     setView(toolboxView);
+    setAlgorithmFactory(algorithmFactory);
     setVisualizer(visualizer);
   }
 
-  public ToolboxPresenter(Scene scene, IToolbox toolboxModel, IToolboxView toolboxView) {
-    this(scene, toolboxModel, toolboxView, null);
-  }
-
-  public ToolboxPresenter(Scene scene) {
-    this(scene, new Toolbox(), new ToolboxView());
+  public ToolboxPresenter(
+      Scene scene,
+      IToolbox toolboxModel,
+      IToolboxView toolboxView,
+      AlgorithmFactory algorithmFactory) {
+    this(scene, toolboxModel, toolboxView, algorithmFactory, null);
   }
 
   @Override
@@ -46,7 +53,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
   public void setToolboxModel(IToolbox toolboxModel) {
     if (toolboxModel == null) return;
     this.toolboxModel = toolboxModel;
-    listenForThemeChange();
+    handleThemeSelection();
   }
 
   @Override
@@ -55,6 +62,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
     this.visualizer = visualizer;
     visualizer.registerListener(this);
     toolboxModel.visualizationSpeedProperty().bind(visualizer.speedProperty());
+    handleAlgorithmSelection();
   }
 
   @Override
@@ -63,7 +71,22 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
     this.scene = scene;
   }
 
-  private void listenForThemeChange() {
+  @Override
+  public void setAlgorithmFactory(AlgorithmFactory algorithmFactory) {
+    if (algorithmFactory == null) return;
+    this.algorithmFactory = algorithmFactory;
+  }
+
+  private void handleAlgorithmSelection() {
+    toolboxModel
+        .selectedAlgorithmProperty()
+        .addListener(
+            (obs, old, algorithm) -> {
+              visualizer.setAlgorithm(algorithmFactory.getAlgorithm(algorithm));
+            });
+  }
+
+  private void handleThemeSelection() {
     toolboxModel
         .selectedThemeProperty()
         .addListener(
@@ -95,6 +118,7 @@ public class ToolboxPresenter implements IToolboxPresenter, Visualizer.Visualize
   public void onForwardClicked() {
     toolboxModel.lockDraggingNodes();
     visualizer.forward();
+    toolboxView.disableAlgorithmComboBox();
   }
 
   @Override

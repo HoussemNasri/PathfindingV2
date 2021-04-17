@@ -52,7 +52,10 @@ public abstract class Visualizer extends AnimationTimer {
   public abstract void back();
 
   public void setAlgorithm(BaseAlgorithm algorithm) {
+    if (algorithm == null) return;
     currentAlgorithm = algorithm;
+      stopPlayer();
+      currentAlgorithm.reset();
   }
 
   public BaseAlgorithm getAlgorithm() {
@@ -105,9 +108,9 @@ public abstract class Visualizer extends AnimationTimer {
     listeners.forEach(VisualizerListener::onVisualizationStarted);
   }
 
-    private void notifyPauseListeners() {
-        listeners.forEach(VisualizerListener::onVisualizationPaused);
-    }
+  private void notifyPauseListeners() {
+    listeners.forEach(VisualizerListener::onVisualizationPaused);
+  }
 
   protected void finishVisualization() {
     stopPlayer();
