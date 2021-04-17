@@ -12,6 +12,9 @@ Pathfinding is a graphical Java application for visualizing several pathfinding 
 - [IDA*][IDA*]: explore longer and longer paths in a weighted graph at the cost of multiple similar examinations.
 - [IDDFS][IDDFS]: explore longer and longer paths in an unweighted graph at the cost of multiple similar examinations.
 
+### Screenshots
+![alt text](src/main/resources/assets/sc1_.png)
+![alt text](src/main/resources/assets/sc2_.png)
 
 [A*]: https://en.wikipedia.org/wiki/A*_search_algorithm
 [BFS]: https://en.wikipedia.org/wiki/Breadth-first_search
