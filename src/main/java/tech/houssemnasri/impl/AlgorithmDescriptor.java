@@ -3,7 +3,8 @@ package tech.houssemnasri.impl;
 public enum AlgorithmDescriptor {
   A_STAR(
       "A* search algorithm",
-      "find the shortest path in a weighted graph using an heuristic to guide the process.");
+      "find the shortest path in a weighted graph using an heuristic to guide the process."),
+  DIJKSTRA("Dijkstra's algorithm", "find the shortest path in a weighted graph.");
 
   private final String name;
   private final String description;
