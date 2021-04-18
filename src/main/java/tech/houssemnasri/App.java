@@ -16,8 +16,6 @@ import tech.houssemnasri.impl.AlgorithmDescriptor;
 import tech.houssemnasri.impl.grid.PGrid;
 import tech.houssemnasri.impl.grid.PGridPresenter;
 import tech.houssemnasri.impl.grid.PGridView;
-import tech.houssemnasri.impl.pathfinder.astar.AStarAlgorithm;
-import tech.houssemnasri.impl.pathfinder.dijkstra.DijkstraAlgorithm;
 import tech.houssemnasri.impl.pathfinder.factory.AlgorithmFactory;
 import tech.houssemnasri.impl.pathfinder.visualizer.SimpleVisualizer;
 import tech.houssemnasri.impl.toolbox.Toolbox;
@@ -33,8 +31,8 @@ public class App extends Application {
     VBox mainView = new VBox();
     Scene scene = new Scene(mainView, SCENE_WIDTH, SCENE_HEIGHT);
 
-    IGrid grid = new PGrid(45, 65);
     IToolbox toolbox = new Toolbox();
+    IGrid grid = new PGrid(45, 65);
     AlgorithmFactory algorithmFactory = new AlgorithmFactory(grid);
 
     IToolboxView toolboxView = new ToolboxView();

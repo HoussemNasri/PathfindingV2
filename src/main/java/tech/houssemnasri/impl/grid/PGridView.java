@@ -17,8 +17,6 @@ import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.impl.node.painter.PNodePainter;
 
 public class PGridView implements IGridView {
-  private static PGridView INSTANCE = null;
-
   private IGridPresenter presenter = null;
   private final GridPane root = new GridPane();
   private final GesturePane rootWrapper = new GesturePane(root);

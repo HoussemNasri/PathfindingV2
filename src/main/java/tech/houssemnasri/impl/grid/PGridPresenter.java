@@ -64,6 +64,10 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   public void setToolboxModel(IToolbox toolbox) {
     if (toolbox == null) return;
     this.toolboxModel = toolbox;
+    handleAlgorithmSelection();
+  }
+
+  private void handleAlgorithmSelection() {
     toolboxModel
         .selectedAlgorithmProperty()
         .addListener(e -> Platform.runLater(gridView::clearAllCostJunk));
