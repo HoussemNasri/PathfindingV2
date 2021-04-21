@@ -48,21 +48,22 @@ public class AnimationSuite {
     onExitBasic = new AnimationFXProxy(new ZoomOut());
 
     onEnterWall = new AnimationFXProxy(new ZoomIn());
-    onEnterWall.setSpeed(2.1);
+    onEnterWall.setSpeed(0.09);
     onExitWall = new AnimationFXProxy(new ZoomOut());
 
     onEnterSource = new AnimationFXProxy(new ZoomIn());
-    onEnterSource.setJumpTo(Duration.millis(200));
+    //onEnterSource.setJumpTo(Duration.millis(200));
     onEnterSource.setSpeed(2.0);
     onExitSource = new AnimationFXProxy(new ZoomOut());
 
     onEnterDestination = new AnimationFXProxy(new ZoomIn());
-    onEnterDestination.setJumpTo(Duration.millis(200));
+    //onEnterDestination.setJumpTo(Duration.millis(200));
     onEnterDestination.setSpeed(2.0);
     onExitDestination = new AnimationFXProxy(new ZoomOut());
 
-    onEnterOpen = new AnimationFXProxy(new BounceIn());
-    onEnterOpen.setSpeed(2);
+    onEnterOpen = new AnimationFXProxy(new ZoomIn());
+      //onEnterOpen = new AnimationFXProxy(new BounceIn());
+    onEnterOpen.setSpeed(0.09);
     onExitOpen = new AnimationFXProxy(new ZoomOut());
 
     onEnterClosed = new AnimationFXProxy(new BounceIn());

@@ -49,6 +49,13 @@ public final class PNode implements INode {
     this(position, Type.BASIC);
   }
 
+  public PNode(INode node) {
+    setPosition(Position.of(node.getPosition().getX(), node.getPosition().getY()));
+    setType(node.getType());
+    setParent(node.getParent() == null ? null : new PNode(node.getParent()));
+    setPathCost(new PathCost(node.getPathCost()));
+  }
+
   private void setPosition(IPosition position) {
     this.position = position;
   }

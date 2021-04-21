@@ -45,7 +45,7 @@ public abstract class BaseNodeAnimator {
     isClippingEnabled = clippingEnabled;
   }
 
-  public void setAnimation(Node nodeToAnimate){
+  public void initAnimationFor(Node nodeToAnimate){
     this.currentAnimation = switch(getToType()){
       case BASIC ->animationSuite.getOnEnterBasic();
       case WALL -> animationSuite.getOnEnterWall();

@@ -14,7 +14,7 @@ import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
 public class PNodeAnimator extends BaseNodeAnimator {
-  private Node toAnimate;
+  private INodeView overlayNode;
   private BaseNodePainter toAnimatePainter;
 
   public PNodeAnimator(INodeView targetNode, AnimationSuite animationSuite) {
@@ -29,11 +29,15 @@ public class PNodeAnimator extends BaseNodeAnimator {
     return toAnimatePainter;
   }
 
-  private void setToAnimate(Node toAnimate) {
-    this.toAnimate = toAnimate;
+  private void setOverlayNode(INodeView overlayNode) {
+    this.overlayNode = overlayNode;
   }
 
-  private void setToAnimate() {
+  public INodeView getOverlayNode() {
+    return overlayNode;
+  }
+
+  private void initOverlay() {
     PNode fakeNode = new PNode(Position.ERROR, getToType());
     INodeView fakeView = new PNodeView(fakeNode, false);
     setToAnimatePainter(fakeView);
@@ -42,7 +46,7 @@ public class PNodeAnimator extends BaseNodeAnimator {
     Rectangle clip = new Rectangle(targetRoot.getPrefWidth(), targetRoot.getPrefHeight());
     targetRoot.setClip(isClippingEnabled() ? clip : null);
 
-    setToAnimate(fakeView.getRoot());
+    setOverlayNode(fakeView);
   }
 
   private void setToAnimatePainter(INodeView fakeView) {
@@ -50,24 +54,26 @@ public class PNodeAnimator extends BaseNodeAnimator {
     fakeView.setPainter(getToAnimatePainter());
   }
 
-  public Node getToAnimate() {
-    return this.toAnimate;
-  }
-
   @Override
   public void animate() {
     if (Objects.nonNull(getAnimation()) && getAnimation().isPlaying()) {
-      stop();
+      finishAnimationImmediately();
     }
-    setToAnimate();
-    setAnimation(getToAnimate());
+    initOverlay();
+    initAnimationFor(getOverlayNode().getRoot());
     getAnimation().play();
     getAnimation().setOnFinished(event -> onAnimationFinished());
   }
 
+  private void finishAnimationImmediately() {
+    getAnimation().stop();
+    getTargetNode().getRoot().getChildren().remove(getOverlayNode().getRoot());
+    getTargetNode().getPainter().paint(overlayNode.getNodeModel().getType());
+  }
+
   @Override
   public void onAnimationFinished() {
-    getTargetNode().getRoot().getChildren().remove(getToAnimate());
+    getTargetNode().getRoot().getChildren().remove(getOverlayNode().getRoot());
     // If by the time the animation finished, the node type changes then we don't paint the
     // node.
     if (getToType() == getTargetNode().getNodeModel().getType()) {

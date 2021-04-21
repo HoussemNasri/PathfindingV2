@@ -1,4 +1,35 @@
 @import "base.css";
+.node-view{
+    -fx-background-color: -theme-grid-color;
+    -node-animated: true;
+}
+
+.node-view:source{
+    -fx-background-color: -theme-yellow-color;
+}
+
+.node-view:destination{
+    -fx-background-color: -theme-cyan-color;
+
+}
+
+.node-view:wall{
+    -fx-background-color: -theme-purple-color;
+}
+
+.node-view:open{
+    -fx-background-color: -theme-green-color;
+}
+
+.node-view:closed{
+    -fx-background-color: -theme-red-color;
+}
+
+.node-view:path{
+    -fx-background-color: -theme-orange-color;
+}
+
+
 
 .basic-node {
     -fx-background-color: -theme-grid-color;
