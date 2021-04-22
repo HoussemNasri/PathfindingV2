@@ -1,7 +1,6 @@
 package tech.houssemnasri.impl.grid;
 
 import javafx.beans.Observable;
-import javafx.collections.ObservableList;
 import javafx.scene.Node;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -9,12 +8,12 @@ import javafx.scene.layout.Region;
 
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
-import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.IPosition;
+import tech.houssemnasri.api.node.experiment.IExprNodeView;
 import tech.houssemnasri.gesturefx.GesturePane;
-import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.node.Position;
-import tech.houssemnasri.impl.node.painter.PNodePainter;
+import tech.houssemnasri.impl.node.experiment.BaseNodeSkin;
+import tech.houssemnasri.impl.node.experiment.NodeView;
 
 public class PGridView implements IGridView {
   private IGridPresenter presenter = null;
@@ -22,20 +21,19 @@ public class PGridView implements IGridView {
   private final GesturePane rootWrapper = new GesturePane(root);
 
   public PGridView(IGridPresenter presenter) {
-    // Init
-    initRoot();
+    root.getStyleClass().setAll("grid");
     initRootWrapper();
     setPresenter(presenter);
 
     // Listen For Mouse Events
-    listenForMouseClicks();
-    listenForMouseDrags();
-    listenForMousePress();
-    listenForMouseRelease();
-    listenForGapChange();
+    handleMouseClicked();
+    handleMouseDragged();
+    handleMousePressed();
+    handleMouseReleased();
+    handleGapSizeChanged();
   }
 
-  private void listenForGapChange() {
+  private void handleGapSizeChanged() {
     root.hgapProperty()
         .addListener(e -> computeGridSize(root.getColumnCount(), root.getRowCount()));
   }
@@ -66,32 +64,25 @@ public class PGridView implements IGridView {
     return this.rootWrapper;
   }
 
-  private void listenForMouseRelease() {
-    root.setOnMouseReleased(e -> presenter.onMouseRelease(e, findIntersectedNodePosition(e)));
+  private void handleMouseReleased() {
+    root.addEventFilter(
+        MouseEvent.MOUSE_RELEASED,
+        e -> presenter.onMouseRelease(e, findIntersectedNodePosition(e)));
   }
 
-  private void listenForMouseDrags() {
-    root.setOnMouseDragged(e -> presenter.onGridDragged(e, findIntersectedNodePosition(e)));
+  private void handleMouseDragged() {
+    root.addEventFilter(
+        MouseEvent.MOUSE_DRAGGED, e -> presenter.onGridDragged(e, findIntersectedNodePosition(e)));
   }
 
-  private void listenForMouseClicks() {
-    root.setOnMouseClicked(e -> presenter.onNodeClicked(e, findIntersectedNodePosition(e)));
+  private void handleMouseClicked() {
+    root.addEventFilter(
+        MouseEvent.MOUSE_CLICKED, e -> presenter.onNodeClicked(e, findIntersectedNodePosition(e)));
   }
 
-  private void listenForMousePress() {
-    root.setOnMousePressed(e -> presenter.onNodePressed(e, findIntersectedNodePosition(e)));
-  }
-
-  public INodeView getNodeAtPosition(IPosition position) {
-    int row = position.getY();
-    int column = position.getX();
-    ObservableList<Node> children = root.getChildren();
-    for (Node node : children) {
-      if (GridPane.getRowIndex(node) == row && GridPane.getColumnIndex(node) == column) {
-        return (INodeView) node;
-      }
-    }
-    return null;
+  private void handleMousePressed() {
+    root.addEventFilter(
+        MouseEvent.MOUSE_PRESSED, e -> presenter.onNodePressed(e, findIntersectedNodePosition(e)));
   }
 
   /**
@@ -112,14 +103,10 @@ public class PGridView implements IGridView {
     return Position.ERROR;
   }
 
-  private void initRoot() {
-    root.getStyleClass().add("grid");
-  }
-
   private void computeGridSize(int cols, int rows) {
     double gap = root.getHgap();
-    double gridWidth = cols * PNodeView.INITIAL_NODE_SIZE + (cols + 1) * gap;
-    double gridHeight = rows * PNodeView.INITIAL_NODE_SIZE + (rows + 1) * gap;
+    double gridWidth = cols * BaseNodeSkin.PREF_WIDTH + (cols + 1) * gap;
+    double gridHeight = rows * BaseNodeSkin.PREF_WIDTH + (rows + 1) * gap;
     root.setMinSize(gridWidth, gridHeight);
   }
 
@@ -131,8 +118,7 @@ public class PGridView implements IGridView {
     for (int x = 0; x < cols; x++) {
       for (int y = 0; y < rows; y++) {
         IPosition position = Position.of(x, y);
-        INodeView thisNode = new PNodeView(presenter.getNodeModel(position));
-        thisNode.setPainter(new PNodePainter(thisNode));
+        IExprNodeView thisNode = new NodeView(presenter.getNodeModel(position), true);
         GridPane.setColumnIndex(thisNode.getRoot(), x);
         GridPane.setRowIndex(thisNode.getRoot(), y);
         root.add(thisNode.getRoot(), x, y);
@@ -143,34 +129,6 @@ public class PGridView implements IGridView {
   @Override
   public Region getRoot() {
     return getRootWrapper();
-  }
-
-  @Override
-  public void setShowCostInfo(boolean show) {
-    int cols = presenter.getColumns();
-    int rows = presenter.getRows();
-    for (int x = 0; x < cols; x++) {
-      for (int y = 0; y < rows; y++) {
-        INodeView thisNodeView = getNodeAtPosition(Position.of(x, y));
-        if (thisNodeView != null) {
-          thisNodeView.setShowCostInfo(show);
-        }
-      }
-    }
-  }
-
-  @Override
-  public void clearAllCostJunk() {
-    int cols = presenter.getColumns();
-    int rows = presenter.getRows();
-    for (int x = 0; x < cols; x++) {
-      for (int y = 0; y < rows; y++) {
-        INodeView thisNodeView = getNodeAtPosition(Position.of(x, y));
-        if (thisNodeView != null) {
-          thisNodeView.clearCostJunk();
-        }
-      }
-    }
   }
 
   @Override

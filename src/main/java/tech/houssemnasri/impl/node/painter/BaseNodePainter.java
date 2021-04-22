@@ -7,6 +7,7 @@ import tech.houssemnasri.api.node.INodeView;
  * This class {@code BaseNodePainter} is responsible for painting {@code INodeView} according to
  * it's type and the current theme.
  */
+@Deprecated
 public abstract class BaseNodePainter {
   private INodeView nodeView;
 

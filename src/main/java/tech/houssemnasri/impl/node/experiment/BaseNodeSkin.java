@@ -1,6 +1,7 @@
 package tech.houssemnasri.impl.node.experiment;
 
 import javafx.beans.value.ObservableValue;
+import javafx.scene.CacheHint;
 import javafx.scene.control.SkinBase;
 import javafx.scene.layout.StackPane;
 import javafx.scene.shape.Rectangle;
@@ -13,8 +14,8 @@ import tech.houssemnasri.impl.animation.AnimationFXProxy;
 public abstract class BaseNodeSkin extends SkinBase<NodeView> {
   private static final double MINIMUM_WIDTH = 25d;
   private static final double MINIMUM_HEIGHT = 25d;
-  private static final double PREF_WIDTH = 60d;
-  private static final double PREF_HEIGHT = 60d;
+  public static final double PREF_WIDTH = 25d;
+  public static final double PREF_HEIGHT = 25d;
   private IExprNodeView cachedOverlay;
   private AnimationFXProxy animation;
   private StackPane container;
@@ -23,13 +24,17 @@ public abstract class BaseNodeSkin extends SkinBase<NodeView> {
     super(control);
     initGraphics();
     registerListeners();
+    // Important!!! without this line we can't interact with the grid because all events would be
+    // consumed by the node view.
+    consumeMouseEvents(false);
   }
 
-  public void initGraphics() {
+  private void initGraphics() {
     getSkinnable().setPrefSize(PREF_WIDTH, PREF_HEIGHT);
     getSkinnable().applyStyle();
     container = new StackPane();
     container.getStyleClass().setAll("container");
+    getChildren().add(container);
   }
 
   private void registerListeners() {
@@ -133,6 +138,10 @@ public abstract class BaseNodeSkin extends SkinBase<NodeView> {
     clipRect.setHeight(overlayView.getPrefHeight());
     getSkinnable().setClip(clipRect);
     getChildren().add(overlayView.getRoot());
+    // Optimization for smooth animation.
+    overlayView.setCache(true);
+    overlayView.setCacheShape(true);
+    overlayView.setCacheHint(CacheHint.SPEED);
 
     return overlayView;
   }

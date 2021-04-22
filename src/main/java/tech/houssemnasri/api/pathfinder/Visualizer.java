@@ -54,8 +54,8 @@ public abstract class Visualizer extends AnimationTimer {
   public void setAlgorithm(BaseAlgorithm algorithm) {
     if (algorithm == null) return;
     currentAlgorithm = algorithm;
-      stopPlayer();
-      currentAlgorithm.reset();
+    stopPlayer();
+    currentAlgorithm.reset();
   }
 
   public BaseAlgorithm getAlgorithm() {

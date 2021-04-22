@@ -64,13 +64,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   public void setToolboxModel(IToolbox toolbox) {
     if (toolbox == null) return;
     this.toolboxModel = toolbox;
-    handleAlgorithmSelection();
-  }
-
-  private void handleAlgorithmSelection() {
-    toolboxModel
-        .selectedAlgorithmProperty()
-        .addListener(e -> Platform.runLater(gridView::clearAllCostJunk));
   }
 
   @Override
@@ -111,11 +104,6 @@ public class PGridPresenter implements IGridPresenter, BooleanExtensions {
   @Override
   public ObjectProperty<IPosition> destinationPositionProperty() {
     return gridModel.destinationNodePositionProperty();
-  }
-
-  @Override
-  public void setShowCostInfo(boolean showCostInfo) {
-    gridView.setShowCostInfo(showCostInfo);
   }
 
   @Override

@@ -30,8 +30,6 @@ public interface IGridPresenter extends Presenter<IGridView> {
 
   void setToolboxModel(IToolbox toolbox);
 
-  void setShowCostInfo(boolean showCostInfo);
-
   /** Returns the node model at position {@code position} */
   INode getNodeModel(IPosition position);
 

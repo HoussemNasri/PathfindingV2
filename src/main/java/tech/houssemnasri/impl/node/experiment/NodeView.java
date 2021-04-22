@@ -169,4 +169,9 @@ public class NodeView extends Control implements IExprNodeView {
   public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
     return getClassCssMetaData();
   }
+
+  @Override
+  public String getUserAgentStylesheet() {
+    return getClass().getResource("/nodeview.css").toExternalForm();
+  }
 }

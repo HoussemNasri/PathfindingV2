@@ -1,5 +1,8 @@
 package tech.houssemnasri.impl.pathfinder;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 
@@ -13,6 +16,8 @@ public final class PathCost implements Cloneable {
    * using an exiting one, this will help us listen for cost changes
    */
   private final ObservableList<Integer> costArguments;
+
+  private final List<Listener> listeners = new ArrayList<>();
 
   public PathCost(final ObservableList<Integer> costArguments) {
     this.costArguments = costArguments;
@@ -33,6 +38,7 @@ public final class PathCost implements Cloneable {
 
   public void clear() {
     costArguments.setAll(0, 0, 0);
+    notifyClearedListeners();
   }
 
   @Override
@@ -47,5 +53,21 @@ public final class PathCost implements Cloneable {
     } catch (CloneNotSupportedException e) {
       return new PathCost(FXCollections.observableArrayList(getCostArguments()));
     }
+  }
+
+  public void registerListener(Listener li) {
+    listeners.add(li);
+  }
+
+  public void unregisterListener(Listener li) {
+    listeners.remove(li);
+  }
+
+  private void notifyClearedListeners() {
+    listeners.forEach(Listener::onCostCleared);
+  }
+
+  public interface Listener {
+    void onCostCleared();
   }
 }

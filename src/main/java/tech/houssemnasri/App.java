@@ -1,5 +1,7 @@
 package tech.houssemnasri;
 
+import java.util.Random;
+
 import javafx.application.Application;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -14,6 +16,7 @@ import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.pathfinder.Visualizer;
+import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.api.toolbox.IToolboxPresenter;
 import tech.houssemnasri.api.toolbox.IToolboxView;
@@ -24,6 +27,7 @@ import tech.houssemnasri.impl.grid.PGridView;
 import tech.houssemnasri.impl.node.PNode;
 import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.impl.node.experiment.NodeView;
+import tech.houssemnasri.impl.pathfinder.astar.AStarPathCostAdapter;
 import tech.houssemnasri.impl.pathfinder.factory.AlgorithmFactory;
 import tech.houssemnasri.impl.pathfinder.visualizer.SimpleVisualizer;
 import tech.houssemnasri.impl.toolbox.Toolbox;
@@ -40,7 +44,7 @@ public class App extends Application {
     Scene scene = new Scene(mainView, SCENE_WIDTH, SCENE_HEIGHT);
 
     IToolbox toolbox = new Toolbox();
-    IGrid grid = new PGrid(45, 65);
+    IGrid grid = new PGrid(35, 65);
     AlgorithmFactory algorithmFactory = new AlgorithmFactory(grid);
 
     IToolboxView toolboxView = new ToolboxView();
@@ -58,21 +62,6 @@ public class App extends Application {
     toolboxPresenter.setVisualizer(visualizer);
     primaryStage.setScene(scene);
     primaryStage.show();
-
-    Group testRoot = new Group();
-    Scene testScene = new Scene(testRoot, 500, 500);
-    testRoot.getStylesheets().add(getClass().getResource("/theme/dracula.css").toExternalForm());
-    PNode node = new PNode(Position.of(-1, -1));
-    NodeView nodeView = new NodeView(node, true);
-    nodeView.setLayoutX(20);
-    nodeView.setLayoutY(20);
-    testRoot.getChildren().add(nodeView);
-    nodeView.addEventFilter(MouseEvent.MOUSE_CLICKED, (EventHandler<Event>) event -> {
-        int size = INode.Type.values().length;
-        node.setType(INode.Type.values()[(node.getType().ordinal() + 1) % size]);
-    });
-
-    primaryStage.setScene(testScene);
   }
 
   public static void main(String[] args) {

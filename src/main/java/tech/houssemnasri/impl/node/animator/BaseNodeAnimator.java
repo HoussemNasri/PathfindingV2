@@ -8,7 +8,7 @@ import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.impl.animation.AnimationFXProxy;
 import tech.houssemnasri.impl.animation.AnimationSuite;
-
+@Deprecated
 public abstract class BaseNodeAnimator {
   private final INodeView targetNode;
   private final AnimationSuite animationSuite;

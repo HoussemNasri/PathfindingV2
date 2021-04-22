@@ -19,6 +19,7 @@ import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.api.node.INode.*;
 import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
+@Deprecated
 public class PNodeView extends StackPane implements INodeView {
     public static final int INITIAL_NODE_SIZE = 25;
     private INode nodeModel;
@@ -97,7 +98,7 @@ public class PNodeView extends StackPane implements INodeView {
 
     private void setupCenter(){
         center.setFont(Font.font(8));
-        StackPane.setMargin(center, new Insets(0, 0, 3, 0));
+        StackPane.setMargin(center, new Insets(0, 0, 5, 0));
         this.center.setVisible(false);
         StackPane.setAlignment(center, Pos.BOTTOM_CENTER);
         getChildren().add(center);

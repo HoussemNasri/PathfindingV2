@@ -3,7 +3,7 @@ package tech.houssemnasri.impl.node.experiment;
 /** This is the simplest implementation of {@code BaseNodeSkin} */
 public class SimpleNodeSkin extends BaseNodeSkin {
 
-  protected SimpleNodeSkin(NodeView control) {
+  public SimpleNodeSkin(NodeView control) {
     super(control);
   }
 

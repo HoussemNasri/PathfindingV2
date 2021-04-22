@@ -5,6 +5,7 @@ import tech.houssemnasri.api.node.INodeView;
 
 import static tech.houssemnasri.api.node.INode.*;
 
+@Deprecated
 public class PNodePainter extends BaseNodePainter {
   private final List<Type> showCostTypes = List.of(Type.OPEN, Type.CLOSED, Type.PATH);
 

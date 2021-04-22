@@ -13,6 +13,7 @@ import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.node.Position;
 import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
+@Deprecated
 public class PNodeAnimator extends BaseNodeAnimator {
   private INodeView overlayNode;
   private BaseNodePainter toAnimatePainter;
