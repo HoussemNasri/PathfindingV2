@@ -15,9 +15,7 @@ import javafx.css.StyleableProperty;
 import javafx.css.converter.BooleanConverter;
 import javafx.scene.control.Control;
 import javafx.scene.control.Skin;
-import javafx.scene.control.TitledPane;
 
-import jdk.jfr.Experimental;
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.experiment.IExprNodeView;
 import tech.houssemnasri.impl.node.PNode;
@@ -25,11 +23,9 @@ import tech.houssemnasri.impl.node.PNode;
 import static tech.houssemnasri.api.node.INode.Type;
 
 @SuppressWarnings("DanglingJavadoc")
-@Experimental
-public class ExprNodeView extends Control implements IExprNodeView {
+public class NodeView extends Control implements IExprNodeView {
   private final INode nodeModel;
-  private final ReadOnlyObjectWrapper<Type> typeProperty = new ReadOnlyObjectWrapper<>(Type.BASIC);
-
+  private final ReadOnlyObjectWrapper<Type> type = new ReadOnlyObjectWrapper<>(Type.BASIC);
   private final BooleanProperty animated =
       new StyleableBooleanProperty() {
         @Override
@@ -39,7 +35,7 @@ public class ExprNodeView extends Control implements IExprNodeView {
 
         @Override
         public Object getBean() {
-          return ExprNodeView.this;
+          return NodeView.this;
         }
 
         @Override
@@ -48,18 +44,18 @@ public class ExprNodeView extends Control implements IExprNodeView {
         }
       };
 
-  public ExprNodeView(INode nodeModel) {
+  public NodeView(INode nodeModel, boolean isAnimated) {
     getStyleClass().setAll(DEFAULT_STYLE_CLASS);
+    setAnimated(isAnimated);
     this.nodeModel = nodeModel;
-    this.typeProperty.bind(nodeModel.nodeTypeProperty());
-    applyStyle();
-    animated.addListener(
-        (a, b, c) -> {
-          System.out.printf("Animated(%b, %b)\n", b, c);
-        });
+    type.bind(nodeModel.nodeTypeProperty());
   }
 
-  public ExprNodeView(IExprNodeView exprNodeView) {
+  public NodeView(INode nodeModel) {
+    this(nodeModel, false);
+  }
+
+  public NodeView(IExprNodeView exprNodeView) {
     this(new PNode(exprNodeView.getNodeModel()));
   }
 
@@ -69,7 +65,9 @@ public class ExprNodeView extends Control implements IExprNodeView {
   }
 
   @Override
-  public void setAnimated(boolean value) {}
+  public void setAnimated(boolean value) {
+    animated.set(value);
+  }
 
   @Override
   public boolean isAnimated() {
@@ -88,18 +86,20 @@ public class ExprNodeView extends Control implements IExprNodeView {
 
   @Override
   protected Skin<?> createDefaultSkin() {
-    return new ExperimentalNodeSkin(this);
+    return new SimpleNodeSkin(this);
   }
 
   @Override
-  public void refresh() {}
+  public void refresh() {
+    applyStyle();
+  }
 
   public ReadOnlyObjectProperty<Type> typeProperty() {
-    return typeProperty.getReadOnlyProperty();
+    return type.getReadOnlyProperty();
   }
 
   public Type getType() {
-    return typeProperty.get();
+    return type.get();
   }
 
   public void applyStyle(Type nodeType) {
@@ -137,16 +137,16 @@ public class ExprNodeView extends Control implements IExprNodeView {
       PseudoClass.getPseudoClass("destination");
 
   private static class StyleableProperties {
-    private static final CssMetaData<ExprNodeView, Boolean> ANIMATED =
-        new CssMetaData<>("-node-animated", BooleanConverter.getInstance(), Boolean.TRUE) {
+    private static final CssMetaData<NodeView, Boolean> ANIMATED =
+        new CssMetaData<>("-node-animated", BooleanConverter.getInstance(), Boolean.FALSE) {
 
           @Override
-          public boolean isSettable(ExprNodeView n) {
+          public boolean isSettable(NodeView n) {
             return n.animated == null || !n.animated.isBound();
           }
 
           @Override
-          public StyleableProperty<Boolean> getStyleableProperty(ExprNodeView n) {
+          public StyleableProperty<Boolean> getStyleableProperty(NodeView n) {
             return (StyleableProperty<Boolean>) n.animatedProperty();
           }
         };
@@ -161,14 +161,12 @@ public class ExprNodeView extends Control implements IExprNodeView {
     }
   }
 
+  public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
+    return StyleableProperties.STYLEABLES;
+  }
 
-    public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
-        return StyleableProperties.STYLEABLES;
-    }
-
-
-    @Override
-    public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
-        return getClassCssMetaData();
-    }
+  @Override
+  public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
+    return getClassCssMetaData();
+  }
 }

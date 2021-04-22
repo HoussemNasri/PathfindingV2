@@ -1,7 +1,6 @@
 @import "base.css";
 .node-view{
     -fx-background-color: -theme-grid-color;
-    -node-animated: true;
 }
 
 .node-view:source{

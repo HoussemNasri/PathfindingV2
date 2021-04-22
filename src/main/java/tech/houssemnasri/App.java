@@ -23,7 +23,7 @@ import tech.houssemnasri.impl.grid.PGridPresenter;
 import tech.houssemnasri.impl.grid.PGridView;
 import tech.houssemnasri.impl.node.PNode;
 import tech.houssemnasri.impl.node.Position;
-import tech.houssemnasri.impl.node.experiment.ExprNodeView;
+import tech.houssemnasri.impl.node.experiment.NodeView;
 import tech.houssemnasri.impl.pathfinder.factory.AlgorithmFactory;
 import tech.houssemnasri.impl.pathfinder.visualizer.SimpleVisualizer;
 import tech.houssemnasri.impl.toolbox.Toolbox;
@@ -63,7 +63,7 @@ public class App extends Application {
     Scene testScene = new Scene(testRoot, 500, 500);
     testRoot.getStylesheets().add(getClass().getResource("/theme/dracula.css").toExternalForm());
     PNode node = new PNode(Position.of(-1, -1));
-    ExprNodeView nodeView = new ExprNodeView(node);
+    NodeView nodeView = new NodeView(node, true);
     nodeView.setLayoutX(20);
     nodeView.setLayoutY(20);
     testRoot.getChildren().add(nodeView);
