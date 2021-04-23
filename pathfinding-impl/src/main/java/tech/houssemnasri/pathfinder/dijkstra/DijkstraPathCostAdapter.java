@@ -1,10 +1,9 @@
 package tech.houssemnasri.pathfinder.dijkstra;
 
-import tech.houssemnasri.node.INode;
 import tech.houssemnasri.pathfinder.AlgorithmStep;
 import tech.houssemnasri.pathfinder.cost.IDijkstraPathCost;
 import tech.houssemnasri.command.UpdateCostCommand;
-import tech.houssemnasri.pathfinder.PathCost;
+import tech.houssemnasri.pathfinder.cost.PathCost;
 
 public class DijkstraPathCostAdapter implements IDijkstraPathCost {
   private final PathCost pathCost;

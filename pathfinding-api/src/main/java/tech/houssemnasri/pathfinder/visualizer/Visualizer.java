@@ -1,4 +1,4 @@
-package tech.houssemnasri.pathfinder;
+package tech.houssemnasri.pathfinder.visualizer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,6 +8,7 @@ import javafx.beans.property.ReadOnlyDoubleProperty;
 import javafx.beans.property.ReadOnlyDoubleWrapper;
 
 import tech.houssemnasri.math.Clamp;
+import tech.houssemnasri.pathfinder.BaseAlgorithm;
 
 /**
  * This class {@code Visualizer} is responsible for managing the player state and perform the player

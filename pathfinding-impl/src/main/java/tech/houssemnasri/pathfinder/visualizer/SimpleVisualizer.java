@@ -2,7 +2,6 @@ package tech.houssemnasri.pathfinder.visualizer;
 
 import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.pathfinder.BaseAlgorithm;
-import tech.houssemnasri.pathfinder.Visualizer;
 
 public class SimpleVisualizer extends Visualizer implements BooleanExtensions {
   private long start = -1;

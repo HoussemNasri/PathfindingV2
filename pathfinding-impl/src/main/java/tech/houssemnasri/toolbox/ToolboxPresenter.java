@@ -4,7 +4,7 @@ import java.util.Arrays;
 
 import javafx.scene.Scene;
 
-import tech.houssemnasri.pathfinder.Visualizer;
+import tech.houssemnasri.pathfinder.visualizer.Visualizer;
 import tech.houssemnasri.pathfinder.factory.AlgorithmFactory;
 import tech.houssemnasri.pathfinder.factory.AlgorithmFactoryImpl;
 import tech.houssemnasri.AlgorithmDescriptor;

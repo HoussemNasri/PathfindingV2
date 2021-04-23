@@ -3,7 +3,7 @@ package tech.houssemnasri.node;
 import javafx.beans.property.ObjectProperty;
 
 import tech.houssemnasri.Position;
-import tech.houssemnasri.pathfinder.PathCost;
+import tech.houssemnasri.pathfinder.cost.PathCost;
 
 public interface INode {
   /** constant for no cost */

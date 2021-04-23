@@ -9,7 +9,7 @@ import javafx.scene.text.Text;
 
 import tech.houssemnasri.node.INode;
 import tech.houssemnasri.node.PNodeView;
-import tech.houssemnasri.pathfinder.PathCost;
+import tech.houssemnasri.pathfinder.cost.PathCost;
 
 /** This skin will display cost information on the node. */
 public class WithCostNodeSkin extends BaseNodeSkin implements PathCost.Listener {

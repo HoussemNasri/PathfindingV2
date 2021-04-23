@@ -11,7 +11,7 @@ import tech.houssemnasri.grid.IGridView;
 import tech.houssemnasri.grid.PGrid;
 import tech.houssemnasri.grid.PGridPresenter;
 import tech.houssemnasri.grid.PGridView;
-import tech.houssemnasri.pathfinder.Visualizer;
+import tech.houssemnasri.pathfinder.visualizer.Visualizer;
 import tech.houssemnasri.pathfinder.factory.AlgorithmFactoryImpl;
 import tech.houssemnasri.pathfinder.visualizer.SimpleVisualizer;
 import tech.houssemnasri.toolbox.IToolbox;
@@ -21,7 +21,7 @@ import tech.houssemnasri.toolbox.Toolbox;
 import tech.houssemnasri.toolbox.ToolboxPresenter;
 import tech.houssemnasri.toolbox.ToolboxView;
 
-public class App extends Application {
+public class Launcher extends Application {
   private static final double SCENE_WIDTH = 950d;
   private static final double SCENE_HEIGHT = 650d;
 

@@ -1,4 +1,4 @@
-package tech.houssemnasri.pathfinder;
+package tech.houssemnasri.pathfinder.cost;
 
 import java.util.ArrayList;
 import java.util.List;

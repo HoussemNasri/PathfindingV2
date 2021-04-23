@@ -2,7 +2,7 @@ package tech.houssemnasri.pathfinder.astar;
 
 import tech.houssemnasri.pathfinder.AlgorithmStep;
 import tech.houssemnasri.command.UpdateCostCommand;
-import tech.houssemnasri.pathfinder.PathCost;
+import tech.houssemnasri.pathfinder.cost.PathCost;
 import tech.houssemnasri.pathfinder.cost.IAStarCost;
 
 public class AStarPathCostAdapter implements IAStarCost {

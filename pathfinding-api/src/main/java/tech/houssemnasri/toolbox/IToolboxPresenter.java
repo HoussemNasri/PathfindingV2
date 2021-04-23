@@ -3,7 +3,7 @@ package tech.houssemnasri.toolbox;
 import javafx.scene.Scene;
 
 import tech.houssemnasri.mvp.Presenter;
-import tech.houssemnasri.pathfinder.Visualizer;
+import tech.houssemnasri.pathfinder.visualizer.Visualizer;
 import tech.houssemnasri.pathfinder.factory.AlgorithmFactory;
 
 public interface IToolboxPresenter extends Presenter<IToolboxView> {

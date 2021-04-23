@@ -2,8 +2,7 @@ package tech.houssemnasri.command;
 
 import javafx.collections.ObservableList;
 
-import tech.houssemnasri.command.ICommand;
-import tech.houssemnasri.pathfinder.PathCost;
+import tech.houssemnasri.pathfinder.cost.PathCost;
 
 public class UpdateCostCommand implements ICommand {
   private final PathCost pathCost;

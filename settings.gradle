@@ -2,5 +2,5 @@ rootProject.name = 'PathfindingV2'
 include 'pathfinding-api'
 include 'pathfinding-impl'
 include 'pathfinding-launcher'
-include 'pathfinding-lib'
+include 'pathfinding-common'
 
