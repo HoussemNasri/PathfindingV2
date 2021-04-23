@@ -28,36 +28,6 @@
     -fx-background-color: -theme-orange-color;
 }
 
-
-
-.basic-node {
-    -fx-background-color: -theme-grid-color;
-}
-
-.source-node {
-    -fx-background-color: -theme-yellow-color;
-}
-
-.destination-node {
-    -fx-background-color: -theme-cyan-color;
-}
-
-.wall-node {
-    -fx-background-color: -theme-purple-color;
-}
-
-.open-node {
-    -fx-background-color: -theme-green-color;
-}
-
-.closed-node {
-    -fx-background-color: -theme-red-color;
-}
-
-.path-node {
-    -fx-background-color: -theme-orange-color;
-}
-
 .grid {
     -fx-shadow-color: derive(-theme-grid-color, -25%);
     -fx-effect: innershadow(three-pass-box, -fx-shadow-color, 15, 0, 2, 5);
