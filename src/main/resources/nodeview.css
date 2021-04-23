@@ -1,5 +1,5 @@
 .node-view {
-    -fx-skin: "tech.houssemnasri.impl.node.experiment.WithCostNodeSkin";
+    -fx-skin: "tech.houssemnasri.impl.node.skins.WithCostNodeSkin";
 }
 
 .node-view .container{

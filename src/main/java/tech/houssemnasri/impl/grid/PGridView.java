@@ -9,11 +9,11 @@ import javafx.scene.layout.Region;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
 import tech.houssemnasri.api.node.IPosition;
-import tech.houssemnasri.api.node.experiment.IExprNodeView;
+import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.gesturefx.GesturePane;
 import tech.houssemnasri.impl.node.Position;
-import tech.houssemnasri.impl.node.experiment.BaseNodeSkin;
-import tech.houssemnasri.impl.node.experiment.NodeView;
+import tech.houssemnasri.impl.node.skins.BaseNodeSkin;
+import tech.houssemnasri.impl.node.PNodeView;
 
 public class PGridView implements IGridView {
   private IGridPresenter presenter = null;
@@ -91,7 +91,7 @@ public class PGridView implements IGridView {
    */
   private IPosition findIntersectedNodePosition(MouseEvent mouseEvent) {
     Node intersection = mouseEvent.getPickResult().getIntersectedNode();
-    // The intersected node might not be the NodeView itself but it's child
+    // The intersected node might not be the PNodeView itself but it's child
     while (intersection != null) {
       Integer eventXPosition = GridPane.getColumnIndex(intersection);
       Integer eventYPosition = GridPane.getRowIndex(intersection);
@@ -118,7 +118,7 @@ public class PGridView implements IGridView {
     for (int x = 0; x < cols; x++) {
       for (int y = 0; y < rows; y++) {
         IPosition position = Position.of(x, y);
-        IExprNodeView thisNode = new NodeView(presenter.getNodeModel(position), true);
+        INodeView thisNode = new PNodeView(presenter.getNodeModel(position), true);
         GridPane.setColumnIndex(thisNode.getRoot(), x);
         GridPane.setRowIndex(thisNode.getRoot(), y);
         root.add(thisNode.getRoot(), x, y);

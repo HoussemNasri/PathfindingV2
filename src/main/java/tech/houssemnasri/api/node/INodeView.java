@@ -1,50 +1,21 @@
 package tech.houssemnasri.api.node;
 
 import javafx.beans.property.BooleanProperty;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Text;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.scene.control.Control;
 
 import tech.houssemnasri.api.mvp.View;
-import tech.houssemnasri.impl.node.animator.BaseNodeAnimator;
-import tech.houssemnasri.impl.node.painter.BaseNodePainter;
 
-/**
- * The {@code INodeView} is a self contained view we use to display our model {@code INode}, it
- * listens for changes on the model and update itself accordingly.
- */
-public interface INodeView extends View<StackPane> {
-  /**
-   * Showing cost info on the view.
-   *
-   * @param show If true cost information will be visible.
-   */
-  void setShowCostInfo(boolean show);
-
-  boolean isShowCostEnabled();
-
-  BooleanProperty showCostProperty();
-
+public interface INodeView extends View<Control> {
   INode getNodeModel();
 
-  void setPainter(BaseNodePainter painter);
+  INode.Type getType();
 
-  BaseNodePainter getPainter();
+  ReadOnlyObjectProperty<INode.Type> typeProperty();
 
-  Text getCenterText();
+  void setAnimated(boolean value);
 
-  Text getTopLeftCornerText();
+  boolean isAnimated();
 
-  Text getTopRightCornerText();
-
-  void setAnimator(BaseNodeAnimator animator);
-
-  void setIsAnimate(boolean isAnimate);
-
-  boolean isAnimate();
-
-  /**
-   * After running an algorithm, the {@code INodeView} might have the cost values still displayed,
-   * we run this method to clear the view from these junk values.
-   */
-  void clearCostJunk();
+  BooleanProperty animatedProperty();
 }

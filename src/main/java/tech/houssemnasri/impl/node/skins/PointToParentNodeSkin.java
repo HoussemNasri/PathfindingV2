@@ -1,13 +1,15 @@
-package tech.houssemnasri.impl.node.experiment;
+package tech.houssemnasri.impl.node.skins;
+
+import tech.houssemnasri.impl.node.PNodeView;
 
 /** This is skin will have an arrow that will point toward this node's parent. */
 public class PointToParentNodeSkin extends BaseNodeSkin {
-  protected PointToParentNodeSkin(NodeView control) {
+  protected PointToParentNodeSkin(PNodeView control) {
     super(control);
   }
 
   @Override
-  public BaseNodeSkin newInstance(NodeView control) {
+  public BaseNodeSkin newInstance(PNodeView control) {
     return new PointToParentNodeSkin(control);
   }
 }

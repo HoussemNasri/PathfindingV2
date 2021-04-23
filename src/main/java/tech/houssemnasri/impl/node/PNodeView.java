@@ -1,197 +1,177 @@
 package tech.houssemnasri.impl.node;
 
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.SimpleBooleanProperty;
-import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.layout.StackPane;
-import javafx.scene.text.Font;
-import javafx.scene.text.Text;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
-import tech.houssemnasri.impl.animation.AnimationSuite;
-import tech.houssemnasri.impl.node.animator.BaseNodeAnimator;
-import tech.houssemnasri.impl.node.animator.PNodeAnimator;
-import tech.houssemnasri.impl.pathfinder.PathCost;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.ReadOnlyObjectProperty;
+import javafx.beans.property.ReadOnlyObjectWrapper;
+import javafx.css.CssMetaData;
+import javafx.css.PseudoClass;
+import javafx.css.Styleable;
+import javafx.css.StyleableBooleanProperty;
+import javafx.css.StyleableProperty;
+import javafx.css.converter.BooleanConverter;
+import javafx.scene.control.Control;
+import javafx.scene.control.Skin;
+
 import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.node.INodeView;
-import tech.houssemnasri.api.node.INode.*;
-import tech.houssemnasri.impl.node.painter.BaseNodePainter;
+import tech.houssemnasri.impl.node.skins.SimpleNodeSkin;
 
-@Deprecated
-public class PNodeView extends StackPane implements INodeView {
-    public static final int INITIAL_NODE_SIZE = 25;
-    private INode nodeModel;
-    private BaseNodePainter painter;
-    private BaseNodeAnimator animator;
-    private boolean isAnimate;
+import static tech.houssemnasri.api.node.INode.Type;
 
-    private final Text center = new Text();
-    private final Text topLeftCorner = new Text();
-    private final Text topRightCorner = new Text();
-    private final BooleanProperty showCostProperty = new SimpleBooleanProperty(true);
-
-    public PNodeView(INode nodeModel, boolean isAnimate, BaseNodePainter painter) {
-        setNodeModel(nodeModel);
-        setPainter(painter);
-        setIsAnimate(isAnimate);
-        setAnimator(new PNodeAnimator(this, AnimationSuite.getDefault()));
-        setPrefWidth(INITIAL_NODE_SIZE);
-        setPrefHeight(INITIAL_NODE_SIZE);
-        listenForTypeChange();
-        listenForCostChange();
-        setupCenter();
-        setupTopLeftCorner();
-        setupTopRightCorner();
-    }
-
-    public PNodeView(INode nodeModel, boolean animate) {
-        this(nodeModel, animate, null);
-    }
-
-    public PNodeView(INode nodeModel) {
-        this(nodeModel, true);
-    }
-
-    private void setNodeModel(INode nodeModel) {
-        this.nodeModel = nodeModel;
-    }
-
-    @Override
-    public void setPainter(BaseNodePainter painter) {
-        if (painter != null) {
-            this.painter = painter;
-            refresh();
+@SuppressWarnings("DanglingJavadoc")
+public class PNodeView extends Control implements INodeView {
+  private final INode nodeModel;
+  private final ReadOnlyObjectWrapper<Type> type = new ReadOnlyObjectWrapper<>(Type.BASIC);
+  private final BooleanProperty animated =
+      new StyleableBooleanProperty() {
+        @Override
+        public CssMetaData<? extends Styleable, Boolean> getCssMetaData() {
+          return StyleableProperties.ANIMATED;
         }
-    }
 
-    public void setAnimator(BaseNodeAnimator animator) {
-        this.animator = animator;
-    }
-
-    @Override
-    public void setIsAnimate(boolean isAnimate) {
-        this.isAnimate = isAnimate;
-    }
-
-    public boolean isAnimate(){
-        return isAnimate;
-    }
-
-    @Override
-    public void clearCostJunk() {
-        center.setText("");
-        topLeftCorner.setText("");
-        topRightCorner.setText("");
-    }
-
-    @Override
-    public INode getNodeModel() {
-        return nodeModel;
-    }
-
-    @Override
-    public BaseNodePainter getPainter() {
-        return painter;
-    }
-
-    private void setupCenter(){
-        center.setFont(Font.font(8));
-        StackPane.setMargin(center, new Insets(0, 0, 5, 0));
-        this.center.setVisible(false);
-        StackPane.setAlignment(center, Pos.BOTTOM_CENTER);
-        getChildren().add(center);
-    }
-
-    private void setupTopLeftCorner(){
-        topLeftCorner.setFont(Font.font(5));
-        StackPane.setMargin(topLeftCorner, new Insets(3, 0, 0, 3));
-        topLeftCorner.setVisible(false);
-        StackPane.setAlignment(topLeftCorner, Pos.TOP_LEFT);
-        getChildren().add(topLeftCorner);
-    }
-
-    private void setupTopRightCorner(){
-        topRightCorner.setFont(Font.font(5));
-        StackPane.setMargin(topRightCorner, new Insets(3, 3, 0, 0));
-        topRightCorner.setVisible(false);
-        StackPane.setAlignment(topRightCorner, Pos.TOP_RIGHT);
-        getChildren().add(topRightCorner);
-    }
-
-    private void listenForCostChange() {
-        PathCost cost = nodeModel.getPathCost();
-        if (cost != null) {
-            cost.getCostArguments().addListener(this::doHandleCostChange);
+        @Override
+        public Object getBean() {
+          return PNodeView.this;
         }
-    }
 
-    private void doHandleCostChange(ListChangeListener.Change<? extends Integer> change) {
-        while (change.next()) {
-            if (change.getAddedSize() == 1) {
-                String newValue = String.valueOf(change.getAddedSubList().get(0));
-                switch (change.getFrom()){
-                    case 0 -> center.setText(newValue);
-                    case 1 -> topLeftCorner.setText(newValue);
-                    case 2 -> topRightCorner.setText(newValue);
-                }
-            }
+        @Override
+        public String getName() {
+          return "animated";
         }
-    }
+      };
 
-    @Override
-    public Text getCenterText() {
-        return center;
-    }
+  public PNodeView(INode nodeModel, boolean isAnimated) {
+    getStyleClass().setAll(DEFAULT_STYLE_CLASS);
+    setAnimated(isAnimated);
+    this.nodeModel = nodeModel;
+    type.bind(nodeModel.nodeTypeProperty());
+  }
 
-    @Override
-    public Text getTopLeftCornerText() {
-        return topLeftCorner;
-    }
+  public PNodeView(INode nodeModel) {
+    this(nodeModel, false);
+  }
 
-    @Override
-    public Text getTopRightCornerText() {
-        return topRightCorner;
-    }
+  public PNodeView(INodeView copyNodeView) {
+    this(new PNode(copyNodeView.getNodeModel()));
+  }
 
-    private void doPaint(ObservableValue<? extends Type> observable, Type oldValue, Type nodeType) {
-        if (painter != null) {
-            if(isAnimate()){
-                animator.setToType(nodeType);
-                animator.animate();
-            }else {
-                painter.paint(nodeType);
-            }
-        }
-    }
+  @Override
+  public INode getNodeModel() {
+    return nodeModel;
+  }
 
-    private void listenForTypeChange() {
-        nodeModel.nodeTypeProperty().addListener(this::doPaint);
-    }
+  @Override
+  public void setAnimated(boolean value) {
+    animated.set(value);
+  }
 
-    @Override
-    public void setShowCostInfo(boolean show) {
-        showCostProperty.set(show);
-    }
+  @Override
+  public boolean isAnimated() {
+    return animated.get();
+  }
 
-    @Override
-    public boolean isShowCostEnabled() {
-        return showCostProperty.get();
-    }
+  @Override
+  public BooleanProperty animatedProperty() {
+    return animated;
+  }
 
-    @Override
-    public BooleanProperty showCostProperty() {
-        return this.showCostProperty;
-    }
+  @Override
+  public Control getRoot() {
+    return this;
+  }
 
-    @Override
-    public StackPane getRoot() {
-        return this;
-    }
+  @Override
+  protected Skin<?> createDefaultSkin() {
+    return new SimpleNodeSkin(this);
+  }
 
-    @Override
-    public void refresh() {
-        doPaint(null, null, nodeModel.getType());
+  @Override
+  public void refresh() {
+    applyStyle();
+  }
+
+  public ReadOnlyObjectProperty<Type> typeProperty() {
+    return type.getReadOnlyProperty();
+  }
+
+  public Type getType() {
+    return type.get();
+  }
+
+  public void applyStyle(Type nodeType) {
+    pseudoClassStateChanged(PSEUDO_CLASS_OPEN, nodeType == Type.OPEN);
+    pseudoClassStateChanged(PSEUDO_CLASS_CLOSED, nodeType == Type.CLOSED);
+    pseudoClassStateChanged(PSEUDO_CLASS_PATH, nodeType == Type.PATH);
+    pseudoClassStateChanged(PSEUDO_CLASS_WALL, nodeType == Type.WALL);
+    pseudoClassStateChanged(PSEUDO_CLASS_SOURCE, nodeType == Type.SOURCE);
+    pseudoClassStateChanged(PSEUDO_CLASS_DESTINATION, nodeType == Type.DESTINATION);
+  }
+
+  public void applyStyle() {
+    applyStyle(getType());
+  }
+
+  /***************************************************************************
+   *                                                                         *
+   * Stylesheet Handling                                                     *
+   *                                                                         *
+   **************************************************************************/
+
+  /**
+   * Initialize the style class to 'PNodeView'.
+   *
+   * <p>This is the selector class from which CSS can be used to style this control.
+   */
+  private static final String DEFAULT_STYLE_CLASS = "node-view";
+
+  private static final PseudoClass PSEUDO_CLASS_OPEN = PseudoClass.getPseudoClass("open");
+  private static final PseudoClass PSEUDO_CLASS_CLOSED = PseudoClass.getPseudoClass("closed");
+  private static final PseudoClass PSEUDO_CLASS_PATH = PseudoClass.getPseudoClass("path");
+  private static final PseudoClass PSEUDO_CLASS_WALL = PseudoClass.getPseudoClass("wall");
+  private static final PseudoClass PSEUDO_CLASS_SOURCE = PseudoClass.getPseudoClass("source");
+  private static final PseudoClass PSEUDO_CLASS_DESTINATION =
+      PseudoClass.getPseudoClass("destination");
+
+  private static class StyleableProperties {
+    private static final CssMetaData<PNodeView, Boolean> ANIMATED =
+        new CssMetaData<>("-node-animated", BooleanConverter.getInstance(), Boolean.FALSE) {
+
+          @Override
+          public boolean isSettable(PNodeView n) {
+            return n.animated == null || !n.animated.isBound();
+          }
+
+          @Override
+          public StyleableProperty<Boolean> getStyleableProperty(PNodeView n) {
+            return (StyleableProperty<Boolean>) n.animatedProperty();
+          }
+        };
+
+    private static final List<CssMetaData<? extends Styleable, ?>> STYLEABLES;
+
+    static {
+      final List<CssMetaData<? extends Styleable, ?>> styleables =
+          new ArrayList<>(Control.getClassCssMetaData());
+      styleables.add(ANIMATED);
+      STYLEABLES = Collections.unmodifiableList(styleables);
     }
+  }
+
+  public static List<CssMetaData<? extends Styleable, ?>> getClassCssMetaData() {
+    return StyleableProperties.STYLEABLES;
+  }
+
+  @Override
+  public List<CssMetaData<? extends Styleable, ?>> getControlCssMetaData() {
+    return getClassCssMetaData();
+  }
+
+  @Override
+  public String getUserAgentStylesheet() {
+    return getClass().getResource("/nodeview.css").toExternalForm();
+  }
 }

@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl.node.experiment;
+package tech.houssemnasri.impl.node.skins;
 
 import javafx.beans.value.ObservableValue;
 import javafx.scene.CacheHint;
@@ -8,19 +8,20 @@ import javafx.scene.shape.Rectangle;
 
 import tech.houssemnasri.Settings;
 import tech.houssemnasri.api.node.INode;
-import tech.houssemnasri.api.node.experiment.IExprNodeView;
+import tech.houssemnasri.api.node.INodeView;
 import tech.houssemnasri.impl.animation.AnimationFXProxy;
+import tech.houssemnasri.impl.node.PNodeView;
 
-public abstract class BaseNodeSkin extends SkinBase<NodeView> {
+public abstract class BaseNodeSkin extends SkinBase<PNodeView> {
   private static final double MINIMUM_WIDTH = 25d;
   private static final double MINIMUM_HEIGHT = 25d;
   public static final double PREF_WIDTH = 25d;
   public static final double PREF_HEIGHT = 25d;
-  private IExprNodeView cachedOverlay;
+  private INodeView cachedOverlay;
   private AnimationFXProxy animation;
   private StackPane container;
 
-  protected BaseNodeSkin(NodeView control) {
+  protected BaseNodeSkin(PNodeView control) {
     super(control);
     initGraphics();
     registerListeners();
@@ -111,7 +112,7 @@ public abstract class BaseNodeSkin extends SkinBase<NodeView> {
     }
   }
 
-  private void prepareHelper(AnimationFXProxy animation, IExprNodeView node) {
+  private void prepareHelper(AnimationFXProxy animation, INodeView node) {
     this.animation = animation;
     this.animation.setNode(node.getRoot());
   }
@@ -120,7 +121,7 @@ public abstract class BaseNodeSkin extends SkinBase<NodeView> {
     cacheOverlay(newOverlay());
   }
 
-  private void cacheOverlay(IExprNodeView value) {
+  private void cacheOverlay(INodeView value) {
     this.cachedOverlay = value;
   }
 
@@ -128,10 +129,10 @@ public abstract class BaseNodeSkin extends SkinBase<NodeView> {
     return container;
   }
 
-  public abstract BaseNodeSkin newInstance(NodeView control);
+  public abstract BaseNodeSkin newInstance(PNodeView control);
 
-  private IExprNodeView newOverlay() {
-    NodeView overlayView = new NodeView(getSkinnable());
+  private INodeView newOverlay() {
+    PNodeView overlayView = new PNodeView(getSkinnable());
     overlayView.setSkin(newInstance(overlayView));
     Rectangle clipRect = new Rectangle();
     clipRect.setWidth(overlayView.getPrefWidth());

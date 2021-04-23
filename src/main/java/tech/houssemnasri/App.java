@@ -1,22 +1,14 @@
 package tech.houssemnasri;
 
-import java.util.Random;
-
 import javafx.application.Application;
-import javafx.event.Event;
-import javafx.event.EventHandler;
-import javafx.scene.Group;
 import javafx.scene.Scene;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
 import tech.houssemnasri.api.grid.IGrid;
 import tech.houssemnasri.api.grid.IGridPresenter;
 import tech.houssemnasri.api.grid.IGridView;
-import tech.houssemnasri.api.node.INode;
 import tech.houssemnasri.api.pathfinder.Visualizer;
-import tech.houssemnasri.api.pathfinder.cost.IAStarCost;
 import tech.houssemnasri.api.toolbox.IToolbox;
 import tech.houssemnasri.api.toolbox.IToolboxPresenter;
 import tech.houssemnasri.api.toolbox.IToolboxView;
@@ -24,10 +16,6 @@ import tech.houssemnasri.impl.AlgorithmDescriptor;
 import tech.houssemnasri.impl.grid.PGrid;
 import tech.houssemnasri.impl.grid.PGridPresenter;
 import tech.houssemnasri.impl.grid.PGridView;
-import tech.houssemnasri.impl.node.PNode;
-import tech.houssemnasri.impl.node.Position;
-import tech.houssemnasri.impl.node.experiment.NodeView;
-import tech.houssemnasri.impl.pathfinder.astar.AStarPathCostAdapter;
 import tech.houssemnasri.impl.pathfinder.factory.AlgorithmFactory;
 import tech.houssemnasri.impl.pathfinder.visualizer.SimpleVisualizer;
 import tech.houssemnasri.impl.toolbox.Toolbox;

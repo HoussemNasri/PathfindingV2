@@ -1,4 +1,4 @@
-package tech.houssemnasri.impl.node.experiment;
+package tech.houssemnasri.impl.node.skins;
 
 import javafx.beans.value.ObservableValue;
 import javafx.collections.ListChangeListener;
@@ -8,13 +8,14 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.text.Text;
 
 import tech.houssemnasri.api.node.INode;
+import tech.houssemnasri.impl.node.PNodeView;
 import tech.houssemnasri.impl.pathfinder.PathCost;
 
 /** This skin will display cost information on the node. */
 public class WithCostNodeSkin extends BaseNodeSkin implements PathCost.Listener {
   private Text t1, t2, t3;
 
-  public WithCostNodeSkin(NodeView control) {
+  public WithCostNodeSkin(PNodeView control) {
     super(control);
     initGraphics();
     registerListeners();
@@ -100,7 +101,7 @@ public class WithCostNodeSkin extends BaseNodeSkin implements PathCost.Listener 
   }
 
   @Override
-  public BaseNodeSkin newInstance(NodeView control) {
+  public BaseNodeSkin newInstance(PNodeView control) {
     return new WithCostNodeSkin(control);
   }
 
