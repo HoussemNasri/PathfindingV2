@@ -1,39 +1,46 @@
-plugins {
-    id 'application'
-    id 'org.openjfx.javafxplugin' version '0.0.9'
+allprojects{
+    group 'tech.houssemnasri'
+    version '1.1'
+   /* if (hasProperty('buildScan')) {
+        buildScan {
+            termsOfServiceUrl = 'https://gradle.com/terms-of-service'
+            termsOfServiceAgree = 'no'
+        }
+    }*/
 }
-
-group 'tech.houssemnasri'
-version '1.1'
-if (hasProperty('buildScan')) {
-    buildScan {
-        termsOfServiceUrl = 'https://gradle.com/terms-of-service'
-        termsOfServiceAgree = 'no'
+buildscript {
+    repositories {
+        maven {
+            url 'https://plugins.gradle.org/m2'
+        }
+    }
+    dependencies {
+        classpath 'org.openjfx:javafx-plugin:0.0.9'
     }
 }
-javafx {
-    version = "15.0.1"
-    modules = ['javafx.controls', 'javafx.fxml']
-}
 
-repositories {
-    mavenCentral()
-    jcenter()
-}
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'org.openjfx.javafxplugin'
 
-dependencies {
-    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
-    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
-    implementation 'io.github.typhon0:AnimateFX:1.2.2'
-    implementation 'org.kordamp.ikonli:ikonli-javafx:12.2.0'
-    implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.2.0'
-}
-
-mainClassName = "${group}.App"
-
-jar {
-    manifest {
-        attributes "Main-Class": mainClassName
+    javafx {
+        version = "15.0.1"
+        modules = ['javafx.controls', 'javafx.fxml']
     }
 
+    repositories {
+        mavenCentral()
+        jcenter()
+    }
+
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter-api:5.6.0'
+        testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine'
+        implementation 'io.github.typhon0:AnimateFX:1.2.2'
+        implementation 'org.kordamp.ikonli:ikonli-javafx:12.2.0'
+        implementation 'org.kordamp.ikonli:ikonli-fontawesome5-pack:12.2.0'
+    }
 }
+
+
+/*mainClassName = "${group}.App"*/

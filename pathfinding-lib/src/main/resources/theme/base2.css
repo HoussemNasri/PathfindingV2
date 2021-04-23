@@ -1,0 +1,172 @@
+@import "base.css";
+.node-view{
+    -fx-background-color: -theme-grid-color;
+}
+
+.node-view:source{
+    -fx-background-color: -theme-yellow-color;
+}
+
+.node-view:destination{
+    -fx-background-color: -theme-cyan-color;
+}
+
+.node-view:wall{
+    -fx-background-color: -theme-purple-color;
+}
+
+.node-view:open{
+    -fx-background-color: -theme-green-color;
+}
+
+.node-view:closed{
+    -fx-background-color: -theme-red-color;
+}
+
+.node-view:path{
+    -fx-background-color: -theme-orange-color;
+}
+
+.grid {
+    -fx-shadow-color: derive(-theme-grid-color, -25%);
+    -fx-effect: innershadow(three-pass-box, -fx-shadow-color, 15, 0, 2, 5);
+    -fx-background-color: -theme-grid-gap-color;
+    -fx-hgap: -grid-gap;
+    -fx-vgap: -grid-gap;
+    -fx-snap-to-pixel: false;
+    -fx-padding: 0.25;
+}
+
+.toolbox {
+    -fx-background-color: -theme-toolbox-color;
+}
+
+.label {
+    -fx-font-family: "Raleway Medium";
+    -fx-font-size: 14px;
+    -fx-text-fill: -theme-foreground;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Button                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+.button {
+    -fx-background-color: -theme-button-color;
+    -fx-border-color: -theme-button-border-color;
+    -fx-text-fill: -theme-foreground;
+}
+
+.button:hover {
+    -fx-background-color: -theme-button-color_hover;
+}
+
+.button:pressed {
+    -fx-background-color: -theme-button-color_pressed;
+}
+
+
+/*******************************************************************************
+ *                                                                             *
+ * Icon Button                                                                 *
+ *                                                                             *
+ ******************************************************************************/
+.icon-button {
+    -fx-background-color: -theme-button-color;
+    -fx-border-color: -theme-button-border-color;
+    -fx-text-fill: -theme-foreground;
+}
+
+.icon-button:hover {
+    -fx-background-color: -theme-button-color_hover;
+}
+
+.icon-button:pressed {
+    -fx-background-color: -theme-button-color_pressed;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Icon                                                                        *
+ *                                                                             *
+ ******************************************************************************/
+.icon {
+    -fx-icon-color: -theme-foreground;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Combo Box                                                                   *
+ *                                                                             *
+ ******************************************************************************/
+.combo-box {
+    -fx-background-color: -theme-button-color;
+    -fx-border-color: -theme-button-border-color;
+}
+
+.combo-box:hover {
+    -fx-background-color: -theme-button-color_hover;
+}
+
+.combo-box:pressed {
+    -fx-background-color: -theme-button-color_pressed;
+}
+
+.combo-box .arrow {
+    -fx-background-color: -theme-foreground;
+}
+
+.combo-box .list-cell:selected {
+    -fx-text-fill: -theme-foreground;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Radio Button                                                                *
+ *                                                                             *
+ ******************************************************************************/
+
+.radio-button {
+    -fx-text-fill: -theme-foreground;
+}
+
+.radio-button:selected > .radio .dot {
+    -fx-background-color: -theme-toolbox-color;
+}
+
+.radio-button:selected > .radio {
+    -fx-background-color: -theme-accent-color;
+    -fx-border-color: transparent;
+
+}
+
+.radio-button .radio {
+    -fx-background-color: -theme-toolbox-color;
+    -fx-border-color: -theme-foreground;
+}
+
+/*******************************************************************************
+ *                                                                             *
+ * Slider                                                                      *
+ *                                                                             *
+ ******************************************************************************/
+.slider .thumb {
+    -fx-background-color: -theme-slider-thumb-color;
+}
+
+.slider .thumb:hover {
+    -fx-background-color: -theme-slider-thumb-color_hover;
+}
+
+.slider .thumb:pressed {
+    -fx-background-color: -theme-slider-thumb-color_pressed;
+}
+
+.slider .track {
+    -fx-background-color: -theme-slider-track-color;
+}
+
+.slider .fill {
+    -fx-background-color: -theme-accent-color;
+}
