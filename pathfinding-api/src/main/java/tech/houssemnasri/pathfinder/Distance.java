@@ -2,7 +2,7 @@ package tech.houssemnasri.pathfinder;
 
 import java.util.function.BiFunction;
 
-import tech.houssemnasri.Position;
+import tech.houssemnasri.node.Position;
 
 public abstract class Distance implements BiFunction<Position, Position, Integer> {
   protected static final int DEFAULT_FACTOR = 10;

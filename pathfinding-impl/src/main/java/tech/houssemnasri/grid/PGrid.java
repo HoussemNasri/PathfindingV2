@@ -7,13 +7,12 @@ import java.util.stream.Stream;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.geometry.Pos;
 
 import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.util.GridChecker;
 import tech.houssemnasri.node.INode;
 import tech.houssemnasri.node.PNode;
-import tech.houssemnasri.Position;
+import tech.houssemnasri.node.Position;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 import tech.houssemnasri.property.ComplexObjectProperty;
 import static tech.houssemnasri.node.INode.*;

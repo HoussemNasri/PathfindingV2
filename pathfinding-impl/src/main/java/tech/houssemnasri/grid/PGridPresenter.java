@@ -8,7 +8,7 @@ import javafx.scene.input.MouseEvent;
 import tech.houssemnasri.BooleanExtensions;
 import tech.houssemnasri.node.INode;
 import tech.houssemnasri.toolbox.IToolbox;
-import tech.houssemnasri.Position;
+import tech.houssemnasri.node.Position;
 import tech.houssemnasri.toolbox.Toolbox;
 import tech.houssemnasri.property.ComplexIntegerProperty;
 

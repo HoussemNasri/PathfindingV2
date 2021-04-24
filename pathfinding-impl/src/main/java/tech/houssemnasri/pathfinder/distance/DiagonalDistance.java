@@ -1,6 +1,6 @@
 package tech.houssemnasri.pathfinder.distance;
 
-import tech.houssemnasri.Position;
+import tech.houssemnasri.node.Position;
 import tech.houssemnasri.pathfinder.Distance;
 
 import static java.lang.Math.*;

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.PriorityQueue;
 import java.util.Set;
 
-import tech.houssemnasri.Position;
+import tech.houssemnasri.node.Position;
 import tech.houssemnasri.command.AlgorithmCommandContext;
 import tech.houssemnasri.grid.IGrid;
 import tech.houssemnasri.node.INode;

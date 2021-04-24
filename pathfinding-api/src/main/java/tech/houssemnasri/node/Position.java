@@ -1,4 +1,4 @@
-package tech.houssemnasri;
+package tech.houssemnasri.node;
 
 import java.util.Objects;
 

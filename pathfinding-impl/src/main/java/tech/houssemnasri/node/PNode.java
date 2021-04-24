@@ -2,7 +2,6 @@ package tech.houssemnasri.node;
 
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.Position;
 import tech.houssemnasri.pathfinder.cost.PathCost;
 import tech.houssemnasri.property.ComplexObjectProperty;
 

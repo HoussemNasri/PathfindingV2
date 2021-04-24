@@ -37,7 +37,7 @@ public class AnimationSuite {
 
   private AnimationSuite() {
     onEnterBasic = new AnimationFXProxy(new ZoomIn());
-    onEnterBasic.setSpeed(2.1);
+    onEnterBasic.setSpeed(7);
     onExitBasic = new AnimationFXProxy(new ZoomOut());
 
     onEnterWall = new AnimationFXProxy(new ZoomIn());

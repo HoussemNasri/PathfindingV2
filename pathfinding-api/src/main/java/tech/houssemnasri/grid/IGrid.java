@@ -5,7 +5,7 @@ import java.util.stream.Stream;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 
-import tech.houssemnasri.Position;
+import tech.houssemnasri.node.Position;
 import tech.houssemnasri.node.INode;
 
 /**

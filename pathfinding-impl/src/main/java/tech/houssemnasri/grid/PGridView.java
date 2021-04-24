@@ -9,7 +9,7 @@ import javafx.scene.layout.Region;
 import tech.houssemnasri.gesturefx.GesturePane;
 import tech.houssemnasri.node.INodeView;
 import tech.houssemnasri.node.PNodeView;
-import tech.houssemnasri.Position;
+import tech.houssemnasri.node.Position;
 import tech.houssemnasri.node.skins.BaseNodeSkin;
 
 public class PGridView implements IGridView {
