@@ -1,4 +1,4 @@
-# PathfindingV2
+# 🎯 Pathfinding
 Pathfinding is a graphical Java application for visualizing several pathfinding algorithms.
 
 ### Included Algorithms
