@@ -26,18 +26,17 @@ public class DFSAlgorithm extends BaseAlgorithm {
   protected AlgorithmStep advance() {
     AlgorithmStep step = new AlgorithmStep();
     if (nodeStack.isEmpty()) {
-      if (isVisited(grid.getSourceNode())) {
-        step.markAsFinal();
-        return step;
-      } else {
+      if (not(isVisited(grid.getSourceNode()))) {
         new PushNodeCommand(this, step, grid.getSourceNode(), nodeStack).execute();
+      } else {
+        // We are stuck!
+        return finalize(step);
       }
     }
     INode currentNode = new PopNodeCommand(step, nodeStack).pop();
     new SetCurrentNodeCommand(this, step, currentNode).execute();
     if (getGrid().isDestinationNode(getCurrentNode())) {
-      step.markAsFinal();
-      return step;
+      return finalize(step);
     }
     if (not(isVisited(getCurrentNode()))) {
       visitNode(getCurrentNode(), step);

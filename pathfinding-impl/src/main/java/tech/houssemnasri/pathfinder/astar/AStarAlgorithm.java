@@ -44,15 +44,14 @@ public class AStarAlgorithm extends BaseAlgorithm {
       } else {
         // We are stuck.
         System.out.println("We are stuck!");
-        return step;
+        return finalize(step);
       }
     }
     new SetCurrentNodeCommand(this, step, getLeastCostNode()).execute();
     new CloseNodeCommand(this, step, getCurrentNode()).execute();
 
     if (getGrid().isDestinationNode(getCurrentNode())) {
-      step.markAsFinal();
-      return step;
+      return finalize(step);
     }
 
     List<INode> neighbors = getCurrentNodeNeighbors();
@@ -86,7 +85,8 @@ public class AStarAlgorithm extends BaseAlgorithm {
     Position thisPosition = node.getPosition();
     Position destPosition = grid.getDestinationPosition();
     Distance distance = new ManhattanDistance();
-    new AStarPathCostAdapter(node.getPathCost(), step).setH(distance.apply(thisPosition, destPosition));
+    new AStarPathCostAdapter(node.getPathCost(), step)
+        .setH(distance.apply(thisPosition, destPosition));
   }
 
   private INode getLeastCostNode() {

@@ -40,7 +40,7 @@ public class DijkstraAlgorithm extends BaseAlgorithm {
       } else {
         // We are stuck.
         System.out.println("We are stuck!");
-        return step;
+        return finalize(step);
       }
     }
     INode leastCostNode = getLeastCostNode();
@@ -48,8 +48,7 @@ public class DijkstraAlgorithm extends BaseAlgorithm {
     new CloseNodeCommand(this, step, leastCostNode).execute();
 
     if (getGrid().isDestinationNode(getCurrentNode())) {
-      step.markAsFinal();
-      return step;
+      return finalize(step);
     }
 
     List<INode> neighbors = getCurrentNodeNeighbors();

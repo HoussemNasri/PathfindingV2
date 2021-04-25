@@ -129,6 +129,16 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     addToHistory(tracePathStep);
   }
 
+  /**
+   * Marks {@code step} as the final step and returns it.
+   *
+   * @return the final step
+   */
+  protected AlgorithmStep finalize(AlgorithmStep step) {
+    step.markAsFinal();
+    return step;
+  }
+
   protected boolean isOnDiagonal(INode node) {
     int dx = getCurrentNode().getPosition().getX() - node.getPosition().getX();
     int dy = getCurrentNode().getPosition().getY() - node.getPosition().getY();
