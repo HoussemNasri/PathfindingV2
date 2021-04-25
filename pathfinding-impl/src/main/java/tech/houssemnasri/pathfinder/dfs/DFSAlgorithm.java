@@ -1,6 +1,5 @@
 package tech.houssemnasri.pathfinder.dfs;
 
-import java.util.List;
 import java.util.Stack;
 
 import tech.houssemnasri.command.CloseNodeCommand;
@@ -34,31 +33,30 @@ public class DFSAlgorithm extends BaseAlgorithm {
         new PushNodeCommand(this, step, grid.getSourceNode(), nodeStack).execute();
       }
     }
-    new SetCurrentNodeCommand(this, step, popNode(step)).execute();
+    INode currentNode = new PopNodeCommand(step, nodeStack).pop();
+    new SetCurrentNodeCommand(this, step, currentNode).execute();
     if (getGrid().isDestinationNode(getCurrentNode())) {
       step.markAsFinal();
       return step;
     }
-    if (!isVisited(getCurrentNode())) {
-      markAsVisited(step, getCurrentNode());
-      List<INode> neighbors = getCurrentNodeNeighbors();
-      for (INode neighbor : neighbors) {
+    if (not(isVisited(getCurrentNode()))) {
+      visitNode(getCurrentNode(), step);
+      for (INode neighbor : getCurrentNodeNeighbors()) {
         if (not(isVisited(neighbor))) {
           new PushNodeCommand(this, step, neighbor, nodeStack).execute();
           new SetParentCommand(this, step, neighbor, getCurrentNode()).execute();
+          new OpenNodeCommand(this, step, neighbor).execute();
         }
       }
+      return step;
     }
-    return step;
+    // If currentNode is visited, the algorithm won't do anything therefore the visualization will
+    // look frozen, we recursively call the advance method to try and find a none visited node.
+    return advance();
   }
 
-  private INode popNode(AlgorithmStep step) {
-    return new PopNodeCommand(step, nodeStack).pop();
-  }
-
-  private void markAsVisited(AlgorithmStep step, INode node) {
-
-    // new OpenNodeCommand(context).execute();
+  private void visitNode(INode node, AlgorithmStep step) {
+    new OpenNodeCommand(this, step, node).execute();
     new CloseNodeCommand(this, step, node).execute();
   }
 

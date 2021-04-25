@@ -23,9 +23,7 @@ public class PushNodeCommand extends AlgorithmCommand {
 
   @Override
   protected void justExecute() {
-    if (!nodeStack.contains(getNode())) {
-      nodeStack.push(getNode());
-    }
+    nodeStack.push(getNode());
   }
 
   @Override
