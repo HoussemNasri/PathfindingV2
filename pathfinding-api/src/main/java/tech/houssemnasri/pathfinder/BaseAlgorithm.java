@@ -1,6 +1,7 @@
 package tech.houssemnasri.pathfinder;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -19,6 +20,8 @@ import tech.houssemnasri.util.GridChecker;
 public abstract class BaseAlgorithm implements BooleanExtensions {
   protected static final int HORIZ_VERT_DISTANCE = 10;
   protected static final int DIAGONAL_DISTANCE = 14;
+  private final Set<INode> visitedNodes = new HashSet<>();
+  private final Set<INode> unvisitedNodes = new HashSet<>();
 
   protected final IGrid grid;
   protected final boolean isDiagonalAllowed;
@@ -88,10 +91,14 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
   }
 
   /** Returns list of all unique {@code INode} which the algorithm didn't visit. */
-  public abstract Set<INode> getUnvisitedNodes();
+  public Set<INode> getUnvisitedNodes() {
+    return unvisitedNodes;
+  }
 
   /** Returns list of unique {@code INode} which the algorithm already visited. */
-  public abstract Set<INode> getVisitedNodes();
+  public Set<INode> getVisitedNodes() {
+    return visitedNodes;
+  }
 
   protected final boolean isPositionValid(Position position) {
     return GridChecker.checkPosition(
@@ -102,7 +109,7 @@ public abstract class BaseAlgorithm implements BooleanExtensions {
     return grid.isWalkable(position);
   }
 
-  protected final boolean isNodeClosed(INode node) {
+  protected final boolean isVisited(INode node) {
     return getVisitedNodes().contains(node);
   }
 

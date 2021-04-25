@@ -56,7 +56,7 @@ public class DijkstraAlgorithm extends BaseAlgorithm {
     IDijkstraPathCost currentNodeCost =
         new DijkstraPathCostAdapter(getCurrentNode().getPathCost(), step);
     for (INode nei : neighbors) {
-      if (isNodeClosed(nei)) {
+      if (isVisited(nei)) {
         continue;
       }
       IDijkstraPathCost neighborNodeCost = new DijkstraPathCostAdapter(nei.getPathCost(), step);

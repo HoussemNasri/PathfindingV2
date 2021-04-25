@@ -58,7 +58,7 @@ public class AStarAlgorithm extends BaseAlgorithm {
     List<INode> neighbors = getCurrentNodeNeighbors();
     IAStarCost currentNodeCost = new AStarPathCostAdapter(getCurrentNode().getPathCost(), step);
     for (INode nei : neighbors) {
-      if (isNodeClosed(nei)) {
+      if (isVisited(nei)) {
         continue;
       }
       IAStarCost neighborNodeCost = new AStarPathCostAdapter(nei.getPathCost(), step);

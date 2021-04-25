@@ -230,4 +230,14 @@ public final class PGrid implements IGrid, Serializable, BooleanExtensions {
       }
     }
   }
+
+  @Override
+  public INode getSourceNode() {
+    return getNode(getSourcePosition());
+  }
+
+  @Override
+  public INode getDestinationNode() {
+    return getNode(getDestinationPosition());
+  }
 }

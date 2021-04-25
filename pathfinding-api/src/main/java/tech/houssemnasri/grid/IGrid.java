@@ -94,4 +94,8 @@ public interface IGrid {
    * their default location
    */
   void resetGrid();
+
+  INode getSourceNode();
+
+  INode getDestinationNode();
 }
