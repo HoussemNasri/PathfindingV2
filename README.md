@@ -1,20 +1,22 @@
-# PathfindingV2
+# 🎯 Pathfinding
 Pathfinding is a graphical Java application for visualizing several pathfinding algorithms.
 
 ### Included Algorithms
 
-- [A*][A*]: find the shortest path in a weighted graph using an heuristic to guide the process.
+- ✅ [A*][A*]: find the shortest path in a weighted graph using an heuristic to guide the process.
+- ✅ [Dijkstra][Dijkstra]: find the shortest path in a weighted graph.
 - [BFS][BFS]: explore nearest successors first, then widen the search.
 - [DFS][DFS]: explore a graph by going as far as possible, then backtrack.
-- [Dijkstra][Dijkstra]: find the shortest path in a weighted graph.
 - [Edmonds Karp][Edmonds Karp]: find the maximum flow in a weighted graph.
 - [Fringe][Fringe]: find the shortest path in a weighted graph using an heuristic to guide the process.
 - [IDA*][IDA*]: explore longer and longer paths in a weighted graph at the cost of multiple similar examinations.
 - [IDDFS][IDDFS]: explore longer and longer paths in an unweighted graph at the cost of multiple similar examinations.
+### Features
+- Find the shortest path (not always) between two nodes in the grid.
 
 ### Screenshots
-![alt text](src/main/resources/assets/sc1_.png)
-![alt text](src/main/resources/assets/sc2_.png)
+![alt text](pathfinding-common/src/main/resources/assets/sc1_.png)
+![alt text](pathfinding-common/src/main/resources/assets/sc2_.png)
 
 [A*]: https://en.wikipedia.org/wiki/A*_search_algorithm
 [BFS]: https://en.wikipedia.org/wiki/Breadth-first_search
