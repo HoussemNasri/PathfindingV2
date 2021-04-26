@@ -12,7 +12,8 @@ Pathfinding is a graphical Java application for visualizing several pathfinding 
 - [IDA*][IDA*]: explore longer and longer paths in a weighted graph at the cost of multiple similar examinations.
 - [IDDFS][IDDFS]: explore longer and longer paths in an unweighted graph at the cost of multiple similar examinations.
 ### Features
-- Find the shortest path (not always) between two nodes in the grid.
+- Find the shortest path (not always) between two selected nodes in the grid.
+- Zoom in/out and drag to have a better view.
 
 ### Screenshots
 ![alt text](pathfinding-common/src/main/resources/assets/sc1_.png)
