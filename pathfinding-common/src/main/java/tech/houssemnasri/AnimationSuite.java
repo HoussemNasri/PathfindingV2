@@ -54,7 +54,7 @@ public class AnimationSuite {
     onEnterDestination.setSpeed(2.0);
     onExitDestination = new AnimationFXProxy(new ZoomOut());
 
-      onEnterOpen = new AnimationFXProxy(new BounceIn());
+    onEnterOpen = new AnimationFXProxy(new BounceIn());
     onEnterOpen.setSpeed(2.1);
     onExitOpen = new AnimationFXProxy(new ZoomOut());
 

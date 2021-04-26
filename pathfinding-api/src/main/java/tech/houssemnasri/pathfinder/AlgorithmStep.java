@@ -29,7 +29,8 @@ public class AlgorithmStep {
 
   /** Execute the command and save it. */
   public void pushAndExecute(ICommand command) {
-    push(command.executeAndReturn());
+    command.execute();
+    push(command);
   }
 
   /** Undo all commands belonging to {@code this} step. */
