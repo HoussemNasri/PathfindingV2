@@ -15,6 +15,7 @@ Pathfinding is a graphical Java application for visualizing several pathfinding 
 ### Features
 - Visualize more than 5 different algorithms
 - Switch between different themes and colors
+- Create custom themes easily
 - Add/Remove obstacles
 - Relocate source and destination
 - Simple Navigation
