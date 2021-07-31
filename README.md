@@ -13,7 +13,7 @@ Pathfinding is a graphical Java application for visualizing many pathfinding alg
 - [IDDFS][IDDFS]: explore longer and longer paths in an unweighted graph at the cost of multiple similar examinations.
 
 ### Features
-- Visualize more than 5 different algorithms
+- Visualize 8 algorithms
 - Switch between different themes and colors
 - Add/Remove obstacles
 - Relocate source and destination
