@@ -1,5 +1,5 @@
 # 🎯 Pathfinding
-Pathfinding is a graphical Java application for visualizing most popular pathfinding algorithms, Implemented using the MVP architecture pattern
+Pathfinding is a graphical Java application for visualizing many pathfinding algorithms, Implemented using the MVP architecture pattern
 
 ### Included Algorithms
 
