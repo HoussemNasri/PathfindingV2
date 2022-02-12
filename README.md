@@ -28,6 +28,9 @@ Pathfinding is a graphical Java application for simulating pathfinding algorithm
 ![alt text](pathfinding-common/src/main/resources/assets/sc1_.png)
 ![alt text](pathfinding-common/src/main/resources/assets/sc2_.png)
 
+### Download
+See the [releases](https://github.com/HoussemNasri/PathfindingV2/releases) page for the latest build
+
 [A*]: https://en.wikipedia.org/wiki/A*_search_algorithm
 [BFS]: https://en.wikipedia.org/wiki/Breadth-first_search
 [Connected components]: https://en.wikipedia.org/wiki/Connected_component_(graph_theory)
