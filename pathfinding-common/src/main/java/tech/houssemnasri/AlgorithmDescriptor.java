@@ -5,7 +5,8 @@ public enum AlgorithmDescriptor {
       "A* search algorithm",
       "find the shortest path in a weighted graph using an heuristic to guide the process."),
   DIJKSTRA("Dijkstra's algorithm", "find the shortest path in a weighted graph."),
-  DFS("Depth-first search", "explore a graph by going as far as possible, then backtrack.");
+  DFS("Depth-first search", "explore a graph by going as far as possible, then backtrack."),
+  BFS("Breadth-first search", "explore a graph level by level to find the shortest path in unweighted graphs.");
 
   private final String name;
   private final String description;
